@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Cielo di Stasera</title>
+  <meta name="description" content="Cosa vedere nel cielo stasera dall'Italia, con la storia e l'origine dei nomi di stelle, pianeti e costellazioni.">
+  <meta name="theme-color" content="#0b1026">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icona.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icona-192.png">
+  <link rel="stylesheet" href="css/stile.css">
+</head>
+<body>
+  <header class="testata">
+    <a href="#stasera" class="marchio">Cielo di Stasera</a>
+    <div class="azioni">
+      <a href="#luogo" class="pillola" title="Cambia luogo">📍 <span id="luogo"></span></a>
+      <button id="modo-notte" class="pillola" aria-pressed="false" title="Modalità notte: luce rossa per non perdere l'adattamento al buio">🔴 Notte</button>
+    </div>
+  </header>
+
+  <main id="contenuto"></main>
+
+  <nav class="schede-nav" aria-label="Sezioni">
+    <a href="#stasera">Stasera</a>
+    <a href="#schede">Schede</a>
+  </nav>
+
+  <script src="vendor/astronomy.min.js"></script>
+  <script src="js/citta.js"></script>
+  <script src="js/oggetti.js"></script>
+  <script src="js/cielo.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
