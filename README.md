@@ -1,5 +1,7 @@
 # Cielo di Stasera
 
+_Astronomia per poveri diavoli._
+
 App web per principianti assoluti che osservano il cielo dall'Italia: dice cosa si vede stasera, dove guardare e con quale strumento, e per ogni oggetto racconta cos'è, l'origine del nome e la sua storia.
 
 Funziona sul telefono e sul computer. Si può installare dalla schermata del browser ("Aggiungi a schermata Home" o "Installa app") e poi funziona anche senza rete.
