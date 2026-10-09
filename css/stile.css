@@ -51,7 +51,7 @@ h2 { font-size: 1.15rem; }
 p { margin: 0 0 8px; }
 
 .testata {
-  position: sticky; top: 0; z-index: 2;
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 2;
   display: flex; align-items: center; justify-content: space-between; gap: 8px;
   padding: 12px 16px;
   background: var(--sfondo);

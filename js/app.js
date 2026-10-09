@@ -250,6 +250,6 @@ window.addEventListener("DOMContentLoaded", () => {
   );
   instrada();
   if ("serviceWorker" in navigator && location.protocol !== "file:") {
-    navigator.serviceWorker.register("sw.js");
+    navigator.serviceWorker.register("sw.js").catch(() => {});
   }
 });
