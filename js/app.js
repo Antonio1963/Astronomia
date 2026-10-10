@@ -190,6 +190,47 @@ function mostraScheda(id) {
   window.scrollTo(0, 0);
 }
 
+// ---------- Manuale ----------
+
+function mostraManuale() {
+  $("#contenuto").innerHTML = `
+    <section>
+      <h1>Il manuale</h1>
+      <p class="sottotitolo">Astronomia per poveri diavoli: tredici capitoli, uno per lezione del corso.</p>
+      <ol class="elenco elenco-capitoli">
+        ${CAPITOLI.map((c) => `<li><a class="riga" href="#capitolo/${c.numero}">
+          <span class="riga-testo"><span class="riga-dove">Capitolo ${c.numero}</span>
+          <span class="riga-nome">${esc(c.titolo)}</span></span></a></li>`).join("")}
+      </ol>
+    </section>`;
+}
+
+async function mostraCapitolo(numero) {
+  const i = CAPITOLI.findIndex((c) => c.numero === Number(numero));
+  if (i < 0) return mostraManuale();
+  const file = `manuale/${String(CAPITOLI[i].numero).padStart(2, "0")}.html`;
+  $("#contenuto").innerHTML = `<p class="vuoto">Carico il capitolo...</p>`;
+  let testo;
+  try {
+    const risposta = await fetch(file);
+    if (!risposta.ok) throw new Error(risposta.status);
+    testo = await risposta.text();
+  } catch {
+    testo = `<p class="vuoto">Non riesco a caricare il capitolo. Controlla la connessione e riprova.</p>`;
+  }
+  const prec = CAPITOLI[i - 1], succ = CAPITOLI[i + 1];
+  $("#contenuto").innerHTML = `
+    <article class="capitolo">
+      <a class="indietro" href="#manuale">‹ Tutti i capitoli</a>
+      ${testo}
+      <nav class="capitolo-nav">
+        ${prec ? `<a href="#capitolo/${prec.numero}">‹ Capitolo ${prec.numero}</a>` : "<span></span>"}
+        ${succ ? `<a href="#capitolo/${succ.numero}">Capitolo ${succ.numero} ›</a>` : ""}
+      </nav>
+    </article>`;
+  window.scrollTo(0, 0);
+}
+
 // ---------- Impostazioni del luogo ----------
 
 function mostraLuogo() {
@@ -238,10 +279,12 @@ function aggiornaIntestazione() {
 function instrada() {
   const [pagina, id] = location.hash.slice(1).split("/");
   document.querySelectorAll(".schede-nav a").forEach((a) =>
-    a.classList.toggle("attivo", a.getAttribute("href") === `#${pagina === "scheda" ? "schede" : pagina || "stasera"}`)
+    a.classList.toggle("attivo", a.getAttribute("href") === `#${pagina === "scheda" ? "schede" : pagina === "capitolo" ? "manuale" : pagina || "stasera"}`)
   );
   if (pagina === "schede") mostraSchede();
   else if (pagina === "scheda") mostraScheda(id);
+  else if (pagina === "manuale") mostraManuale();
+  else if (pagina === "capitolo") mostraCapitolo(id);
   else if (pagina === "luogo") mostraLuogo();
   else mostraStasera();
 }

@@ -160,3 +160,18 @@ select { width: 100%; }
   padding: 10px; border-radius: 10px; color: var(--testo-tenue);
 }
 .schede-nav a.attivo { background: var(--superficie); color: var(--accento); font-weight: 600; }
+
+/* Manuale */
+.elenco-capitoli { list-style: none; padding: 0; }
+.capitolo { line-height: 1.6; }
+.capitolo .indietro { display: block; margin-bottom: 12px; color: var(--testo-tenue); text-decoration: none; }
+.capitolo h1 { margin-top: 8px; }
+.capitolo h2 { margin-top: 28px; }
+.capitolo img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--bordo); }
+.capitolo table { width: 100%; border-collapse: collapse; font-size: .9rem; display: block; overflow-x: auto; }
+.capitolo th, .capitolo td { border-bottom: 1px solid var(--bordo); padding: 8px 6px; text-align: left; vertical-align: top; }
+.capitolo th { color: var(--testo-tenue); }
+.capitolo ul { padding-left: 20px; }
+.capitolo-nav { display: flex; justify-content: space-between; margin: 32px 0 8px; }
+.capitolo-nav a { color: var(--accento); text-decoration: none; }
+:root.notte .capitolo img { filter: grayscale(1) sepia(1) saturate(6) hue-rotate(-50deg) brightness(.8); }

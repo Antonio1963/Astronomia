@@ -1,5 +1,5 @@
 // Salva l'app sul dispositivo, così funziona anche senza rete sul campo.
-const VERSIONE = "cielo-v3";
+const VERSIONE = "cielo-v4";
 const FILE = [
   "./",
   "index.html",
@@ -8,6 +8,25 @@ const FILE = [
   "js/oggetti.js",
   "js/cielo.js",
   "js/app.js",
+  "js/manuale.js",
+  "manuale/01.html",
+  "manuale/02.html",
+  "manuale/03.html",
+  "manuale/04.html",
+  "manuale/05.html",
+  "manuale/06.html",
+  "manuale/07.html",
+  "manuale/08.html",
+  "manuale/09.html",
+  "manuale/10.html",
+  "manuale/11.html",
+  "manuale/12.html",
+  "manuale/13.html",
+  "manuale/cap01-grande-carro-stella-polare.png",
+  "manuale/cap01-stagione-autunno.png",
+  "manuale/cap01-stagione-estate.png",
+  "manuale/cap01-stagione-inverno.png",
+  "manuale/cap01-stagione-primavera.png",
   "vendor/astronomy.min.js",
   "manifest.webmanifest",
   "icons/icona.svg",

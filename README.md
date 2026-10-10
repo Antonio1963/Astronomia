@@ -33,6 +33,10 @@ poi aprire http://localhost:8000 nel browser.
 - `images/`: mappe del cielo e disegni delle schede; `strumenti/genera_mappe.py` le rigenera.
 - `sw.js`, `manifest.webmanifest`: installazione e funzionamento senza rete.
 
+## Manuale
+
+I capitoli del manuale sono in `manuale/` come pagine HTML, generate dai file Markdown con `python3 strumenti/genera_manuale.py <cartella dei capitoli> manuale`. Nell'app si leggono dalla sezione "Manuale".
+
 ## Crediti
 
 Le mappe del cielo in `images/` sono generate con `strumenti/genera_mappe.py` dal catalogo di stelle e dalle linee delle costellazioni di [d3-celestial](https://github.com/ofrohn/d3-celestial) di Olaf Frohn (licenza BSD-3-Clause). I disegni di Luna e pianeti sono illustrazioni, non foto.
