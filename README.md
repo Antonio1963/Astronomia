@@ -37,4 +37,6 @@ poi aprire http://localhost:8000 nel browser.
 
 Le mappe del cielo in `images/` sono generate con `strumenti/genera_mappe.py` dal catalogo di stelle e dalle linee delle costellazioni di [d3-celestial](https://github.com/ofrohn/d3-celestial) di Olaf Frohn (licenza BSD-3-Clause). I disegni di Luna e pianeti sono illustrazioni, non foto.
 
+Le foto in `images/foto/` (Luna, pianeti e alcuni oggetti del profondo cielo) sono di NASA, ESA, NOIRLab e altri autori: per ognuna, autore, licenza e fonte sono indicati sotto la foto nella scheda e nella costante `FOTO` di `js/oggetti.js`.
+
 I calcoli astronomici usano [Astronomy Engine](https://github.com/cosinekitty/astronomy) di Don Cross, con licenza MIT (`vendor/astronomy.min.js`).

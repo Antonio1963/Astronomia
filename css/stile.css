@@ -129,6 +129,9 @@ main { max-width: 760px; margin: 0 auto; padding: 16px; }
 .carta-immagine { width: calc(100% + 28px); max-width: none; height: auto; aspect-ratio: 8 / 5; margin: -14px -14px 4px; border-radius: 14px 14px 0 0; display: block; }
 .scheda-immagine { margin: 12px 0 0; }
 .scheda-immagine img { width: 100%; height: auto; display: block; border-radius: 12px; border: 1px solid var(--bordo); }
+.carta-foto { object-fit: cover; background: #000; }
+.scheda-foto img { max-height: 70vh; object-fit: contain; background: #000; }
+.scheda-immagine figcaption a { color: inherit; }
 .scheda-immagine figcaption { font-size: .8rem; color: var(--testo-tenue); margin-top: 6px; }
 :root.notte .carta-immagine, :root.notte .scheda-immagine img { filter: grayscale(1) sepia(1) saturate(6) hue-rotate(-50deg) brightness(.8); }
 .carta-nome { font-weight: 700; font-size: 1.05rem; }

@@ -1,5 +1,5 @@
 // Salva l'app sul dispositivo, così funziona anche senza rete sul campo.
-const VERSIONE = "cielo-v2";
+const VERSIONE = "cielo-v3";
 const FILE = [
   "./",
   "index.html",
@@ -47,6 +47,18 @@ const FILE = [
   "images/stagione-primavera.svg",
   "images/vega.svg",
   "images/venere.svg",
+  "images/foto/andromeda.jpg",
+  "images/foto/doppio-ammasso.jpg",
+  "images/foto/giove.jpg",
+  "images/foto/luna.jpg",
+  "images/foto/m13.jpg",
+  "images/foto/marte.jpg",
+  "images/foto/mercurio.jpg",
+  "images/foto/nebulosa-orione.jpg",
+  "images/foto/pleiadi.jpg",
+  "images/foto/presepe.jpg",
+  "images/foto/saturno.jpg",
+  "images/foto/venere.jpg",
 ];
 
 self.addEventListener("install", (e) => {
