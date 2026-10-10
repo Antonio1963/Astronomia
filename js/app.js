@@ -139,6 +139,7 @@ function mostraSchede() {
     </div>
     <ul class="griglia">
       ${elenco.map((o) => `<li><a class="carta" href="#scheda/${o.id}">
+        <img class="carta-immagine" src="images/${o.id}.svg" alt="" loading="lazy" width="800" height="500">
         <span class="etichetta etichetta-${o.categoria}">${CATEGORIE[o.categoria]}</span>
         <span class="carta-nome">${esc(o.nome)}</span>
         <span class="carta-testo">${esc(o.cosa)}</span>
@@ -174,6 +175,12 @@ function mostraScheda(id) {
       <span class="etichetta etichetta-${o.categoria}">${CATEGORIE[o.categoria]}</span>
       <h1>${esc(o.nome)}</h1>
       <p class="adesso">${adesso} Strumento consigliato: ${esc(o.strumento.toLowerCase())}.</p>
+      <figure class="scheda-immagine">
+        <img src="images/${o.id}.svg" alt="${o.corpo ? "Disegno" : "Mappa del cielo"}: ${esc(o.nome)}" width="800" height="500">
+        <figcaption>${o.corpo
+          ? "Disegno illustrativo, non in scala."
+          : "Mappa del cielo con le stelle vere. Dati: catalogo d3-celestial."}</figcaption>
+      </figure>
       ${voci.map(([t, testo]) => `<section><h2>${t}</h2><p>${esc(testo)}</p></section>`).join("")}
     </article>`;
   window.scrollTo(0, 0);

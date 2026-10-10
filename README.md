@@ -30,8 +30,11 @@ poi aprire http://localhost:8000 nel browser.
 - `js/citta.js`: le città dell'elenco.
 - `js/cielo.js`: i calcoli astronomici.
 - `js/app.js`: le schermate.
+- `images/`: mappe del cielo e disegni delle schede; `strumenti/genera_mappe.py` le rigenera.
 - `sw.js`, `manifest.webmanifest`: installazione e funzionamento senza rete.
 
 ## Crediti
+
+Le mappe del cielo in `images/` sono generate con `strumenti/genera_mappe.py` dal catalogo di stelle e dalle linee delle costellazioni di [d3-celestial](https://github.com/ofrohn/d3-celestial) di Olaf Frohn (licenza BSD-3-Clause). I disegni di Luna e pianeti sono illustrazioni, non foto.
 
 I calcoli astronomici usano [Astronomy Engine](https://github.com/cosinekitty/astronomy) di Don Cross, con licenza MIT (`vendor/astronomy.min.js`).

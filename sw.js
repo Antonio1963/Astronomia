@@ -1,5 +1,5 @@
 // Salva l'app sul dispositivo, così funziona anche senza rete sul campo.
-const VERSIONE = "cielo-v1";
+const VERSIONE = "cielo-v2";
 const FILE = [
   "./",
   "index.html",
@@ -13,6 +13,40 @@ const FILE = [
   "icons/icona.svg",
   "icons/icona-192.png",
   "icons/icona-512.png",
+  "images/aldebaran.svg",
+  "images/altair.svg",
+  "images/andromeda.svg",
+  "images/antares.svg",
+  "images/arturo.svg",
+  "images/betelgeuse.svg",
+  "images/capella.svg",
+  "images/cassiopea.svg",
+  "images/cigno.svg",
+  "images/deneb.svg",
+  "images/doppio-ammasso.svg",
+  "images/giove.svg",
+  "images/leone.svg",
+  "images/luna.svg",
+  "images/m13.svg",
+  "images/marte.svg",
+  "images/mercurio.svg",
+  "images/nebulosa-orione.svg",
+  "images/orione.svg",
+  "images/orsa-maggiore.svg",
+  "images/pleiadi.svg",
+  "images/polare.svg",
+  "images/presepe.svg",
+  "images/rigel.svg",
+  "images/saturno.svg",
+  "images/scorpione.svg",
+  "images/sirio.svg",
+  "images/spica.svg",
+  "images/stagione-autunno.svg",
+  "images/stagione-estate.svg",
+  "images/stagione-inverno.svg",
+  "images/stagione-primavera.svg",
+  "images/vega.svg",
+  "images/venere.svg",
 ];
 
 self.addEventListener("install", (e) => {
