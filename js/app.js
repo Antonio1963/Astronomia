@@ -200,7 +200,7 @@ function mostraManuale() {
       <ol class="elenco elenco-capitoli">
         ${CAPITOLI.map((c) => `<li><a class="riga" href="#capitolo/${c.numero}">
           <span class="riga-testo"><span class="riga-dove">Capitolo ${c.numero}</span>
-          <span class="riga-nome">${esc(c.titolo)}</span></span></a></li>`).join("")}
+          <span class="riga-nome">${esc(c.titolo)}</span></span>${capitoloLibero(c.numero) ? "" : `<span class="riga-meta">🔒</span>`}</a></li>`).join("")}
       </ol>
     </section>`;
 }
@@ -208,6 +208,7 @@ function mostraManuale() {
 async function mostraCapitolo(numero) {
   const i = CAPITOLI.findIndex((c) => c.numero === Number(numero));
   if (i < 0) return mostraManuale();
+  if (!capitoloLibero(CAPITOLI[i].numero)) return mostraSblocco();
   const file = `manuale/${String(CAPITOLI[i].numero).padStart(2, "0")}.html`;
   $("#contenuto").innerHTML = `<p class="vuoto">Carico il capitolo...</p>`;
   let testo;
@@ -227,6 +228,76 @@ async function mostraCapitolo(numero) {
         ${prec ? `<a href="#capitolo/${prec.numero}">‹ Capitolo ${prec.numero}</a>` : "<span></span>"}
         ${succ ? `<a href="#capitolo/${succ.numero}">Capitolo ${succ.numero} ›</a>` : ""}
       </nav>
+    </article>`;
+  window.scrollTo(0, 0);
+}
+
+// ---------- Versione completa (attiva solo se VERSIONE_COMPLETA.attiva è true) ----------
+
+function mostraSblocco() {
+  $("#contenuto").innerHTML = `
+    <section class="pannello">
+      <h2>Questo capitolo fa parte della versione completa</h2>
+      <p>La parte "Stasera", le schede e i primi ${VERSIONE_COMPLETA.capitoliGratis} capitoli sono sempre gratuiti.
+        Con la versione completa, a ${esc(VERSIONE_COMPLETA.prezzo)} una volta sola, leggi tutto il manuale.</p>
+      <p>Per avere il codice di sblocco scrivi a <a href="mailto:${EMAIL_SUPPORTO}?subject=${encodeURIComponent("Versione completa Cielo di Stasera")}">${EMAIL_SUPPORTO}</a>.</p>
+      <label for="codice">Hai già un codice?</label>
+      <input id="codice" autocomplete="off" autocapitalize="characters" placeholder="Scrivi il codice">
+      <button id="prova-codice" class="pulsante">Sblocca</button>
+      <p id="esito-codice" class="nota"></p>
+    </section>`;
+  $("#prova-codice").addEventListener("click", async () => {
+    if (await provaCodice($("#codice").value)) location.hash = "#manuale";
+    else $("#esito-codice").textContent = "Codice non valido. Controlla di averlo scritto bene.";
+  });
+}
+
+// ---------- Aiuto ----------
+
+const EMAIL_SUPPORTO = "dep.kit@gmail.com";
+
+function mostraAiuto() {
+  const oggetto = encodeURIComponent("Supporto Cielo di Stasera");
+  $("#contenuto").innerHTML = `
+    <article class="capitolo">
+      <h1>Aiuto</h1>
+      <section>
+        <h2>Stasera</h2>
+        <p>Ti dice a che ora tramonta il Sole, quando il cielo è buio davvero e come è la Luna.
+          Sotto trovi cosa puoi vedere: la direzione (nord, sud, est, ovest) e l'altezza in "pugni".
+          Un pugno chiuso a braccio teso copre circa 10 gradi di cielo: "2 pugni" vuol dire due pugni sopra l'orizzonte.</p>
+        <p>Con i pulsanti in alto scegli <b>Adesso</b>, <b>Stasera</b> (quando fa buio) oppure un giorno e un'ora a piacere.</p>
+      </section>
+      <section>
+        <h2>Il luogo</h2>
+        <p>Tocca 📍 in alto e usa la posizione del telefono oppure scegli la città più vicina. L'app la ricorda.</p>
+      </section>
+      <section>
+        <h2>Schede</h2>
+        <p>Trenta oggetti del cielo: Luna, pianeti, stelle, costellazioni, ammassi e galassie.
+          Per ognuno trovi cos'è, quando e dove guardare, con quale strumento, l'origine del nome e la sua storia.
+          Tocca un oggetto nell'elenco di "Stasera" per aprire la sua scheda.</p>
+      </section>
+      <section>
+        <h2>Manuale</h2>
+        <p>Tredici capitoli, uno per ogni lezione del corso. Si leggono anche senza connessione.</p>
+      </section>
+      <section>
+        <h2>Modalità notte</h2>
+        <p>Il pulsante 🔴 <b>Notte</b> colora tutto di rosso: così lo schermo non ti abbaglia e l'occhio resta abituato al buio.</p>
+      </section>
+      <section>
+        <h2>Installarla sul telefono</h2>
+        <p>Su Android, dal menu del browser scegli "Installa app" o "Aggiungi a schermata Home".
+          Su iPhone, in Safari tocca il pulsante Condividi e poi "Aggiungi alla schermata Home".
+          Una volta installata funziona anche in campagna, senza rete.</p>
+      </section>
+      <section class="pannello">
+        <h2>Serve aiuto?</h2>
+        <p>Per domande, problemi o suggerimenti scrivi a
+          <a href="mailto:${EMAIL_SUPPORTO}?subject=${oggetto}">${EMAIL_SUPPORTO}</a>.</p>
+        <p class="nota">Cielo di Stasera, di Antonio Chitano. <i>Astronomia per poveri diavoli.</i></p>
+      </section>
     </article>`;
   window.scrollTo(0, 0);
 }
@@ -286,6 +357,7 @@ function instrada() {
   else if (pagina === "manuale") mostraManuale();
   else if (pagina === "capitolo") mostraCapitolo(id);
   else if (pagina === "luogo") mostraLuogo();
+  else if (pagina === "aiuto") mostraAiuto();
   else mostraStasera();
 }
 

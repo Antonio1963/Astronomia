@@ -175,3 +175,6 @@ select { width: 100%; }
 .capitolo-nav { display: flex; justify-content: space-between; margin: 32px 0 8px; }
 .capitolo-nav a { color: var(--accento); text-decoration: none; }
 :root.notte .capitolo img { filter: grayscale(1) sepia(1) saturate(6) hue-rotate(-50deg) brightness(.8); }
+
+/* Sblocco della versione completa */
+#codice { display: block; width: 100%; margin-bottom: 8px; }

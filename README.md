@@ -12,6 +12,7 @@ Funziona sul telefono e sul computer. Si può installare dalla schermata del bro
 - **Schede:** 30 oggetti (Luna, 5 pianeti, 12 stelle, 6 costellazioni, 6 oggetti del cielo profondo), ognuno con: cos'è, quando, dove, come osservarlo, origine del nome, storia.
 - **Luogo:** posizione del telefono oppure una città italiana dall'elenco.
 - **Modalità notte:** tutto in rosso, per non perdere l'adattamento dell'occhio al buio.
+- **Aiuto:** come si usa l'app e l'indirizzo per chiedere supporto (dep.kit@gmail.com). Autore: Antonio Chitano.
 
 ## Provarla sul computer
 
@@ -36,6 +37,10 @@ poi aprire http://localhost:8000 nel browser.
 ## Manuale
 
 I capitoli del manuale sono in `manuale/` come pagine HTML, generate dai file Markdown con `python3 strumenti/genera_manuale.py <cartella dei capitoli> manuale`. Nell'app si leggono dalla sezione "Manuale".
+
+## Versione completa (per ora spenta)
+
+In `js/sblocco.js` c'è la struttura per una versione completa a pagamento: con `attiva: true` i capitoli del manuale oltre i primi `capitoliGratis` si aprono solo con un codice di sblocco. Nel sito si mettono solo le impronte dei codici (`python3 strumenti/impronta_codice.py CODICE`). Finché `attiva` è `false`, tutta l'app è gratuita.
 
 ## Crediti
 
