@@ -38,9 +38,9 @@ poi aprire http://localhost:8000 nel browser.
 
 I capitoli del manuale sono in `manuale/` come pagine HTML, generate dai file Markdown con `python3 strumenti/genera_manuale.py <cartella dei capitoli> manuale`. Nell'app si leggono dalla sezione "Manuale".
 
-## Versione completa (per ora spenta)
+## Versione completa
 
-In `js/sblocco.js` c'è la struttura per una versione completa a pagamento: con `attiva: true` i capitoli del manuale oltre i primi `capitoliGratis` si aprono solo con un codice di sblocco. Nel sito si mettono solo le impronte dei codici (`python3 strumenti/impronta_codice.py CODICE`). Finché `attiva` è `false`, tutta l'app è gratuita.
+La versione gratuita si apre al massimo 50 volte (un'apertura per ogni avvio dell'app). Poi serve un codice di sblocco: la versione completa costa 3,90 € e il codice si chiede per mail a dep.kit@gmail.com. Tutto è in `js/sblocco.js`: nel sito ci sono solo le impronte SHA-256 dei codici (nuove impronte con `python3 strumenti/impronta_codice.py CODICE`), i codici veri non sono nel repository. Con `attiva: false` l'app torna tutta gratuita.
 
 ## Crediti
 

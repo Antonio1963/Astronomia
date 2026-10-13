@@ -200,7 +200,7 @@ function mostraManuale() {
       <ol class="elenco elenco-capitoli">
         ${CAPITOLI.map((c) => `<li><a class="riga" href="#capitolo/${c.numero}">
           <span class="riga-testo"><span class="riga-dove">Capitolo ${c.numero}</span>
-          <span class="riga-nome">${esc(c.titolo)}</span></span>${capitoloLibero(c.numero) ? "" : `<span class="riga-meta">🔒</span>`}</a></li>`).join("")}
+          <span class="riga-nome">${esc(c.titolo)}</span></span></a></li>`).join("")}
       </ol>
     </section>`;
 }
@@ -208,7 +208,6 @@ function mostraManuale() {
 async function mostraCapitolo(numero) {
   const i = CAPITOLI.findIndex((c) => c.numero === Number(numero));
   if (i < 0) return mostraManuale();
-  if (!capitoloLibero(CAPITOLI[i].numero)) return mostraSblocco();
   const file = `manuale/${String(CAPITOLI[i].numero).padStart(2, "0")}.html`;
   $("#contenuto").innerHTML = `<p class="vuoto">Carico il capitolo...</p>`;
   let testo;
@@ -234,12 +233,19 @@ async function mostraCapitolo(numero) {
 
 // ---------- Versione completa (attiva solo se VERSIONE_COMPLETA.attiva è true) ----------
 
+function riquadroVersione() {
+  if (!VERSIONE_COMPLETA.attiva) return "";
+  if (versioneCompletaSbloccata()) return `<p class="nota">Versione completa sbloccata. Grazie!</p>`;
+  return `<p>Versione gratuita: ti restano ${apertureRimaste()} aperture su ${VERSIONE_COMPLETA.aperture}.
+          <a href="#sblocca">Sblocca la versione completa</a> (${esc(VERSIONE_COMPLETA.prezzo)}).</p>`;
+}
+
 function mostraSblocco() {
   $("#contenuto").innerHTML = `
     <section class="pannello">
-      <h2>Questo capitolo fa parte della versione completa</h2>
-      <p>La parte "Stasera", le schede e i primi ${VERSIONE_COMPLETA.capitoliGratis} capitoli sono sempre gratuiti.
-        Con la versione completa, a ${esc(VERSIONE_COMPLETA.prezzo)} una volta sola, leggi tutto il manuale.</p>
+      <h2>${appBloccata() ? `Hai usato le ${VERSIONE_COMPLETA.aperture} aperture gratuite` : "La versione completa"}</h2>
+      <p>${appBloccata() ? "Grazie per aver provato Cielo di Stasera! " : `La versione gratuita si apre ${VERSIONE_COMPLETA.aperture} volte (te ne restano ${apertureRimaste()}). `}Per continuare a usarla senza limiti c'è la versione completa,
+        a ${esc(VERSIONE_COMPLETA.prezzo)} una volta sola.</p>
       <p>Per avere il codice di sblocco scrivi a <a href="mailto:${EMAIL_SUPPORTO}?subject=${encodeURIComponent("Versione completa Cielo di Stasera")}">${EMAIL_SUPPORTO}</a>.</p>
       <label for="codice">Hai già un codice?</label>
       <input id="codice" autocomplete="off" autocapitalize="characters" placeholder="Scrivi il codice">
@@ -247,8 +253,10 @@ function mostraSblocco() {
       <p id="esito-codice" class="nota"></p>
     </section>`;
   $("#prova-codice").addEventListener("click", async () => {
-    if (await provaCodice($("#codice").value)) location.hash = "#manuale";
-    else $("#esito-codice").textContent = "Codice non valido. Controlla di averlo scritto bene.";
+    if (await provaCodice($("#codice").value)) {
+      $("#esito-codice").textContent = "Fatto! La versione completa è sbloccata. Grazie!";
+      setTimeout(() => (location.hash = "#stasera"), 1200);
+    } else $("#esito-codice").textContent = "Codice non valido. Controlla di averlo scritto bene.";
   });
 }
 
@@ -296,6 +304,7 @@ function mostraAiuto() {
         <h2>Serve aiuto?</h2>
         <p>Per domande, problemi o suggerimenti scrivi a
           <a href="mailto:${EMAIL_SUPPORTO}?subject=${oggetto}">${EMAIL_SUPPORTO}</a>.</p>
+        ${riquadroVersione()}
         <p class="nota">Cielo di Stasera, di Antonio Chitano. <i>Astronomia per poveri diavoli.</i></p>
       </section>
     </article>`;
@@ -352,7 +361,9 @@ function instrada() {
   document.querySelectorAll(".schede-nav a").forEach((a) =>
     a.classList.toggle("attivo", a.getAttribute("href") === `#${pagina === "scheda" ? "schede" : pagina === "capitolo" ? "manuale" : pagina || "stasera"}`)
   );
-  if (pagina === "schede") mostraSchede();
+  if (appBloccata() && pagina !== "aiuto") mostraSblocco();
+  else if (pagina === "sblocca") mostraSblocco();
+  else if (pagina === "schede") mostraSchede();
   else if (pagina === "scheda") mostraScheda(id);
   else if (pagina === "manuale") mostraManuale();
   else if (pagina === "capitolo") mostraCapitolo(id);
@@ -369,6 +380,7 @@ function impostaModoNotte(attivo) {
 
 window.addEventListener("hashchange", instrada);
 window.addEventListener("DOMContentLoaded", () => {
+  contaApertura();
   aggiornaIntestazione();
   impostaModoNotte(leggiImpostazione("notte") === true);
   $("#modo-notte").addEventListener("click", () =>
