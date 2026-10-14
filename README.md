@@ -9,7 +9,7 @@ Funziona sul telefono e sul computer. Si può installare dalla schermata del bro
 ## Cosa c'è in questa prima versione
 
 - **Stasera:** tramonto, buio completo e alba; fase della Luna con un consiglio per la serata; elenco degli oggetti visibili con direzione e altezza espressa in "pugni" (un pugno a braccio teso copre circa 10 gradi).
-- **Schede:** 30 oggetti (Luna, 5 pianeti, 12 stelle, 6 costellazioni, 6 oggetti del cielo profondo), ognuno con: cos'è, quando, dove, come osservarlo, origine del nome, storia.
+- **Schede:** 32 oggetti (Luna, 7 pianeti, 12 stelle, 6 costellazioni, 6 oggetti del cielo profondo), ognuno con: cos'è, quando, dove, come osservarlo, origine del nome, storia.
 - **Luogo:** posizione del telefono oppure una città italiana dall'elenco.
 - **Modalità notte:** tutto in rosso, per non perdere l'adattamento dell'occhio al buio.
 - **Aiuto:** come si usa l'app e l'indirizzo per chiedere supporto (dep.kit@gmail.com). Autore: Antonio Chitano.

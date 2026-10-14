@@ -66,6 +66,24 @@ const OGGETTI = [
     origine: "Dal dio romano Saturno, padre di Giove e dio del tempo e dell'agricoltura: il più lento dei pianeti visibili a occhio nudo.",
     storia: "Nel 1610 Galileo vide due \"orecchie\" ai lati del pianeta. Fu Christiaan Huygens, nel 1659, a spiegare che si trattava di un anello.",
   },
+  {
+    id: "urano", nome: "Urano", categoria: "pianeta", corpo: "Uranus", mag: 5.7, strumento: "Binocolo",
+    cosa: "Il settimo pianeta, un gigante di gas e ghiacci quattro volte più largo della Terra. Gira su sé stesso \"sdraiato\", con l'asse quasi orizzontale.",
+    quando: "Si vede meglio da settembre a febbraio, attorno all'opposizione (nel 2026 a fine novembre). Serve un cielo buio, lontano dalle luci e senza Luna.",
+    dove: "In questi anni è nel Toro, tra le Pleiadi e Aldebaran. Si sposta pochissimo: resta in una costellazione circa sette anni.",
+    come: "È al limite dell'occhio nudo: da un cielo davvero buio è una stellina debolissima. Con il binocolo è facile, ma serve una mappa per capire quale \"stella\" è lui. Al telescopio diventa un dischetto verde-azzurro.",
+    origine: "Da Urano, il dio greco del cielo, padre di Saturno (Crono) e nonno di Giove: il nome continua la famiglia degli dèi. Herschel voleva chiamarlo \"Stella di Giorgio\" in onore del re Giorgio III.",
+    storia: "Il primo pianeta scoperto con un telescopio: lo trovò William Herschel il 13 marzo 1781, credendo all'inizio che fosse una cometa. Gli antichi non lo conoscevano perché è troppo debole e lento. Solo la sonda Voyager 2 lo ha visitato, nel 1986.",
+  },
+  {
+    id: "nettuno", nome: "Nettuno", categoria: "pianeta", corpo: "Neptune", mag: 7.8, strumento: "Telescopio",
+    cosa: "L'ottavo e ultimo pianeta, un gigante di gas e ghiacci di colore blu intenso, dove soffiano i venti più forti del Sistema Solare.",
+    quando: "Si vede meglio da agosto a gennaio, attorno all'opposizione (nel 2026 a fine settembre). Serve un cielo buio e senza Luna.",
+    dove: "In questi anni è nei Pesci, non lontano da Saturno, che aiuta a trovare la zona. Resta in una costellazione più di dieci anni.",
+    come: "Non si vede mai a occhio nudo. Con un buon binocolo e una carta dettagliata è un puntino come tante stelline; con un telescopio a forti ingrandimenti appare come un minuscolo dischetto azzurro.",
+    origine: "Da Nettuno, il dio romano del mare (Poseidone per i greci), per il suo colore blu come l'oceano.",
+    storia: "Il primo pianeta trovato con la matematica prima che con gli occhi. Urano non seguiva la strada prevista: il francese Urbain Le Verrier calcolò dove doveva trovarsi un pianeta sconosciuto che lo disturbava, e il 23 settembre 1846 Johann Galle lo vide a Berlino, a meno di un grado dal punto indicato. Galileo lo aveva già visto nel 1612, scambiandolo per una stella.",
+  },
 
   // ---- Stelle ----
   {

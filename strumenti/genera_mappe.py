@@ -236,6 +236,12 @@ def disegni():
                                'transform="translate(55,48)"/>'),
         "saturno": pianeta("Saturno", "#e3cf9c", bande=((-0.4, 26, "#d2b97f"), (0.1, 30, "#c9ac6e"), (0.5, 18, "#d9c28b")),
                            anelli=True, nota="Disegno: gli anelli si vedono con un piccolo telescopio", raggio_p=90),
+        "urano": pianeta("Urano", "#a9dde3", bande=((-0.6, 30, "#bfe7eb"), (0.35, 26, "#98d0d8")),
+                         nota="Disegno: al telescopio è un piccolo disco verde-azzurro", raggio_p=75),
+        "nettuno": pianeta("Nettuno", "#3f6fd8", bande=((-0.35, 22, "#5582e0"), (0.4, 18, "#3461c4")),
+                           nota="Disegno: il colore blu e la Grande Macchia Scura vista dalla Voyager 2", raggio_p=72,
+                           extra='<ellipse cx="{cx}" cy="{cy}" rx="16" ry="9" fill="#1f3f8f" fill-opacity="0.85" '
+                                 'transform="translate(-18,-14)"/>'),
     }
 
 

@@ -99,7 +99,13 @@ function infoSole(data, oss) {
 
 // Altezza minima perché un oggetto sia davvero osservabile: vicino all'orizzonte
 // la foschia e gli edifici nascondono quasi tutto.
+// Urano e Nettuno sono pianeti deboli: servono buio e altezza come per il cielo profondo.
+function pianetaDebole(oggetto) {
+  return oggetto.categoria === "pianeta" && oggetto.mag > 5;
+}
+
 function altezzaMinima(oggetto) {
+  if (pianetaDebole(oggetto)) return 20;
   if (oggetto.categoria === "luna" || oggetto.categoria === "pianeta") return 5;
   if (oggetto.categoria === "profondo") return 20;
   return 10;
@@ -109,6 +115,7 @@ function altezzaMinima(oggetto) {
 // le galassie e le nebulose solo a buio completo.
 function cieloAbbastanzaBuio(oggetto, altSole) {
   if (oggetto.categoria === "luna") return altSole < 0;
+  if (pianetaDebole(oggetto)) return altSole < -15;
   if (oggetto.categoria === "pianeta") return altSole < -4;
   if (oggetto.categoria === "profondo") return altSole < -15;
   return altSole < -8;
@@ -128,7 +135,7 @@ function cosaVedere(oggetti, data, luogo) {
         oggetto: o,
         ...pos,
         visibile: pos.altezza >= altezzaMinima(o) && cieloAbbastanzaBuio(o, altSole),
-        disturbatoDallaLuna: o.categoria === "profondo" && lunaDisturba,
+        disturbatoDallaLuna: (o.categoria === "profondo" || pianetaDebole(o)) && lunaDisturba,
       };
     })
     .filter((r) => r.visibile)

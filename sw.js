@@ -1,5 +1,5 @@
 // Salva l'app sul dispositivo, così funziona anche senza rete sul campo.
-const VERSIONE = "cielo-v7";
+const VERSIONE = "cielo-v8";
 const FILE = [
   "./",
   "index.html",
@@ -58,6 +58,8 @@ const FILE = [
   "images/presepe.svg",
   "images/rigel.svg",
   "images/saturno.svg",
+  "images/urano.svg",
+  "images/nettuno.svg",
   "images/scorpione.svg",
   "images/sirio.svg",
   "images/spica.svg",
