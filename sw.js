@@ -1,5 +1,5 @@
 // Salva l'app sul dispositivo, così funziona anche senza rete sul campo.
-const VERSIONE = "cielo-v14";
+const VERSIONE = "cielo-v15";
 const FILE = [
   "./",
   "index.html",
@@ -178,6 +178,10 @@ const FILE = [
   "images/costellazioni/Vol.svg",
   "images/costellazioni/Vul.svg",
   "images/foto/andromeda.jpg",
+  "images/foto/caronte.jpg",
+  "images/foto/lune-plutone.jpg",
+  "images/foto/plutone-caronte.jpg",
+  "images/foto/plutone-lune.jpg",
   "images/foto/doppio-ammasso.jpg",
   "images/foto/giove.jpg",
   "images/foto/luna.jpg",

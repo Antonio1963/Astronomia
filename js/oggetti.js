@@ -337,4 +337,8 @@ const FOTO = {
   presepe: { autore: "2MASS/UMass/IPAC-Caltech/NASA/NSF", licenza: "uso libero citando 2MASS", sito: "Wikimedia Commons", fonte: "https://commons.wikimedia.org/wiki/File:Messier_044_2MASS.jpg" },
   "doppio-ammasso": { autore: "NOIRLab/NSF/AURA", licenza: "CC BY 4.0", sito: "NOIRLab", fonte: "https://noirlab.edu/public/images/noao-hcper/" },
   m13: { autore: "NASA, ESA, Hubble Heritage Team (STScI/AURA)", licenza: "CC BY 4.0", sito: "ESA/Hubble", fonte: "https://esahubble.org/images/opo0840a/" },
+  "lune-plutone": { nome: "Plutone", autore: "NASA/JHUAPL/SwRI (sonda New Horizons)", licenza: "pubblico dominio", sito: "Wikimedia Commons", fonte: "https://commons.wikimedia.org/wiki/File:Pluto-01_Stern_03_Pluto_Color_TXT.jpg" },
+  "plutone-caronte": { nome: "Plutone e Caronte", autore: "NASA/JHUAPL/SwRI (sonda New Horizons)", licenza: "pubblico dominio", sito: "Wikimedia Commons", fonte: "https://commons.wikimedia.org/wiki/File:Pluto-Charon-v2-10-1-15.jpg" },
+  caronte: { nome: "Caronte", autore: "NASA/JHUAPL/SwRI (sonda New Horizons)", licenza: "pubblico dominio", sito: "Wikimedia Commons", fonte: "https://commons.wikimedia.org/wiki/File:Charon_in_True_Color_-_High-Res.png" },
+  "plutone-lune": { nome: "Plutone, Caronte, Notte (Nix) e Idra", autore: "NASA/JHUAPL/SwRI (sonda New Horizons)", licenza: "pubblico dominio", sito: "Wikimedia Commons", fonte: "https://commons.wikimedia.org/wiki/File:PlutoandMoons.png" },
 };

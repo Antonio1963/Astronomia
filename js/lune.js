@@ -224,6 +224,11 @@ const LUNE = [
       ["Cerbero (Kerberos)", "≈ 19", 2011, "piccola"], ["Stige (Styx)", "≈ 16", 2012, "piccola"],
     ],
     altre: "",
+    foto: [
+      ["plutone-caronte", "Plutone (davanti) e Caronte, in colori esaltati per mostrare le differenze del suolo. Le distanze non sono in scala."],
+      ["caronte", "Caronte nei suoi colori veri. In alto la macchia rossastra del polo nord, chiamata Mordor."],
+      ["plutone-lune", "Plutone, Caronte, Notte (Nix) e Idra (Hydra), come le ha viste New Horizons. Le dimensioni non sono in scala: Notte e Idra sono larghe circa 50 km."],
+    ],
   },
   {
     id: "lune-esopianeti", categoria: "lune", immagine: "images/costellazioni/Cyg.svg", nome: "Le lune dei pianeti di altre stelle", pianeta: "Esopianeti", totale: null,

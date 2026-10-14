@@ -303,6 +303,8 @@ function mostraLune(o) {
       <h1>${esc(o.nome)}</h1>
       ${o.totale !== null ? `<p class="totale-lune">${o.totale} ${o.totale === 1 ? "luna" : "lune"}</p>
         <p class="nota">Lune conosciute${o.aggiornato ? ` a ${esc(o.aggiornato)}` : ""}. Fonte: NASA.</p>` : ""}
+      ${FOTO[o.id] ? `<figure class="scheda-immagine scheda-foto"><img src="images/foto/${o.id}.jpg" alt="Foto: ${esc(FOTO[o.id].nome || o.nome)}">
+        <figcaption>${creditoFoto(FOTO[o.id])}</figcaption></figure>` : ""}
       ${o.immagine ? `<figure class="scheda-immagine"><img src="${o.immagine}" alt="" width="800" height="500">
         <figcaption>${o.id === "lune-esopianeti" ? "Il Cigno e la Lira: qui guardava il telescopio spaziale Kepler, che ha trovato i due candidati più famosi." : "Disegno illustrativo, non in scala."}</figcaption></figure>` : ""}
       <section><h2>In breve</h2><p>${esc(o.introduzione)}</p></section>
@@ -315,6 +317,11 @@ function mostraLune(o) {
           ${l.origine ? `<p><b>Il nome.</b> ${esc(l.origine)}</p>` : ""}
         </div>`).join("")}</section>` : ""}
       ${tabella}
+      ${o.foto ? `<section><h2>Le foto</h2>
+        ${o.foto.map(([id, testo]) => `<figure class="scheda-immagine scheda-foto">
+          <img src="images/foto/${id}.jpg" alt="Foto: ${esc(FOTO[id].nome)}" loading="lazy">
+          <figcaption>${esc(testo)} ${creditoFoto(FOTO[id])}</figcaption>
+        </figure>`).join("")}</section>` : ""}
       ${o.curiosita ? `<section><h2>Curiosità</h2><p>${esc(o.curiosita)}</p></section>` : ""}
     </article>`;
   window.scrollTo(0, 0);
@@ -492,7 +499,7 @@ function mostraAiuto() {
         <ul class="crediti">
           ${Object.entries(FOTO).map(([id, f]) => {
             const o = OGGETTI.find((x) => x.id === id);
-            return `<li><b>${esc(o ? o.nome : id)}</b>: ${creditoFoto(f)}</li>`;
+            return `<li><b>${esc(f.nome || (o ? o.nome : id))}</b>: ${creditoFoto(f)}</li>`;
           }).join("")}
         </ul>
         <p>Le mappe del cielo sono disegnate dall'app con i dati delle stelle di
