@@ -13,6 +13,18 @@ const CATEGORIE = {
   leggenda: "Leggende",
 };
 
+// Nomi al plurale per i pulsanti del filtro nelle Schede
+const CATEGORIE_PLURALE = {
+  luna: "Luna",
+  pianeta: "Pianeti",
+  lune: "Lune dei pianeti",
+  stella: "Stelle",
+  costellazione: "Costellazioni",
+  galassia: "Galassie",
+  profondo: "Ammassi e nebulose",
+  leggenda: "Leggende",
+};
+
 const OGGETTI = [
   // ---- Luna e pianeti ----
   {
@@ -311,18 +323,18 @@ const OGGETTI = [
   },
 ];
 
-// Foto vere, con autore e licenza. Le immagini sono in images/foto/<id>.jpg.
+// Foto vere, con autore, licenza e sito da cui sono prese. Le immagini sono in images/foto/<id>.jpg.
 const FOTO = {
-  luna: { autore: "Gregory H. Revera", licenza: "CC BY-SA 3.0", fonte: "https://commons.wikimedia.org/wiki/File:FullMoon2010.jpg" },
-  mercurio: { autore: "NASA/JHUAPL/Carnegie Institution of Washington (sonda MESSENGER)", licenza: "pubblico dominio", fonte: "https://commons.wikimedia.org/wiki/File:MESSENGER_first_photo_of_unseen_side_of_mercury.jpg" },
-  venere: { autore: "NASA (sonda Mariner 10)", licenza: "vedi la fonte", fonte: "https://commons.wikimedia.org/wiki/File:Venus-real_color.jpg" },
-  marte: { autore: "ESA/MPS (sonda Rosetta, OSIRIS)", licenza: "CC BY-SA 3.0 IGO", fonte: "https://commons.wikimedia.org/wiki/File:OSIRIS_Mars_true_color.jpg" },
-  giove: { autore: "NASA, ESA, A. Simon (Telescopio Spaziale Hubble)", licenza: "CC BY 4.0", fonte: "https://esahubble.org/images/heic1410a/" },
-  saturno: { autore: "NASA/JPL/Space Science Institute (sonda Cassini)", licenza: "pubblico dominio", fonte: "https://commons.wikimedia.org/wiki/File:Saturn_during_Equinox.jpg" },
-  pleiadi: { autore: "NASA, ESA, AURA/Caltech", licenza: "pubblico dominio", fonte: "https://commons.wikimedia.org/wiki/File:Pleiades_large.jpg" },
-  andromeda: { autore: "Adam Evans", licenza: "CC BY 2.0", fonte: "https://commons.wikimedia.org/wiki/File:Andromeda_Galaxy_(with_h-alpha).jpg" },
-  "nebulosa-orione": { autore: "NASA, ESA, M. Robberto (Telescopio Spaziale Hubble)", licenza: "pubblico dominio", fonte: "https://commons.wikimedia.org/wiki/File:Orion_Nebula_-_Hubble_2006_mosaic_18000.jpg" },
-  presepe: { autore: "2MASS/UMass/IPAC-Caltech/NASA/NSF", licenza: "vedi la fonte", fonte: "https://commons.wikimedia.org/wiki/File:Messier_044_2MASS.jpg" },
-  "doppio-ammasso": { autore: "NOIRLab/NSF/AURA", licenza: "CC BY 4.0", fonte: "https://noirlab.edu/public/images/noao-hcper/" },
-  m13: { autore: "NASA, ESA, Hubble Heritage Team (STScI/AURA)", licenza: "CC BY 4.0", fonte: "https://esahubble.org/images/opo0840a/" },
+  luna: { autore: "Gregory H. Revera", licenza: "CC BY-SA 3.0", sito: "Wikimedia Commons", fonte: "https://commons.wikimedia.org/wiki/File:FullMoon2010.jpg" },
+  mercurio: { autore: "NASA/JHUAPL/Carnegie Institution of Washington (sonda MESSENGER)", licenza: "pubblico dominio", sito: "Wikimedia Commons", fonte: "https://commons.wikimedia.org/wiki/File:MESSENGER_first_photo_of_unseen_side_of_mercury.jpg" },
+  venere: { autore: "NASA (sonda Mariner 10)", licenza: "pubblico dominio (immagine NASA)", sito: "Wikimedia Commons", fonte: "https://commons.wikimedia.org/wiki/File:Venus-real_color.jpg" },
+  marte: { autore: "ESA/MPS (sonda Rosetta, OSIRIS)", licenza: "CC BY-SA 3.0 IGO", sito: "Wikimedia Commons", fonte: "https://commons.wikimedia.org/wiki/File:OSIRIS_Mars_true_color.jpg" },
+  giove: { autore: "NASA, ESA, A. Simon (Telescopio Spaziale Hubble)", licenza: "CC BY 4.0", sito: "ESA/Hubble", fonte: "https://esahubble.org/images/heic1410a/" },
+  saturno: { autore: "NASA/JPL/Space Science Institute (sonda Cassini)", licenza: "pubblico dominio", sito: "Wikimedia Commons", fonte: "https://commons.wikimedia.org/wiki/File:Saturn_during_Equinox.jpg" },
+  pleiadi: { autore: "NASA, ESA, AURA/Caltech", licenza: "pubblico dominio", sito: "Wikimedia Commons", fonte: "https://commons.wikimedia.org/wiki/File:Pleiades_large.jpg" },
+  andromeda: { autore: "Adam Evans", licenza: "CC BY 2.0", sito: "Wikimedia Commons", fonte: "https://commons.wikimedia.org/wiki/File:Andromeda_Galaxy_(with_h-alpha).jpg" },
+  "nebulosa-orione": { autore: "NASA, ESA, M. Robberto (Telescopio Spaziale Hubble)", licenza: "pubblico dominio", sito: "Wikimedia Commons", fonte: "https://commons.wikimedia.org/wiki/File:Orion_Nebula_-_Hubble_2006_mosaic_18000.jpg" },
+  presepe: { autore: "2MASS/UMass/IPAC-Caltech/NASA/NSF", licenza: "uso libero citando 2MASS", sito: "Wikimedia Commons", fonte: "https://commons.wikimedia.org/wiki/File:Messier_044_2MASS.jpg" },
+  "doppio-ammasso": { autore: "NOIRLab/NSF/AURA", licenza: "CC BY 4.0", sito: "NOIRLab", fonte: "https://noirlab.edu/public/images/noao-hcper/" },
+  m13: { autore: "NASA, ESA, Hubble Heritage Team (STScI/AURA)", licenza: "CC BY 4.0", sito: "ESA/Hubble", fonte: "https://esahubble.org/images/opo0840a/" },
 };

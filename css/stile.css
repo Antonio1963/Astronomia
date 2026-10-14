@@ -170,6 +170,9 @@ main { max-width: 760px; margin: 0 auto; padding: 16px; }
 .scheda-immagine figcaption { font-size: .8rem; color: var(--testo-tenue); margin-top: 6px; }
 :root.notte .carta-immagine, :root.notte .scheda-immagine img { filter: grayscale(1) sepia(1) saturate(6) hue-rotate(-50deg) brightness(.8); }
 .carta-nome { font-weight: 700; font-size: 1.05rem; }
+.carta-credito { font-size: .75rem; color: var(--testo-tenue); }
+.crediti li { margin-bottom: 6px; }
+.crediti a { color: inherit; }
 .carta-testo {
   font-size: .88rem; color: var(--testo-tenue);
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;

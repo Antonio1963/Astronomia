@@ -147,6 +147,12 @@ function etichetteEmisferi(o) {
   </span>`;
 }
 
+// Da dove viene una foto: autore, licenza e link alla pagina originale
+function creditoFoto(f) {
+  return `Foto: ${esc(f.autore)}. Licenza: ${esc(f.licenza)}.
+    Presa da <a href="${f.fonte}" target="_blank" rel="noopener">${esc(f.sito)}</a>.`;
+}
+
 function immagineCarta(o) {
   if (FOTO[o.id]) return `images/foto/${o.id}.jpg`;
   if (o.immagine !== undefined) return o.immagine;
@@ -163,7 +169,7 @@ function mostraSchede() {
   const conEmisfero = stato.filtro === "costellazione" || stato.filtro === "galassia";
   $("#contenuto").innerHTML = `
     <div class="filtri" role="group" aria-label="Filtra per tipo">
-      ${filtri.map((f) => `<button data-filtro="${f}" class="${stato.filtro === f ? "attivo" : ""}">${f === "tutti" ? "Tutti" : CATEGORIE[f]}</button>`).join("")}
+      ${filtri.map((f) => `<button data-filtro="${f}" class="${stato.filtro === f ? "attivo" : ""}">${f === "tutti" ? "Tutti" : CATEGORIE_PLURALE[f]}</button>`).join("")}
     </div>
     ${conEmisfero ? `<p class="conteggio">Da dove si vedono:</p>
     <div class="filtri filtri-emisfero" role="group" aria-label="Filtra per emisfero">
@@ -207,6 +213,7 @@ function disegnaGriglia() {
       ${img ? `<img class="carta-immagine${FOTO[o.id] ? " carta-foto" : ""}" src="${img}" alt="" loading="lazy" width="800" height="500">` : ""}
       <span class="etichetta etichetta-${o.categoria}">${CATEGORIE[o.categoria]}</span>
       <span class="carta-nome">${esc(o.nome)}</span>
+      ${FOTO[o.id] ? `<span class="carta-credito">Foto: ${esc(FOTO[o.id].autore)} (${esc(FOTO[o.id].sito)})</span>` : ""}
       ${etichetteEmisferi(o)}
       <span class="carta-testo">${esc(o.cosa)}</span>
     </a></li>`;
@@ -249,7 +256,7 @@ function mostraScheda(id) {
       : "Adesso è sotto l'orizzonte.";
   const voci = [
     ["Cos'è", o.cosa],
-    ["Quando", o.quando],
+    ["Quando è visibile", o.quando],
     ["Dove", o.dove],
     ["Come osservarlo", o.come],
     ["Origine del nome", o.origine],
@@ -266,7 +273,7 @@ function mostraScheda(id) {
       <p class="adesso">${adesso} Strumento consigliato: ${esc(o.strumento.toLowerCase())}.</p>
       ${FOTO[o.id] ? `<figure class="scheda-immagine scheda-foto">
         <img src="images/foto/${o.id}.jpg" alt="Foto: ${esc(o.nome)}">
-        <figcaption>Foto: ${esc(FOTO[o.id].autore)}. Licenza: ${esc(FOTO[o.id].licenza)}. <a href="${FOTO[o.id].fonte}" target="_blank" rel="noopener">Fonte</a></figcaption>
+        <figcaption>${creditoFoto(FOTO[o.id])}</figcaption>
       </figure>` : ""}
       <figure class="scheda-immagine">
         <img src="${mappa}" alt="${o.corpo ? "Disegno" : "Mappa del cielo"}: ${esc(o.nome)}" width="800" height="500">
@@ -425,7 +432,7 @@ function mostraAiuto() {
           Per ognuno trovi cos'è, quando e dove guardare, con quale strumento, l'origine del nome e la sua storia.
           Tocca un oggetto nell'elenco di "Stasera" per aprire la sua scheda.</p>
         <p>Costellazioni e galassie dicono se si vedono dall'Italia o solo dall'emisfero australe (Australia e Sud America):
-          scegli "Costellazione" e poi un filtro per emisfero. Ci sono anche le lune di tutti i pianeti, quelle cercate attorno
+          scegli "Costellazioni" e poi un filtro per emisfero. Ci sono anche le lune di tutti i pianeti, quelle cercate attorno
           ad altre stelle e le leggende antiche sui nomi del cielo. Con la casella "Cerca" trovi subito una scheda.</p>
       </section>
       <section>
@@ -446,6 +453,22 @@ function mostraAiuto() {
         <p>Su Android, dal menu del browser scegli "Installa app" o "Aggiungi a schermata Home".
           Su iPhone, in Safari tocca il pulsante Condividi e poi "Aggiungi alla schermata Home".
           Una volta installata funziona anche in campagna, senza rete.</p>
+      </section>
+      <section id="crediti">
+        <h2>Crediti immagini</h2>
+        <p>Le foto vere degli oggetti non sono nostre: vengono da archivi pubblici che ne permettono l'uso,
+          citando l'autore. Tocca il nome del sito per vedere la pagina originale.</p>
+        <ul class="crediti">
+          ${Object.entries(FOTO).map(([id, f]) => {
+            const o = OGGETTI.find((x) => x.id === id);
+            return `<li><b>${esc(o ? o.nome : id)}</b>: ${creditoFoto(f)}</li>`;
+          }).join("")}
+        </ul>
+        <p>Le mappe del cielo sono disegnate dall'app con i dati delle stelle di
+          <a href="https://github.com/ofrohn/d3-celestial" target="_blank" rel="noopener">d3-celestial</a> (Olaf Frohn, licenza BSD).
+          I disegni di pianeti, galassie e nebulose sono illustrazioni fatte per l'app.
+          Le posizioni di Sole, Luna e pianeti sono calcolate con
+          <a href="https://github.com/cosinekitty/astronomy" target="_blank" rel="noopener">Astronomy Engine</a> (Don Cross, licenza MIT).</p>
       </section>
       <section class="pannello">
         <h2>Serve aiuto?</h2>
