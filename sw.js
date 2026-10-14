@@ -1,5 +1,5 @@
 // Salva l'app sul dispositivo, così funziona anche senza rete sul campo.
-const VERSIONE = "cielo-v10";
+const VERSIONE = "cielo-v11";
 const FILE = [
   "./",
   "index.html",

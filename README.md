@@ -14,7 +14,7 @@ Funziona sul telefono e sul computer. Si può installare dalla schermata del bro
 - **Lune:** una scheda per ogni pianeta con tutte le lune conosciute (le principali descritte, le altre in tabella), Plutone e le lune cercate attorno agli esopianeti.
 - **Leggende:** 12 schede sulle leggende antiche dei nomi di pianeti, stelle, costellazioni e galassie.
 - **Cerca:** una casella per trovare subito una scheda per nome.
-- **Strumenti:** 40 schede su strumenti storici (da Tycho Brahe e Galileo ad Arecibo), grandi osservatori di oggi (VLT, Keck, ALMA, Rubin, ELT, radiotelescopi italiani, Virgo) e telescopi spaziali e sonde (Hubble, James Webb, Gaia, Kepler, Voyager e altri): cos'è, dove si trova, quando, cosa ha scoperto, origine del nome, curiosità. I testi sono in `js/strumenti.js`.
+- **Strumenti:** 41 schede su strumenti storici (da Tycho Brahe e Galileo ad Arecibo), grandi osservatori di oggi (VLT, Keck, ALMA, Rubin, ELT, radiotelescopi italiani, Virgo) e telescopi spaziali e sonde (Hubble, James Webb, Gaia, Kepler, Voyager e altri): cos'è, dove si trova, quando, cosa ha scoperto, origine del nome, curiosità. I testi sono in `js/strumenti.js`.
 - **Luogo:** posizione del telefono oppure una città italiana dall'elenco.
 - **Modalità notte:** tutto in rosso, per non perdere l'adattamento dell'occhio al buio.
 - **Aiuto:** come si usa l'app e l'indirizzo per chiedere supporto (dep.kit@gmail.com). Autore: Antonio Chitano.
