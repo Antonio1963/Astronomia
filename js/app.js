@@ -338,6 +338,41 @@ function mostraLeggenda(o) {
 
 // ---------- Manuale ----------
 
+// Il manuale si apre con una password. Qui c'è solo la sua impronta (SHA-256), non la password.
+// Una volta inserita resta valida su quel dispositivo.
+// Nuova password: echo -n 'PASSWORD' | sha256sum, e si incolla l'impronta qui sotto.
+const IMPRONTA_PASSWORD_MANUALE = "dafecc7450265fed7405975a26a66c74ff3bc8b1922ea8bd0543a6d8b37faa3b";
+
+function manualeAperto() {
+  return leggiImpostazione("manualeAperto") === true;
+}
+
+function mostraPasswordManuale(destinazione) {
+  $("#contenuto").innerHTML = `
+    <section class="pannello">
+      <h2>Il manuale è riservato</h2>
+      <p>Il manuale è per chi segue il corso. Scrivi la password che ti è stata data.</p>
+      <label for="password-manuale">Password</label>
+      <input id="password-manuale" type="password" autocomplete="current-password" autocapitalize="off" placeholder="Scrivi la password">
+      <button id="apri-manuale" class="pulsante">Apri il manuale</button>
+      <p id="esito-manuale" class="nota"></p>
+    </section>`;
+  const prova = async () => {
+    const testo = $("#password-manuale").value.trim();
+    if (testo && crypto.subtle) {
+      const hash = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(testo));
+      const impronta = [...new Uint8Array(hash)].map((b) => b.toString(16).padStart(2, "0")).join("");
+      if (impronta === IMPRONTA_PASSWORD_MANUALE) {
+        salvaImpostazione("manualeAperto", true);
+        return destinazione();
+      }
+    }
+    $("#esito-manuale").textContent = "Password sbagliata. Attenzione a maiuscole e simboli.";
+  };
+  $("#apri-manuale").addEventListener("click", prova);
+  $("#password-manuale").addEventListener("keydown", (e) => e.key === "Enter" && prova());
+}
+
 function mostraManuale() {
   $("#contenuto").innerHTML = `
     <section>
@@ -431,13 +466,9 @@ function mostraAiuto() {
         <p>Luna, pianeti, stelle, tutte le 88 costellazioni, galassie, ammassi e nebulose.
           Per ognuno trovi cos'è, quando e dove guardare, con quale strumento, l'origine del nome e la sua storia.
           Tocca un oggetto nell'elenco di "Stasera" per aprire la sua scheda.</p>
-        <p>Costellazioni e galassie dicono se si vedono dall'Italia o solo dall'emisfero australe (Australia e Sud America):
-          scegli "Costellazioni" e poi un filtro per emisfero. Ci sono anche le lune di tutti i pianeti, quelle cercate attorno
+        <p>Per le schede di "Costellazioni" e "Galassie" è presente l'informazione se sono visibili dall'emisfero australe
+          (Australia e Sud America) o dall'emisfero boreale (Italia): scegli "Costellazioni" o "Galassie" e poi un filtro per emisfero. Ci sono anche le lune di tutti i pianeti, quelle cercate attorno
           ad altre stelle e le leggende antiche sui nomi del cielo. Con la casella "Cerca" trovi subito una scheda.</p>
-      </section>
-      <section>
-        <h2>Manuale</h2>
-        <p>Tredici capitoli, uno per ogni lezione del corso. Si leggono anche senza connessione.</p>
       </section>
       <section>
         <h2>Strumenti</h2>
@@ -449,10 +480,10 @@ function mostraAiuto() {
         <p>Il pulsante 🔴 <b>Notte</b> colora tutto di rosso: così lo schermo non ti abbaglia e l'occhio resta abituato al buio.</p>
       </section>
       <section>
-        <h2>Installarla sul telefono</h2>
+        <h2>Installazione su Smartphone</h2>
         <p>Su Android, dal menu del browser scegli "Installa app" o "Aggiungi a schermata Home".
           Su iPhone, in Safari tocca il pulsante Condividi e poi "Aggiungi alla schermata Home".
-          Una volta installata funziona anche in campagna, senza rete.</p>
+          Una volta installata, l'app funziona anche senza rete.</p>
       </section>
       <section id="crediti">
         <h2>Crediti immagini</h2>
@@ -535,6 +566,8 @@ function instrada() {
   else if (pagina === "sblocca") mostraSblocco();
   else if (pagina === "schede") mostraSchede();
   else if (pagina === "scheda") mostraScheda(id);
+  else if ((pagina === "manuale" || pagina === "capitolo") && !manualeAperto())
+    mostraPasswordManuale(() => (pagina === "capitolo" ? mostraCapitolo(id) : mostraManuale()));
   else if (pagina === "manuale") mostraManuale();
   else if (pagina === "capitolo") mostraCapitolo(id);
   else if (pagina === "strumenti") mostraStrumenti();
