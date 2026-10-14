@@ -1,0 +1,14 @@
+/* Sezione "Strumenti del cielo" */
+.etichetta-strumento-storico { color: var(--leggenda-c); }
+.etichetta-strumento-attivo { color: var(--profondo-c); }
+.etichetta-strumento-concluso { color: var(--testo-tenue); }
+.etichetta-strumento-costruzione { color: var(--pianeta-c); }
+.strumenti-luce { margin: 12px 0; }
+.strumenti-luce summary { cursor: pointer; font-weight: 600; color: var(--accento); }
+.strumenti-luce p { margin-top: 8px; }
+
+/* Con cinque sezioni nella barra in basso, sui telefoni stretti si riducono i margini. */
+@media (max-width: 420px) {
+  .schede-nav { gap: 4px; padding-left: 8px; padding-right: 8px; }
+  .schede-nav a { padding: 10px 2px; font-size: .85rem; }
+}

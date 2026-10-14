@@ -433,6 +433,11 @@ function mostraAiuto() {
         <p>Tredici capitoli, uno per ogni lezione del corso. Si leggono anche senza connessione.</p>
       </section>
       <section>
+        <h2>Strumenti</h2>
+        <p>Quaranta schede su telescopi, osservatori, satelliti e sonde: dal cannocchiale di Galileo al telescopio James Webb.
+          Per ognuno trovi cos'è, dove si trova, cosa ha scoperto, l'origine del nome e qualche curiosità.</p>
+      </section>
+      <section>
         <h2>Modalità notte</h2>
         <p>Il pulsante 🔴 <b>Notte</b> colora tutto di rosso: così lo schermo non ti abbaglia e l'occhio resta abituato al buio.</p>
       </section>
@@ -501,7 +506,7 @@ function aggiornaIntestazione() {
 function instrada() {
   const [pagina, id] = location.hash.slice(1).split("/");
   document.querySelectorAll(".schede-nav a").forEach((a) =>
-    a.classList.toggle("attivo", a.getAttribute("href") === `#${pagina === "scheda" ? "schede" : pagina === "capitolo" ? "manuale" : pagina || "stasera"}`)
+    a.classList.toggle("attivo", a.getAttribute("href") === `#${pagina === "scheda" ? "schede" : pagina === "capitolo" ? "manuale" : pagina === "strumento" ? "strumenti" : pagina || "stasera"}`)
   );
   if (appBloccata() && pagina !== "aiuto") mostraSblocco();
   else if (pagina === "sblocca") mostraSblocco();
@@ -509,6 +514,8 @@ function instrada() {
   else if (pagina === "scheda") mostraScheda(id);
   else if (pagina === "manuale") mostraManuale();
   else if (pagina === "capitolo") mostraCapitolo(id);
+  else if (pagina === "strumenti") mostraStrumenti();
+  else if (pagina === "strumento") mostraStrumento(id);
   else if (pagina === "luogo") mostraLuogo();
   else if (pagina === "aiuto") mostraAiuto();
   else mostraStasera();
