@@ -9,7 +9,11 @@ Funziona sul telefono e sul computer. Si può installare dalla schermata del bro
 ## Cosa c'è in questa prima versione
 
 - **Stasera:** tramonto, buio completo e alba; fase della Luna con un consiglio per la serata; elenco degli oggetti visibili con direzione e altezza espressa in "pugni" (un pugno a braccio teso copre circa 10 gradi).
-- **Schede:** 32 oggetti (Luna, 7 pianeti, 12 stelle, 6 costellazioni, 6 oggetti del cielo profondo), ognuno con: cos'è, quando, dove, come osservarlo, origine del nome, storia.
+- **Schede:** Luna, 7 pianeti, 12 stelle, tutte le 88 costellazioni, 15 galassie, 5 ammassi e nebulose, ognuno con: cos'è, quando, dove, come osservarlo, origine del nome, storia. Le costellazioni hanno anche le stelle principali con il significato del nome.
+- **Due emisferi:** costellazioni e galassie dicono se si vedono dall'Italia (tutte, in parte o mai) e dall'Australia e dal Sud America, con un filtro per emisfero.
+- **Lune:** una scheda per ogni pianeta con tutte le lune conosciute (le principali descritte, le altre in tabella), Plutone e le lune cercate attorno agli esopianeti.
+- **Leggende:** 12 schede sulle leggende antiche dei nomi di pianeti, stelle, costellazioni e galassie.
+- **Cerca:** una casella per trovare subito una scheda per nome.
 - **Luogo:** posizione del telefono oppure una città italiana dall'elenco.
 - **Modalità notte:** tutto in rosso, per non perdere l'adattamento dell'occhio al buio.
 - **Aiuto:** come si usa l'app e l'indirizzo per chiedere supporto (dep.kit@gmail.com). Autore: Antonio Chitano.
@@ -28,10 +32,12 @@ poi aprire http://localhost:8000 nel browser.
 
 - `index.html`, `css/stile.css`: pagina e aspetto.
 - `js/oggetti.js`: le schede degli oggetti (i testi si modificano qui).
+- `js/costellazioni.js`: le 88 costellazioni, con stelle principali e visibilità dai due emisferi.
+- `js/galassie.js`, `js/lune.js`, `js/leggende.js`: galassie, lune dei pianeti, leggende sui nomi.
 - `js/citta.js`: le città dell'elenco.
 - `js/cielo.js`: i calcoli astronomici.
 - `js/app.js`: le schermate.
-- `images/`: mappe del cielo e disegni delle schede; `strumenti/genera_mappe.py` le rigenera.
+- `images/`: mappe del cielo e disegni delle schede (in `images/costellazioni/` una mappa per costellazione, con la sigla IAU); `strumenti/genera_mappe.py` le rigenera.
 - `sw.js`, `manifest.webmanifest`: installazione e funzionamento senza rete.
 
 ## Manuale

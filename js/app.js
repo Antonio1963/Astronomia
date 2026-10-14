@@ -130,37 +130,123 @@ function mostraStasera() {
 
 // ---------- Schede ----------
 
+const FILTRI_EMISFERO = {
+  tutte: ["Tutte", () => true],
+  italia: ["Si vedono dall'Italia", (o) => o.italia !== "no"],
+  sud: ["Solo emisfero australe", (o) => o.italia === "no"],
+  nord: ["Solo emisfero boreale", (o) => o.sud === "no"],
+};
+
+const VISIBILITA = { si: "si vede", parte: "in parte", no: "mai" };
+
+function etichetteEmisferi(o) {
+  if (!o.italia) return "";
+  return `<span class="emisferi">
+    <span class="emisfero emisfero-${o.italia}">Italia: ${VISIBILITA[o.italia]}</span>
+    <span class="emisfero emisfero-${o.sud}">Australia e Sud America: ${VISIBILITA[o.sud]}</span>
+  </span>`;
+}
+
+function immagineCarta(o) {
+  if (FOTO[o.id]) return `images/foto/${o.id}.jpg`;
+  if (o.immagine !== undefined) return o.immagine;
+  return `images/${o.id}.svg`;
+}
+
+function testoRicerca(o) {
+  const stelle = (o.stelle || []).map((s) => s.nome).join(" ");
+  return `${o.nome} ${o.latino || ""} ${o.sigla || ""} ${stelle}`.toLowerCase();
+}
+
 function mostraSchede() {
   const filtri = ["tutti", ...Object.keys(CATEGORIE)];
-  const elenco = OGGETTI.filter((o) => stato.filtro === "tutti" || o.categoria === stato.filtro);
+  const conEmisfero = stato.filtro === "costellazione" || stato.filtro === "galassia";
   $("#contenuto").innerHTML = `
     <div class="filtri" role="group" aria-label="Filtra per tipo">
       ${filtri.map((f) => `<button data-filtro="${f}" class="${stato.filtro === f ? "attivo" : ""}">${f === "tutti" ? "Tutti" : CATEGORIE[f]}</button>`).join("")}
     </div>
-    <ul class="griglia">
-      ${elenco.map((o) => `<li><a class="carta" href="#scheda/${o.id}">
-        <img class="carta-immagine${FOTO[o.id] ? " carta-foto" : ""}" src="${FOTO[o.id] ? `images/foto/${o.id}.jpg` : `images/${o.id}.svg`}" alt="" loading="lazy" width="800" height="500">
-        <span class="etichetta etichetta-${o.categoria}">${CATEGORIE[o.categoria]}</span>
-        <span class="carta-nome">${esc(o.nome)}</span>
-        <span class="carta-testo">${esc(o.cosa)}</span>
-      </a></li>`).join("")}
-    </ul>`;
+    ${conEmisfero ? `<p class="conteggio">Da dove si vedono:</p>
+    <div class="filtri filtri-emisfero" role="group" aria-label="Filtra per emisfero">
+      ${Object.entries(FILTRI_EMISFERO).map(([k, [nome]]) => `<button data-emisfero="${k}" class="${(stato.emisfero || "tutte") === k ? "attivo" : ""}">${nome}</button>`).join("")}
+    </div>` : ""}
+    <input type="search" id="cerca" class="cerca" placeholder="Cerca per nome (es. Orione, Sirio, Titano)" value="${esc(stato.cerca || "")}" aria-label="Cerca una scheda">
+    <p class="conteggio" id="conteggio"></p>
+    <ul class="griglia" id="griglia"></ul>`;
+  disegnaGriglia();
   document.querySelectorAll("[data-filtro]").forEach((b) =>
     b.addEventListener("click", () => {
       stato.filtro = b.dataset.filtro;
       mostraSchede();
     })
   );
+  document.querySelectorAll("[data-emisfero]").forEach((b) =>
+    b.addEventListener("click", () => {
+      stato.emisfero = b.dataset.emisfero;
+      mostraSchede();
+    })
+  );
+  $("#cerca").addEventListener("input", (e) => {
+    stato.cerca = e.target.value;
+    disegnaGriglia();
+  });
+}
+
+function disegnaGriglia() {
+  const cerca = (stato.cerca || "").trim().toLowerCase();
+  const [, perEmisfero] = FILTRI_EMISFERO[stato.emisfero || "tutte"];
+  const conEmisfero = stato.filtro === "costellazione" || stato.filtro === "galassia";
+  // Con la ricerca si cerca in tutte le schede, senza filtri
+  let elenco = cerca
+    ? OGGETTI.filter((o) => testoRicerca(o).includes(cerca))
+    : OGGETTI.filter((o) => stato.filtro === "tutti" || o.categoria === stato.filtro).filter((o) => !conEmisfero || perEmisfero(o));
+  if (stato.filtro === "costellazione") elenco = [...elenco].sort((a, b) => a.nome.localeCompare(b.nome, "it"));
+  $("#conteggio").textContent = elenco.length === 1 ? "1 scheda" : `${elenco.length} schede`;
+  $("#griglia").innerHTML = elenco.map((o) => {
+    const img = immagineCarta(o);
+    return `<li><a class="carta" href="#scheda/${o.id}">
+      ${img ? `<img class="carta-immagine${FOTO[o.id] ? " carta-foto" : ""}" src="${img}" alt="" loading="lazy" width="800" height="500">` : ""}
+      <span class="etichetta etichetta-${o.categoria}">${CATEGORIE[o.categoria]}</span>
+      <span class="carta-nome">${esc(o.nome)}</span>
+      ${etichetteEmisferi(o)}
+      <span class="carta-testo">${esc(o.cosa)}</span>
+    </a></li>`;
+  }).join("") || `<li class="vuoto">Nessuna scheda trovata.</li>`;
+}
+
+// Da dove si vede: testo per costellazioni e galassie
+function testoVisibilita(o) {
+  const parti = [];
+  if (o.italia === "si") parti.push("Dall'Italia si vede tutta.");
+  else if (o.italia === "parte") parti.push(`Dall'Italia se ne vede solo una parte, bassa sull'orizzonte sud.${o.sicilia === "si" ? " Dalla Sicilia e dal Sud Italia si vede quasi tutta." : ""}`);
+  else parti.push(`Dall'Italia non sorge mai.${o.sicilia === "parte" ? " Dalla Sicilia e dal Sud Italia se ne intravede appena una parte, rasente l'orizzonte sud." : ""}`);
+  if (o.sud === "si") parti.push("Dall'Australia e dal Sud America (per esempio Sydney, Buenos Aires, Santiago del Cile) si vede tutta.");
+  else if (o.sud === "parte") parti.push("Dall'Australia e dal Sud America se ne vede solo una parte, bassa sull'orizzonte nord.");
+  else parti.push("Dall'Australia e dal Sud America non sorge mai: è un oggetto del cielo del Nord.");
+  return parti.join(" ");
+}
+
+function sezioneStelle(o) {
+  if (!o.stelle || !o.stelle.length) return "";
+  return `<section><h2>Le stelle principali</h2><ul class="stelle">
+    ${o.stelle.map((s) => `<li><span class="stella-nome">${esc(s.nome)}</span>
+      <span class="stella-dati">${esc(s.sigla)}, magnitudine ${String(s.mag).replace(".", ",")}</span>
+      <br>${esc(s.significato)}</li>`).join("")}
+  </ul></section>`;
 }
 
 function mostraScheda(id) {
   const o = OGGETTI.find((x) => x.id === id);
   if (!o) return mostraSchede();
+  if (o.categoria === "lune") return mostraLune(o);
+  if (o.categoria === "leggenda") return mostraLeggenda(o);
   const data = new Date();
   const pos = posizione(o, data, osservatore(stato.luogo));
+  const maiDaQui = !o.corpo && 90 - Math.abs(stato.luogo.lat - o.dec) < 0;
   const adesso = pos.altezza > 0
     ? `Adesso è a ${direzione(pos.azimut)}, ${altezzaInPugni(pos.altezza)} (${Math.round(pos.altezza)}°).`
-    : "Adesso è sotto l'orizzonte.";
+    : maiDaQui
+      ? `Da ${esc(stato.luogo.nome)} non sorge mai: ${stato.luogo.lat > 0 ? "si vede dall'emisfero australe." : "si vede dall'emisfero boreale."}`
+      : "Adesso è sotto l'orizzonte.";
   const voci = [
     ["Cos'è", o.cosa],
     ["Quando", o.quando],
@@ -169,23 +255,76 @@ function mostraScheda(id) {
     ["Origine del nome", o.origine],
     ["Storia", o.storia],
   ];
+  const mappa = o.immagine || `images/${o.id}.svg`;
   $("#contenuto").innerHTML = `
     <article class="scheda">
       <a class="indietro" href="#schede">‹ Tutte le schede</a>
       <span class="etichetta etichetta-${o.categoria}">${CATEGORIE[o.categoria]}</span>
       <h1>${esc(o.nome)}</h1>
+      ${o.latino ? `<p class="sottotitolo">Nome latino: ${esc(o.latino)} (sigla ${esc(o.sigla)})</p>` : ""}
+      ${etichetteEmisferi(o)}
       <p class="adesso">${adesso} Strumento consigliato: ${esc(o.strumento.toLowerCase())}.</p>
       ${FOTO[o.id] ? `<figure class="scheda-immagine scheda-foto">
         <img src="images/foto/${o.id}.jpg" alt="Foto: ${esc(o.nome)}">
         <figcaption>Foto: ${esc(FOTO[o.id].autore)}. Licenza: ${esc(FOTO[o.id].licenza)}. <a href="${FOTO[o.id].fonte}" target="_blank" rel="noopener">Fonte</a></figcaption>
       </figure>` : ""}
       <figure class="scheda-immagine">
-        <img src="images/${o.id}.svg" alt="${o.corpo ? "Disegno" : "Mappa del cielo"}: ${esc(o.nome)}" width="800" height="500">
+        <img src="${mappa}" alt="${o.corpo ? "Disegno" : "Mappa del cielo"}: ${esc(o.nome)}" width="800" height="500">
         <figcaption>${o.corpo
           ? "Disegno illustrativo, non in scala."
           : "Mappa del cielo con le stelle vere. Dati: catalogo d3-celestial."}</figcaption>
       </figure>
+      ${o.italia ? `<section><h2>Da dove si vede</h2><p>${testoVisibilita(o)}</p></section>` : ""}
       ${voci.map(([t, testo]) => `<section><h2>${t}</h2><p>${esc(testo)}</p></section>`).join("")}
+      ${sezioneStelle(o)}
+    </article>`;
+  window.scrollTo(0, 0);
+}
+
+function mostraLune(o) {
+  const tabella = o.tabella && o.tabella.length ? `<section><h2>Le altre lune con un nome</h2>
+    <table class="tabella-lune">
+      <thead><tr><th>Nome</th><th>Diametro (km)</th><th>Scoperta</th><th>Famiglia</th></tr></thead>
+      <tbody>${o.tabella.map(([nome, diam, anno, gruppo]) => `<tr><td>${esc(nome)}</td><td>${esc(diam)}</td><td>${anno}</td><td>${esc(gruppo)}</td></tr>`).join("")}</tbody>
+    </table>
+    ${o.altre ? `<p class="nota">${esc(o.altre)}</p>` : ""}
+  </section>` : (o.altre ? `<section><p class="nota">${esc(o.altre)}</p></section>` : "");
+  $("#contenuto").innerHTML = `
+    <article class="scheda">
+      <a class="indietro" href="#schede">‹ Tutte le schede</a>
+      <span class="etichetta etichetta-lune">${CATEGORIE.lune}</span>
+      <h1>${esc(o.nome)}</h1>
+      ${o.totale !== null ? `<p class="totale-lune">${o.totale} ${o.totale === 1 ? "luna" : "lune"}</p>
+        <p class="nota">Lune conosciute${o.aggiornato ? ` a ${esc(o.aggiornato)}` : ""}. Fonte: NASA.</p>` : ""}
+      ${o.immagine ? `<figure class="scheda-immagine"><img src="${o.immagine}" alt="" width="800" height="500">
+        <figcaption>${o.id === "lune-esopianeti" ? "Il Cigno e la Lira: qui guardava il telescopio spaziale Kepler, che ha trovato i due candidati più famosi." : "Disegno illustrativo, non in scala."}</figcaption></figure>` : ""}
+      <section><h2>In breve</h2><p>${esc(o.introduzione)}</p></section>
+      ${o.osservare ? `<section><h2>Come osservarle</h2><p>${esc(o.osservare)}</p></section>` : ""}
+      ${o.principali.length ? `<section><h2>${o.id === "lune-esopianeti" ? "I candidati" : "Le lune principali"}</h2>
+        ${o.principali.map((l) => `<div class="luna-principale">
+          <h3>${esc(l.nome)}</h3>
+          <p class="stella-dati">${[l.diametro && `Diametro: ${l.diametro}`, l.scoperta && `Scoperta: ${l.scoperta}`].filter(Boolean).map(esc).join(" · ")}</p>
+          <p>${esc(l.testo)}</p>
+          ${l.origine ? `<p><b>Il nome.</b> ${esc(l.origine)}</p>` : ""}
+        </div>`).join("")}</section>` : ""}
+      ${tabella}
+      ${o.curiosita ? `<section><h2>Curiosità</h2><p>${esc(o.curiosita)}</p></section>` : ""}
+    </article>`;
+  window.scrollTo(0, 0);
+}
+
+function mostraLeggenda(o) {
+  const collegati = o.collegati.map((id) => OGGETTI.find((x) => x.id === id)).filter(Boolean);
+  $("#contenuto").innerHTML = `
+    <article class="scheda">
+      <a class="indietro" href="#schede">‹ Tutte le schede</a>
+      <span class="etichetta etichetta-leggenda">${CATEGORIE.leggenda}</span>
+      <h1>${esc(o.nome)}</h1>
+      <p class="sottotitolo">${esc(o.cosa)}</p>
+      ${o.immagine ? `<figure class="scheda-immagine"><img src="${o.immagine}" alt="" width="800" height="500"></figure>` : ""}
+      ${o.paragrafi.map((p) => `<section><h2>${esc(p.titolo)}</h2><p>${esc(p.testo)}</p></section>`).join("")}
+      ${collegati.length ? `<section><h2>Le schede collegate</h2><p class="collegati">
+        ${collegati.map((c) => `<a href="#scheda/${c.id}">${esc(c.nome)}</a>`).join("")}</p></section>` : ""}
     </article>`;
   window.scrollTo(0, 0);
 }
@@ -282,9 +421,12 @@ function mostraAiuto() {
       </section>
       <section>
         <h2>Schede</h2>
-        <p>Trenta oggetti del cielo: Luna, pianeti, stelle, costellazioni, ammassi e galassie.
+        <p>Luna, pianeti, stelle, tutte le 88 costellazioni, galassie, ammassi e nebulose.
           Per ognuno trovi cos'è, quando e dove guardare, con quale strumento, l'origine del nome e la sua storia.
           Tocca un oggetto nell'elenco di "Stasera" per aprire la sua scheda.</p>
+        <p>Costellazioni e galassie dicono se si vedono dall'Italia o solo dall'emisfero australe (Australia e Sud America):
+          scegli "Costellazione" e poi un filtro per emisfero. Ci sono anche le lune di tutti i pianeti, quelle cercate attorno
+          ad altre stelle e le leggende antiche sui nomi del cielo. Con la casella "Cerca" trovi subito una scheda.</p>
       </section>
       <section>
         <h2>Manuale</h2>

@@ -32,7 +32,10 @@ def carica(cartella):
          f["properties"].get("bv"), str(f["id"]))
         for f in leggi("stars.6.json")["features"]
     ]
-    linee = {f["id"]: f["geometry"]["coordinates"] for f in leggi("constellations.lines.json")["features"]}
+    linee = {}
+    for f in leggi("constellations.lines.json")["features"]:
+        # Il Serpente è diviso in due parti (Testa e Coda) con lo stesso id: si uniscono.
+        linee.setdefault(f["id"], []).extend(f["geometry"]["coordinates"])
     nomi_cost = {f["id"]: (f["properties"].get("it") or f["properties"]["name"], f["geometry"]["coordinates"])
                  for f in leggi("constellations.json")["features"]}
     nomi_stelle = {k: (v.get("it") or v.get("name")) for k, v in leggi("starnames.json").items()
@@ -285,16 +288,88 @@ STAGIONI = {
 }
 
 
+# Nomi italiani corretti dove quelli di d3-celestial sono diversi dall'uso comune
+NOMI_IT = {"Cae": "Bulino", "Eri": "Eridano", "Hya": "Idra", "Hyi": "Idra Maschio", "Vol": "Pesce Volante",
+           "Oph": "Ofiuco", "Cas": "Cassiopea", "Ser": "Serpente"}
+
+# Galassie: (ra ore, dec, campo gradi, titolo, bersaglio, costellazioni evidenziate, nomi costellazioni)
+GALASSIE = {
+    "via-lattea": (17.9, -25, 100, "Il centro della Via Lattea, tra Sagittario e Scorpione", ("Centro galattico", 17.76, -29.0),
+                   ("Sgr", "Sco"), ("Sgr", "Sco", "Oph")),
+    "m33": (1.6, 33, 40, "La Galassia del Triangolo", ("M33", 1.564, 30.66), ("Tri",), ("Tri", "And")),
+    "grande-nube-magellano": (5.4, -68, 50, "La Grande Nube di Magellano", ("Grande Nube", 5.393, -69.756), ("Dor",), ("Dor", "Men")),
+    "piccola-nube-magellano": (0.9, -70, 50, "La Piccola Nube di Magellano", ("Piccola Nube", 0.879, -72.829), ("Tuc",), ("Tuc", "Hyi")),
+    "m51": (13.3, 50, 40, "La Galassia Vortice, sotto il timone del Grande Carro", ("M51", 13.498, 47.195), ("CVn", "UMa"), ("CVn", "UMa")),
+    "m81": (10.5, 64, 45, "Le galassie di Bode e Sigaro", ("M81 e M82", 9.93, 69.4), ("UMa",), ("UMa",)),
+    "m82": (10.5, 64, 45, "Le galassie di Bode e Sigaro", ("M81 e M82", 9.93, 69.4), ("UMa",), ("UMa",)),
+    "m104": (12.6, -8, 40, "La Galassia Sombrero, tra Vergine e Corvo", ("M104", 12.667, -11.623), ("Vir", "Crv"), ("Vir", "Crv")),
+    "ngc-253": (0.8, -25, 40, "La Galassia dello Scultore", ("NGC 253", 0.7925, -25.288), ("Scl",), ("Scl", "Cet")),
+    "ngc-5128": (13.4, -45, 45, "Centaurus A", ("Centaurus A", 13.424, -43.019), ("Cen",), ("Cen",)),
+    "m101": (13.6, 53, 40, "La Galassia Girandola, vicino al timone del Grande Carro", ("M101", 14.054, 54.349), ("UMa",), ("UMa",)),
+    "tripletto-leone": (11.2, 16, 35, "Il Tripletto del Leone", ("M65, M66, NGC 3628", 11.33, 13.2), ("Leo",), ("Leo",)),
+    "m77": (2.8, 3, 35, "M77, nella Balena", ("M77", 2.711, -0.013), ("Cet",), ("Cet",)),
+    "m83": (13.6, -26, 40, "La Girandola Australe, nell'Idra", ("M83", 13.617, -29.866), ("Hya",), ("Hya", "Cen")),
+}
+
+
+def mappe_costellazioni(cartella_dati, dati):
+    """Una mappa per ognuna delle 88 costellazioni, centrata sui suoi confini ufficiali (IAU)."""
+    leggi = lambda nome: json.load(open(os.path.join(cartella_dati, nome), encoding="utf-8"))
+    punti = {}
+    for f in leggi("constellations.bounds.json")["features"]:
+        g = f["geometry"]
+        poligoni = g["coordinates"] if g["type"] == "MultiPolygon" else [g["coordinates"]]
+        for poligono in poligoni:
+            for anello in poligono:
+                punti.setdefault(f["id"], []).extend(anello)
+    stelle_mag = {hip: mag for _, _, mag, _, hip in dati[0]}
+    nomi_hip = {}
+    for hip, v in leggi("starnames.json").items():
+        if v.get("name") and v.get("c") and hip in stelle_mag:
+            nomi_hip.setdefault(v["c"], []).append(hip)
+    mappe = {}
+    for cid, pp in punti.items():
+        decs = [lat for _, lat in pp]
+        # Centro in ascensione retta: metà dell'arco occupato (i confini possono attraversare 0h)
+        lons = sorted({lon % 360 for lon, _ in pp})
+        salti = [((lons[(i + 1) % len(lons)] - lons[i]) % 360, i) for i in range(len(lons))]
+        salto, i = max(salti)
+        inizio, arco = lons[(i + 1) % len(lons)], 360 - salto
+        ra = ((inizio + arco / 2) % 360) / 15
+        dec = (min(decs) + max(decs)) / 2
+        if arco > 300:  # contiene il polo
+            dec = (max(decs) + 90) / 2 if dec > 0 else (min(decs) - 90) / 2
+        larghezza = max(math.degrees(math.acos(max(-1, min(1, math.sin(math.radians(dec)) * math.sin(math.radians(lat))
+                        + math.cos(math.radians(dec)) * math.cos(math.radians(lat)) * math.cos(math.radians(lon - ra * 15))))))
+                        for lon, lat in pp)
+        campo = max(35, min(120, larghezza * 3.4))
+        if cid == "Ser":  # due parti separate, Testa e Coda
+            ra, dec, campo = 17.0, 4, 90
+        if cid == "Cep":  # i confini arrivano al polo, ma la figura è attorno alle 22h
+            ra, dec, campo = 22.0, 68, 55
+        nome = NOMI_IT.get(cid, dati[2][cid][0])
+        mappe[cid] = mappa(dati, ra, dec, campo, nome, None, (cid,), etichette_extra=tuple(sorted(nomi_hip.get(cid, ()), key=stelle_mag.get)[:5]),
+                           mag_etichette=1.0, nomi_costellazioni=(cid,))
+    return mappe
+
+
 def main(cartella_dati, uscita):
     dati = carica(cartella_dati)
+    for cid, nome in NOMI_IT.items():
+        dati[2][cid] = (nome, dati[2][cid][1])
     os.makedirs(uscita, exist_ok=True)
     scrivi = lambda nome, svg: open(os.path.join(uscita, nome + ".svg"), "w", encoding="utf-8").write(svg)
     for cid, (ra, dec, campo, titolo, bersaglio, cost, nomi) in MAPPE.items():
         scrivi(cid, mappa(dati, ra, dec, campo, titolo, bersaglio, cost, nomi_costellazioni=nomi))
     for cid, (ra, dec, campo, titolo, cost, mag) in STAGIONI.items():
         scrivi(cid, mappa(dati, ra, dec, campo, titolo, None, cost, mag_etichette=mag))
+    for cid, (ra, dec, campo, titolo, bersaglio, cost, nomi) in GALASSIE.items():
+        scrivi(cid, mappa(dati, ra, dec, campo, titolo, bersaglio, cost, nomi_costellazioni=nomi))
     for cid, svg in disegni().items():
         scrivi(cid, svg)
+    os.makedirs(os.path.join(uscita, "costellazioni"), exist_ok=True)
+    for cid, svg in mappe_costellazioni(cartella_dati, dati).items():
+        scrivi(os.path.join("costellazioni", cid), svg)
 
 
 if __name__ == "__main__":

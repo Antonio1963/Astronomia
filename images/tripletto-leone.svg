@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+<rect width="800" height="500" fill="#0b1026"/>
+<polyline points="755.2,329.5 752.9,218.6 678.6,153.1 388.8,147.3 196.3,278.0 387.8,262.9 755.2,329.5" fill="none" stroke="#ffd479" stroke-width="2" stroke-opacity="0.9"/>
+<polyline points="678.6,153.1 689.9,69.7 809.3,-3.2 852.5,44.1" fill="none" stroke="#ffd479" stroke-width="2" stroke-opacity="0.9"/>
+<polyline points="207.7,462.5 176.8,571.6 4.0,622.7 -126.6,635.5 -304.9,727.1 -406.8,867.3 -737.0,712.3 -927.0,686.7" fill="none" stroke="#4a5891" stroke-width="1.1" stroke-opacity="0.8"/>
+<circle cx="690.5" cy="67.6" r="0.70" fill="#fff1c9"/>
+<circle cx="276.7" cy="230.2" r="0.70" fill="#cfdcff"/>
+<circle cx="490.7" cy="472.5" r="0.70" fill="#ffab7a"/>
+<circle cx="198.3" cy="284.7" r="0.70" fill="#ffffff"/>
+<circle cx="122.7" cy="115.9" r="0.70" fill="#ffffff"/>
+<circle cx="54.7" cy="369.6" r="0.70" fill="#ffffff"/>
+<circle cx="686.1" cy="24.7" r="0.70" fill="#ffab7a"/>
+<circle cx="687.6" cy="77.1" r="0.70" fill="#fff1c9"/>
+<circle cx="327.7" cy="353.2" r="0.70" fill="#ffab7a"/>
+<circle cx="388.5" cy="430.3" r="0.70" fill="#ffd29a"/>
+<circle cx="739.6" cy="501.1" r="0.70" fill="#ffd29a"/>
+<circle cx="563.7" cy="504.2" r="0.70" fill="#ffd29a"/>
+<circle cx="303.2" cy="262.3" r="0.70" fill="#ffab7a"/>
+<circle cx="68.3" cy="473.8" r="0.70" fill="#ffffff"/>
+<circle cx="416.5" cy="53.2" r="0.70" fill="#ffffff"/>
+<circle cx="766.7" cy="96.8" r="0.70" fill="#cfdcff"/>
+<circle cx="608.4" cy="413.3" r="0.70" fill="#ffffff"/>
+<circle cx="91.3" cy="11.1" r="0.70" fill="#ffab7a"/>
+<circle cx="663.8" cy="408.0" r="0.72" fill="#ffab7a"/>
+<circle cx="78.8" cy="133.6" r="0.74" fill="#ffd29a"/>
+<circle cx="326.0" cy="239.0" r="0.76" fill="#ffffff"/>
+<circle cx="156.9" cy="416.8" r="0.76" fill="#ffd29a"/>
+<circle cx="300.5" cy="194.2" r="0.80" fill="#ffd29a"/>
+<circle cx="161.0" cy="251.8" r="0.81" fill="#ffffff"/>
+<circle cx="548.5" cy="11.8" r="0.83" fill="#ffffff"/>
+<circle cx="537.5" cy="182.1" r="0.84" fill="#ffd29a"/>
+<circle cx="540.7" cy="288.9" r="0.85" fill="#ffd29a"/>
+<circle cx="619.3" cy="287.3" r="0.91" fill="#ffab7a"/>
+<circle cx="706.0" cy="292.0" r="0.92" fill="#ffab7a"/>
+<circle cx="527.1" cy="372.4" r="1.03" fill="#ffffff"/>
+<circle cx="378.7" cy="311.0" r="1.04" fill="#ffd29a"/>
+<circle cx="197.2" cy="422.8" r="1.04" fill="#ffffff"/>
+<circle cx="2.5" cy="0.5" r="1.06" fill="#cfdcff"/>
+<circle cx="247.5" cy="125.4" r="1.09" fill="#ffd29a"/>
+<circle cx="250.6" cy="426.9" r="1.11" fill="#ffab7a"/>
+<circle cx="27.1" cy="-1.0" r="1.19" fill="#ffffff"/>
+<circle cx="47.5" cy="261.8" r="1.27" fill="#ffffff"/>
+<circle cx="549.7" cy="83.6" r="1.28" fill="#ffffff"/>
+<circle cx="611.1" cy="452.2" r="1.29" fill="#ffd29a"/>
+<circle cx="463.9" cy="474.8" r="1.39" fill="#ffffff"/>
+<circle cx="63.6" cy="53.2" r="1.44" fill="#ffd29a"/>
+<circle cx="212.1" cy="423.0" r="1.53" fill="#ffffff"/>
+<circle cx="680.5" cy="161.5" r="1.60" fill="#fff1c9"/>
+<circle cx="35.8" cy="5.9" r="1.60" fill="#fff1c9"/>
+<circle cx="26.8" cy="193.0" r="1.66" fill="#ffd29a"/>
+<circle cx="122.0" cy="457.5" r="1.73" fill="#ffffff"/>
+<circle cx="439.5" cy="446.7" r="1.76" fill="#ffffff"/>
+<circle cx="383.2" cy="88.8" r="1.83" fill="#ffab7a"/>
+<circle cx="208.0" cy="149.6" r="1.89" fill="#fff1c9"/>
+<circle cx="451.5" cy="154.8" r="1.97" fill="#ffffff"/>
+<circle cx="760.9" cy="374.8" r="2.01" fill="#ffab7a"/>
+<circle cx="484.9" cy="50.1" r="2.10" fill="#ffffff"/>
+<circle cx="99.4" cy="407.5" r="2.29" fill="#ffd29a"/>
+<circle cx="348.1" cy="476.5" r="2.36" fill="#cfdcff"/>
+<circle cx="207.7" cy="462.5" r="2.37" fill="#ffab7a"/>
+<circle cx="333.4" cy="373.8" r="2.42" fill="#fff1c9"/>
+<circle cx="620.5" cy="397.8" r="2.58" fill="#cfdcff"/>
+<circle cx="752.9" cy="218.6" r="2.96" fill="#cfdcff"/>
+<circle cx="689.9" cy="69.7" r="3.01" fill="#ffffff"/>
+<circle cx="387.8" cy="262.9" r="3.12" fill="#cfdcff"/>
+<circle cx="388.8" cy="147.3" r="3.93" fill="#ffffff"/>
+<circle cx="196.3" cy="278.0" r="4.37" fill="#ffffff"/>
+<circle cx="678.6" cy="153.1" r="4.50" fill="#ffd29a"/>
+<circle cx="755.2" cy="329.5" r="5.19" fill="#cfdcff"/>
+<text x="597.5" y="268.5" font-size="13" fill="#ffd479" font-weight="600" text-anchor="middle" paint-order="stroke" stroke="#0b1026" stroke-width="3">LEONE</text>
+<text x="764.4" y="333.5" font-size="14" fill="#e8ecff" font-weight="400" text-anchor="start" paint-order="stroke" stroke="#0b1026" stroke-width="3">Regolo</text>
+<circle cx="356.9" cy="313.3" r="16" fill="none" stroke="#ffd479" stroke-width="2.5"/>
+<text x="356.9" y="289.3" font-size="16" fill="#ffd479" font-weight="700" text-anchor="middle" paint-order="stroke" stroke="#0b1026" stroke-width="3">M65, M66, NGC 3628</text>
+<text x="20.0" y="34.0" font-size="18" fill="#e8ecff" font-weight="700" text-anchor="start" paint-order="stroke" stroke="#0b1026" stroke-width="3">Il Tripletto del Leone</text>
+<text x="400.0" y="488.0" font-size="12" fill="#a3acd6" font-weight="400" text-anchor="middle" paint-order="stroke" stroke="#0b1026" stroke-width="3">Nord in alto, Est a sinistra</text>
+</svg>

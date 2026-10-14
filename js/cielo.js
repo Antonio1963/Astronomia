@@ -104,10 +104,15 @@ function pianetaDebole(oggetto) {
   return oggetto.categoria === "pianeta" && oggetto.mag > 5;
 }
 
+// Galassie, ammassi e nebulose: oggetti deboli, servono buio e altezza.
+function cieloProfondo(oggetto) {
+  return oggetto.categoria === "profondo" || oggetto.categoria === "galassia";
+}
+
 function altezzaMinima(oggetto) {
   if (pianetaDebole(oggetto)) return 20;
   if (oggetto.categoria === "luna" || oggetto.categoria === "pianeta") return 5;
-  if (oggetto.categoria === "profondo") return 20;
+  if (cieloProfondo(oggetto)) return 20;
   return 10;
 }
 
@@ -117,7 +122,7 @@ function cieloAbbastanzaBuio(oggetto, altSole) {
   if (oggetto.categoria === "luna") return altSole < 0;
   if (pianetaDebole(oggetto)) return altSole < -15;
   if (oggetto.categoria === "pianeta") return altSole < -4;
-  if (oggetto.categoria === "profondo") return altSole < -15;
+  if (cieloProfondo(oggetto)) return altSole < -15;
   return altSole < -8;
 }
 
@@ -126,16 +131,17 @@ function cosaVedere(oggetti, data, luogo) {
   const altSole = altezzaSole(data, oss);
   const luna = infoLuna(data, oss);
   const lunaDisturba = luna.altezza > 0 && luna.illuminata > 0.6;
-  const ordine = { luna: 0, pianeta: 1, stella: 2, costellazione: 3, profondo: 4 };
+  const ordine = { luna: 0, pianeta: 1, stella: 2, costellazione: 3, galassia: 4, profondo: 5 };
 
   return oggetti
+    .filter((o) => (o.corpo || o.ra !== undefined) && o.stasera !== false)
     .map((o) => {
       const pos = posizione(o, data, oss);
       return {
         oggetto: o,
         ...pos,
         visibile: pos.altezza >= altezzaMinima(o) && cieloAbbastanzaBuio(o, altSole),
-        disturbatoDallaLuna: (o.categoria === "profondo" || pianetaDebole(o)) && lunaDisturba,
+        disturbatoDallaLuna: (cieloProfondo(o) || pianetaDebole(o)) && lunaDisturba,
       };
     })
     .filter((r) => r.visibile)

@@ -177,7 +177,7 @@
 <circle cx="528.3" cy="254.5" r="4.22" fill="#ffffff"/>
 <circle cx="453.2" cy="316.6" r="4.26" fill="#ffd29a"/>
 <circle cx="408.0" cy="235.8" r="4.36" fill="#cfdcff"/>
-<text x="632.8" y="302.6" font-size="13" fill="#ffd479" font-weight="600" text-anchor="middle" paint-order="stroke" stroke="#0b1026" stroke-width="3">CASSIOPEIA</text>
+<text x="632.8" y="302.6" font-size="13" fill="#ffd479" font-weight="600" text-anchor="middle" paint-order="stroke" stroke="#0b1026" stroke-width="3">CASSIOPEA</text>
 <text x="20.0" y="34.0" font-size="18" fill="#e8ecff" font-weight="700" text-anchor="start" paint-order="stroke" stroke="#0b1026" stroke-width="3">Cassiopea, la W del cielo</text>
 <text x="400.0" y="488.0" font-size="12" fill="#a3acd6" font-weight="400" text-anchor="middle" paint-order="stroke" stroke="#0b1026" stroke-width="3">Nord in alto, Est a sinistra</text>
 </svg>

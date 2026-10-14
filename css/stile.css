@@ -12,6 +12,9 @@
   --stella-c: #9fd2ff;
   --costellazione-c: #c5a8ff;
   --profondo-c: #8ee6c4;
+  --galassia-c: #f2a6d8;
+  --lune-c: #e6e1a1;
+  --leggenda-c: #ffb38a;
   --avviso: #ff9b8a;
   color-scheme: dark;
 }
@@ -31,6 +34,9 @@
   --stella-c: #ff3b30;
   --costellazione-c: #ff3b30;
   --profondo-c: #ff3b30;
+  --galassia-c: #ff3b30;
+  --lune-c: #ff3b30;
+  --leggenda-c: #ff3b30;
   --avviso: #ff3b30;
 }
 
@@ -118,6 +124,35 @@ main { max-width: 760px; margin: 0 auto; padding: 16px; }
 .etichetta-stella { color: var(--stella-c); }
 .etichetta-costellazione { color: var(--costellazione-c); }
 .etichetta-profondo { color: var(--profondo-c); }
+.etichetta-galassia { color: var(--galassia-c); }
+.etichetta-lune { color: var(--lune-c); }
+.etichetta-leggenda { color: var(--leggenda-c); }
+
+/* Visibilità dai due emisferi */
+.emisferi { display: flex; flex-wrap: wrap; gap: 6px; }
+.emisfero { font-size: .72rem; padding: 2px 8px; border-radius: 999px; background: var(--sfondo); border: 1px solid var(--bordo); color: var(--testo-tenue); }
+.emisfero-si { color: var(--profondo-c); }
+.emisfero-parte { color: var(--pianeta-c); }
+.emisfero-no { color: var(--testo-tenue); opacity: .8; }
+.filtri-emisfero button { font-size: .82rem; padding: 6px 10px; }
+.cerca { width: 100%; margin-bottom: 12px; }
+.conteggio { font-size: .85rem; color: var(--testo-tenue); margin: 0 0 8px; }
+
+/* Stelle principali e tabelle delle lune */
+.stelle { list-style: none; padding: 0; margin: 0; }
+.stelle li + li { margin-top: 10px; }
+.stelle .stella-nome { font-weight: 600; }
+.stelle .stella-dati { font-size: .8rem; color: var(--testo-tenue); }
+.luna-principale + .luna-principale { margin-top: 14px; }
+.luna-principale h3 { margin: 0 0 2px; font-size: 1.05rem; }
+.luna-principale .stella-dati { font-size: .8rem; color: var(--testo-tenue); margin: 0 0 4px; }
+.tabella-lune { width: 100%; border-collapse: collapse; font-size: .88rem; }
+.tabella-lune th, .tabella-lune td { border-bottom: 1px solid var(--bordo); padding: 6px 4px; text-align: left; }
+.tabella-lune th { color: var(--testo-tenue); font-weight: 600; }
+.tabella-lune td:nth-child(2), .tabella-lune td:nth-child(3), .tabella-lune th:nth-child(2), .tabella-lune th:nth-child(3) { text-align: right; white-space: nowrap; }
+.totale-lune { font-size: 2rem; font-weight: 700; color: var(--accento); margin: 4px 0 0; }
+.collegati { display: flex; flex-wrap: wrap; gap: 8px; }
+.collegati a { font-size: .85rem; color: var(--accento); text-decoration: none; border: 1px solid var(--bordo); border-radius: 999px; padding: 4px 10px; }
 
 .griglia { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
 .carta {

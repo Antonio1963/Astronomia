@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+<rect width="800" height="500" fill="#0b1026"/>
+<polyline points="493.5,394.2 485.9,346.0 457.9,230.1 381.8,206.5 359.0,362.8 485.9,346.0" fill="none" stroke="#ffd479" stroke-width="2" stroke-opacity="0.9"/>
+<polyline points="680.9,61.3 747.9,89.9 770.6,182.7 870.9,275.3 794.0,372.5 740.5,272.9 734.4,247.0 625.1,254.5 565.4,224.2" fill="none" stroke="#4a5891" stroke-width="1.1" stroke-opacity="0.8"/>
+<polyline points="770.6,182.7 734.4,247.0" fill="none" stroke="#4a5891" stroke-width="1.1" stroke-opacity="0.8"/>
+<polyline points="1803.4,-244.5 1789.1,-228.6 1818.3,-151.2 1851.3,-144.7 1869.2,-214.9 1803.4,-244.5 1738.4,-237.6 1591.2,-150.2 1407.3,-79.3 1455.0,129.8 1275.6,256.8 1172.8,174.7 1064.7,267.9 933.6,233.2 661.8,568.9 561.2,608.3 125.6,368.6 -113.0,481.0 -337.6,561.1" fill="none" stroke="#4a5891" stroke-width="1.1" stroke-opacity="0.8"/>
+<polyline points="640.9,-323.1 609.8,-210.5 438.4,-156.2 312.2,-137.6 151.1,-38.8 70.8,95.6 -235.2,-0.2 -400.7,10.6" fill="none" stroke="#4a5891" stroke-width="1.1" stroke-opacity="0.8"/>
+<polyline points="151.1,-38.8 1.3,-147.9 -163.5,-190.1 -441.8,-177.2" fill="none" stroke="#4a5891" stroke-width="1.1" stroke-opacity="0.8"/>
+<circle cx="334.2" cy="246.3" r="0.70" fill="#ffffff"/>
+<circle cx="245.0" cy="98.3" r="0.70" fill="#ffffff"/>
+<circle cx="407.4" cy="95.0" r="0.70" fill="#ffffff"/>
+<circle cx="157.0" cy="71.6" r="0.70" fill="#ffab7a"/>
+<circle cx="705.5" cy="16.9" r="0.70" fill="#ffab7a"/>
+<circle cx="433.3" cy="335.0" r="0.70" fill="#ffd29a"/>
+<circle cx="731.1" cy="123.4" r="0.70" fill="#fff1c9"/>
+<circle cx="555.0" cy="482.5" r="0.70" fill="#ffab7a"/>
+<circle cx="20.8" cy="147.0" r="0.70" fill="#ffffff"/>
+<circle cx="461.1" cy="305.1" r="0.70" fill="#ffd29a"/>
+<circle cx="695.2" cy="400.3" r="0.70" fill="#ffffff"/>
+<circle cx="366.5" cy="146.3" r="0.70" fill="#ffffff"/>
+<circle cx="40.0" cy="454.4" r="0.70" fill="#ffffff"/>
+<circle cx="67.5" cy="502.6" r="0.70" fill="#ffffff"/>
+<circle cx="416.3" cy="395.4" r="0.70" fill="#ffd29a"/>
+<circle cx="289.1" cy="460.3" r="0.70" fill="#ffd29a"/>
+<circle cx="380.4" cy="369.4" r="0.70" fill="#ffab7a"/>
+<circle cx="360.9" cy="122.9" r="0.76" fill="#ffd29a"/>
+<circle cx="201.9" cy="304.1" r="0.76" fill="#fff1c9"/>
+<circle cx="162.5" cy="40.3" r="0.77" fill="#ffd29a"/>
+<circle cx="544.5" cy="70.5" r="0.80" fill="#fff1c9"/>
+<circle cx="35.1" cy="195.7" r="0.82" fill="#ffab7a"/>
+<circle cx="665.4" cy="138.8" r="0.86" fill="#fff1c9"/>
+<circle cx="359.1" cy="46.0" r="0.86" fill="#cfdcff"/>
+<circle cx="312.0" cy="476.1" r="0.88" fill="#ffab7a"/>
+<circle cx="480.5" cy="368.2" r="0.89" fill="#ffffff"/>
+<circle cx="793.9" cy="496.0" r="0.91" fill="#ffffff"/>
+<circle cx="343.2" cy="448.3" r="0.93" fill="#ffffff"/>
+<circle cx="93.8" cy="245.9" r="0.99" fill="#ffd29a"/>
+<circle cx="145.3" cy="292.6" r="1.04" fill="#ffd29a"/>
+<circle cx="537.1" cy="280.2" r="1.07" fill="#cfdcff"/>
+<circle cx="64.7" cy="131.9" r="1.08" fill="#ffab7a"/>
+<circle cx="563.3" cy="419.5" r="1.09" fill="#ffd29a"/>
+<circle cx="135.6" cy="293.6" r="1.14" fill="#ffd29a"/>
+<circle cx="25.1" cy="75.6" r="1.14" fill="#ffd29a"/>
+<circle cx="431.3" cy="335.9" r="1.15" fill="#cfdcff"/>
+<circle cx="565.4" cy="224.2" r="1.19" fill="#cfdcff"/>
+<circle cx="318.3" cy="127.6" r="1.19" fill="#fff1c9"/>
+<circle cx="167.9" cy="80.5" r="1.21" fill="#ffd29a"/>
+<circle cx="430.9" cy="139.6" r="1.22" fill="#ffd29a"/>
+<circle cx="592.5" cy="445.0" r="1.26" fill="#ffab7a"/>
+<circle cx="740.5" cy="272.9" r="1.28" fill="#fff1c9"/>
+<circle cx="151.3" cy="206.6" r="1.32" fill="#fff1c9"/>
+<circle cx="177.4" cy="363.6" r="1.43" fill="#ffd29a"/>
+<circle cx="747.9" cy="89.9" r="1.56" fill="#ffab7a"/>
+<circle cx="243.3" cy="50.1" r="1.61" fill="#ffab7a"/>
+<circle cx="66.2" cy="207.3" r="1.62" fill="#ffd29a"/>
+<circle cx="119.9" cy="257.2" r="1.64" fill="#fff1c9"/>
+<circle cx="625.1" cy="254.5" r="1.67" fill="#ffd29a"/>
+<circle cx="680.9" cy="61.3" r="1.68" fill="#cfdcff"/>
+<circle cx="327.9" cy="13.0" r="1.72" fill="#ffab7a"/>
+<circle cx="794.0" cy="372.5" r="1.93" fill="#ffffff"/>
+<circle cx="369.7" cy="199.3" r="2.10" fill="#ffffff"/>
+<circle cx="734.4" cy="247.0" r="2.35" fill="#ffffff"/>
+<circle cx="493.5" cy="394.2" r="2.39" fill="#ffffff"/>
+<circle cx="770.6" cy="182.7" r="2.88" fill="#ffd29a"/>
+<circle cx="485.9" cy="346.0" r="3.44" fill="#ffab7a"/>
+<circle cx="125.6" cy="368.6" r="3.48" fill="#ffd29a"/>
+<circle cx="381.8" cy="206.5" r="3.53" fill="#cfdcff"/>
+<circle cx="359.0" cy="362.8" r="3.83" fill="#ffd29a"/>
+<circle cx="457.9" cy="230.1" r="3.91" fill="#cfdcff"/>
+<circle cx="70.8" cy="95.6" r="5.59" fill="#cfdcff"/>
+<text x="413.5" y="274.1" font-size="13" fill="#ffd479" font-weight="600" text-anchor="middle" paint-order="stroke" stroke="#0b1026" stroke-width="3">CORVO</text>
+<text x="499.9" y="398.2" font-size="14" fill="#e8ecff" font-weight="400" text-anchor="start" paint-order="stroke" stroke="#0b1026" stroke-width="3">Alchiba</text>
+<text x="493.4" y="350.0" font-size="14" fill="#e8ecff" font-weight="400" text-anchor="start" paint-order="stroke" stroke="#0b1026" stroke-width="3">Minkar</text>
+<text x="389.3" y="210.5" font-size="14" fill="#e8ecff" font-weight="400" text-anchor="start" paint-order="stroke" stroke="#0b1026" stroke-width="3">Algorab</text>
+<text x="366.8" y="366.8" font-size="14" fill="#e8ecff" font-weight="400" text-anchor="start" paint-order="stroke" stroke="#0b1026" stroke-width="3">Kraz</text>
+<text x="465.8" y="234.1" font-size="14" fill="#e8ecff" font-weight="400" text-anchor="start" paint-order="stroke" stroke="#0b1026" stroke-width="3">Gienah</text>
+<text x="80.4" y="99.6" font-size="14" fill="#e8ecff" font-weight="400" text-anchor="start" paint-order="stroke" stroke="#0b1026" stroke-width="3">Spica</text>
+<text x="20.0" y="34.0" font-size="18" fill="#e8ecff" font-weight="700" text-anchor="start" paint-order="stroke" stroke="#0b1026" stroke-width="3">Corvo</text>
+<text x="400.0" y="488.0" font-size="12" fill="#a3acd6" font-weight="400" text-anchor="middle" paint-order="stroke" stroke="#0b1026" stroke-width="3">Nord in alto, Est a sinistra</text>
+</svg>

@@ -5,9 +5,12 @@
 const CATEGORIE = {
   luna: "Luna",
   pianeta: "Pianeta",
+  lune: "Lune dei pianeti",
   stella: "Stella",
   costellazione: "Costellazione",
-  profondo: "Cielo profondo",
+  galassia: "Galassia",
+  profondo: "Ammassi e nebulose",
+  leggenda: "Leggende",
 };
 
 const OGGETTI = [
