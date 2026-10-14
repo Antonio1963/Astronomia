@@ -434,7 +434,7 @@ function mostraAiuto() {
       </section>
       <section>
         <h2>Strumenti</h2>
-        <p>Quarantuno schede su telescopi, osservatori, satelliti e sonde: dal cannocchiale di Galileo al telescopio James Webb.
+        <p>Quarantadue schede su telescopi, osservatori, satelliti e sonde: dal cannocchiale di Galileo al telescopio James Webb.
           Per ognuno trovi cos'è, dove si trova, cosa ha scoperto, l'origine del nome e qualche curiosità.</p>
       </section>
       <section>

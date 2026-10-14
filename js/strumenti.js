@@ -197,9 +197,9 @@ const STRUMENTI = [
     curiosita: "I dati erano così tanti che non si potevano spedire via Internet: viaggiarono in aereo su centinaia di dischi rigidi.",
   },
   {
-    id: "srt", nome: "Sardinia Radio Telescope e i radiotelescopi italiani", gruppo: "terra", stato: "attivo",
+    id: "srt", nome: "Sardinia Radio Telescope (SRT)", gruppo: "terra", stato: "attivo",
     tipo: "Radiotelescopio da 64 metri", luce: "Onde radio", anni: "dal 2013",
-    cosa: "Il più grande radiotelescopio italiano: una parabola di 64 metri con una superficie che si deforma di frazioni di millimetro per restare perfetta. Gli altri due grandi radiotelescopi italiani sono quello di Medicina, vicino a Bologna (ha una scheda sua), e la parabola da 32 metri di Noto (Siracusa, 1988), tutti gestiti dall'INAF.",
+    cosa: "Il più grande radiotelescopio italiano: una parabola di 64 metri con una superficie \"attiva\", fatta di pannelli mossi da motorini che la correggono di frazioni di millimetro per tenerla perfetta mentre il telescopio si inclina. È uno dei tre grandi radiotelescopi italiani dell'INAF, insieme a quelli di Medicina e di Noto (ognuno ha la sua scheda).",
     dove: "A San Basilio, nel sud della Sardegna, a circa 35 km da Cagliari.",
     quando: "Inaugurato nel 2013.",
     scoperte: "Studia pulsar, galassie e il Sole, e collabora con le reti di radiotelescopi europee e mondiali. L'Agenzia Spaziale Italiana lo usa anche per comunicare con le sonde nello spazio.",
@@ -216,6 +216,16 @@ const STRUMENTI = [
     origine: "Il radiotelescopio prende il nome dal paese. Secondo la tradizione Medicina deve il suo nome a una pozione che guarì l'imperatore Federico Barbarossa. La Croce del Nord si chiama così per la sua forma (in origine era una vera croce) e ricorda l'asterismo con lo stesso nome nella costellazione del Cigno.",
     curiosita: "La Croce del Nord fu ideata da Marcello Ceccarelli, il fisico che fondò la radioastronomia italiana. Oggi una parte dell'antenna, insieme all'Agenzia Spaziale Italiana, sorveglia anche i detriti spaziali in orbita attorno alla Terra, e la parabola partecipa alle reti di radiotelescopi che uniscono antenne di tutto il mondo (VLBI).",
     collegati: ["cigno", "giove"],
+  },
+  {
+    id: "noto", nome: "Il radiotelescopio di Noto", gruppo: "terra", stato: "attivo",
+    tipo: "Radiotelescopio da 32 metri", luce: "Onde radio", anni: "dal 1988",
+    cosa: "Una parabola da 32 metri che pesa più di 300 tonnellate e gira su una rotaia circolare. È gemella di quella di Medicina, ma ha una superficie attiva: 240 pannelli spinti da 244 piccoli motori che correggono le deformazioni dovute al peso, così può osservare anche le onde radio più corte, di pochi millimetri. La gestisce l'INAF, Istituto di Radioastronomia.",
+    dove: "In contrada Renna Bassa, nel comune di Noto, in provincia di Siracusa (Sicilia). È uno dei radiotelescopi più a sud d'Europa, e da lì vede più in basso verso il cielo australe.",
+    quando: "Inaugurato il 28 ottobre 1988. Nel 2010 si ruppe un cuscinetto di una delle ruote: dopo due anni di fermo e lavori per circa un milione di euro, tornò a osservare nel gennaio 2012.",
+    scoperte: "Lavora soprattutto in rete con le antenne di tutto il mondo (VLBI) per studiare con grande dettaglio quasar, nuclei di galassie e stelle nascenti. Serve anche alla geodesia: misurando con precisione le distanze tra antenne lontanissime si vede di quanti millimetri all'anno si spostano i continenti, compresa la Sicilia spinta dall'Africa. Viene usato anche per seguire sonde spaziali e detriti in orbita.",
+    origine: "Prende il nome dalla città di Noto, l'antica Netum dei romani, famosa per il suo barocco patrimonio dell'UNESCO.",
+    curiosita: "Dal 2012 è collegato con la fibra ottica alla rete della ricerca italiana: i suoi dati arrivano in tempo reale al centro europeo che li combina con quelli delle altre antenne (e-VLBI), senza dover spedire i dischi rigidi.",
   },
   {
     id: "fast", nome: "FAST, l'Occhio del Cielo", gruppo: "terra", stato: "attivo",
