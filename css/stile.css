@@ -264,3 +264,30 @@ select { width: 100%; }
 .trova-avvia { font-size: 1.05rem; background: var(--accento); color: var(--sfondo); border-color: var(--accento); }
 .trova-alto .pillola { max-width: none; flex-shrink: 0; }
 .trova-alto strong { flex: 1; text-align: center; font-size: .95rem; line-height: 1.2; }
+
+/* Mappa del Sistema Solare */
+.ss-mappa { width: 100%; max-width: 560px; height: auto; display: block; margin: 0 auto; }
+.ss-sfondo { fill: var(--sfondo); stroke: var(--bordo); }
+.ss-orbita { fill: none; stroke: var(--bordo); stroke-width: 1.2; }
+.ss-orbita-scelta { stroke: var(--pianeta-c); stroke-dasharray: 3 4; }
+.ss-linea { stroke: var(--accento); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.ss-sole { fill: #ffd34d; }
+.ss-alone { fill: none; stroke: var(--accento); stroke-width: 2; }
+.ss-anelli { fill: none; stroke: #e6d3a3; stroke-width: 2; }
+.ss-nome { fill: var(--testo); font-size: 17px; font-family: inherit; }
+.ss-nome-scelto { fill: var(--accento); font-weight: 700; }
+.ss-nota { fill: var(--testo-tenue); font-size: 15px; font-family: inherit; }
+.ss-mercurio { fill: #b5aca3; } .ss-venere { fill: #f0dca0; } .ss-terra { fill: #4c8fe8; }
+.ss-marte { fill: #d0603a; } .ss-giove { fill: #d9b38c; } .ss-saturno { fill: #e8cf8f; }
+.ss-urano { fill: #9fe0e6; } .ss-nettuno { fill: #4a6fe0; }
+:root.notte .ss-pianeta, :root.notte .ss-sole, :root.notte .ss-anelli { fill: #ff3b30; stroke: #ff3b30; }
+:root.notte .ss-anelli { fill: none; }
+.ss-date { margin: 10px 0 0; }
+.tabella-ss td:nth-child(4), .tabella-ss th:nth-child(4) { text-align: left; white-space: normal; }
+.tabella-ss { font-size: .82rem; }
+.tabella-ss th { white-space: normal !important; }
+.tabella-ss td:nth-child(4) { white-space: normal !important; }
+.tabella-ss td:nth-child(3), .tabella-ss th:nth-child(3) { text-align: right; }
+.riquadro-ss { display: flex; gap: 12px; align-items: center; margin: 10px 0; padding: 12px 14px; border: 1px solid var(--pianeta-c);
+  border-radius: 12px; color: var(--testo); text-decoration: none; font-size: .92rem; background: var(--superficie); }
+.riquadro-ss > :first-child { font-size: 1.6rem; }

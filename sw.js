@@ -1,5 +1,5 @@
 // Salva l'app sul dispositivo, così funziona anche senza rete sul campo.
-const VERSIONE = "cielo-v18";
+const VERSIONE = "cielo-v19";
 const FILE = [
   "./",
   "index.html",
@@ -14,6 +14,7 @@ const FILE = [
   "js/cielo.js",
   "js/centri-mappe.js",
   "js/trova.js",
+  "js/sistema-solare.js",
   "js/app.js",
   "js/strumenti.js",
   "js/manuale.js",
@@ -67,6 +68,7 @@ const FILE = [
   "images/rigel.svg",
   "images/saturno.svg",
   "images/urano.svg",
+  "images/terra.svg",
   "images/nettuno.svg",
   "images/scorpione.svg",
   "images/sirio.svg",

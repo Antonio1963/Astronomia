@@ -111,6 +111,7 @@ function mostraStasera() {
       ${visibili.length
         ? `<ul class="elenco">${visibili.map(rigaOggetto).join("")}</ul>`
         : `<p class="vuoto">In questo momento nessun oggetto delle schede è ben visibile. Prova con il pulsante "Stasera".</p>`}
+      <p class="nota-pugni"><a href="#sistema-solare">🪐 Dove sono oggi i pianeti nel Sistema Solare</a></p>
       <p class="nota-pugni">Per misurare l'altezza: un pugno chiuso a braccio teso copre circa 10 gradi di cielo.</p>
     </section>`;
 
@@ -195,6 +196,7 @@ function mostraSchede() {
       ${Object.entries(FILTRI_EMISFERO).map(([k, [nome]]) => `<button data-emisfero="${k}" class="${(stato.emisfero || "tutte") === k ? "attivo" : ""}">${nome}</button>`).join("")}
     </div>` : ""}
     <input type="search" id="cerca" class="cerca" placeholder="Cerca per nome (es. Orione, Sirio, Titano)" value="${esc(stato.cerca || "")}" aria-label="Cerca una scheda">
+    ${stato.filtro === "pianeta" || stato.filtro === "tutti" ? `<a class="riquadro-ss" href="#sistema-solare"><span>🪐</span><span><b>Il Sistema Solare oggi</b><br>La mappa con dove si trovano adesso tutti gli otto pianeti</span></a>` : ""}
     <p class="conteggio" id="conteggio"></p>
     <ul class="griglia" id="griglia"></ul>`;
   disegnaGriglia();
@@ -266,9 +268,11 @@ function mostraScheda(id) {
   if (o.categoria === "lune") return mostraLune(o);
   if (o.categoria === "leggenda") return mostraLeggenda(o);
   const data = new Date();
-  const pos = posizione(o, data, osservatore(stato.luogo));
+  const pos = o.noi ? null : posizione(o, data, osservatore(stato.luogo));
   const maiDaQui = !o.corpo && 90 - Math.abs(stato.luogo.lat - o.dec) < 0;
-  const adesso = pos.altezza > 0
+  const adesso = o.noi
+    ? "Non si cerca in cielo: è il pianeta che hai sotto i piedi, quello da cui guardiamo tutti gli altri."
+    : pos.altezza > 0
     ? `Adesso è a ${direzione(pos.azimut)}, ${altezzaInPugni(pos.altezza)} (${Math.round(pos.altezza)}°).`
     : maiDaQui
       ? `Da ${esc(stato.luogo.nome)} non sorge mai: ${stato.luogo.lat > 0 ? "si vede dall'emisfero australe." : "si vede dall'emisfero boreale."}`
@@ -289,19 +293,20 @@ function mostraScheda(id) {
       <h1>${esc(o.nome)}</h1>
       ${o.latino ? `<p class="sottotitolo">Nome latino: ${esc(o.latino)} (sigla ${esc(o.sigla)})</p>` : ""}
       ${etichetteEmisferi(o)}
-      <p class="adesso">${adesso} Strumento consigliato: ${esc(o.strumento.toLowerCase())}.</p>
-      ${maiDaQui ? "" : `<a class="pulsante pulsante-trova" href="#trova/${esc(o.id)}">🧭 Guidami in cielo col telefono</a>`}
+      <p class="adesso">${adesso}${o.noi ? "" : ` Strumento consigliato: ${esc(o.strumento.toLowerCase())}.`}</p>
+      ${maiDaQui || o.noi ? "" : `<a class="pulsante pulsante-trova" href="#trova/${esc(o.id)}">🧭 Guidami in cielo col telefono</a>`}
       ${FOTO[o.id] ? `<figure class="scheda-immagine scheda-foto">
         <img src="images/foto/${o.id}.jpg" alt="Foto: ${esc(o.nome)}">
         <figcaption>${creditoFoto(FOTO[o.id])}</figcaption>
       </figure>` : ""}
       <figure class="scheda-immagine">
-        <img src="${mappa}" alt="${o.corpo ? "Disegno" : "Mappa del cielo"}: ${esc(o.nome)}" width="800" height="500">
-        <figcaption>${o.corpo
+        <img src="${mappa}" alt="${o.corpo || o.noi ? "Disegno" : "Mappa del cielo"}: ${esc(o.nome)}" width="800" height="500">
+        <figcaption>${o.corpo || o.noi
           ? "Disegno illustrativo, non in scala."
           : "Mappa del cielo con le stelle vere. Dati: catalogo d3-celestial."}</figcaption>
       </figure>
       ${figuraMito(o)}
+      ${o.categoria === "pianeta" ? figuraSistemaSolare(o.id) : ""}
       ${o.italia ? `<section><h2>Da dove si vede</h2><p>${testoVisibilita(o)}</p></section>` : ""}
       ${voci.map(([t, testo]) => `<section><h2>${t}</h2><p>${esc(testo)}</p></section>`).join("")}
       ${sezioneStelle(o)}
@@ -606,13 +611,14 @@ function instrada() {
   const [pagina, id] = location.hash.slice(1).split("/");
   chiudiTrova();
   document.querySelectorAll(".schede-nav a").forEach((a) =>
-    a.classList.toggle("attivo", a.getAttribute("href") === `#${pagina === "scheda" || pagina === "trova" ? "schede" : pagina === "capitolo" ? "manuale" : pagina === "strumento" ? "strumenti" : pagina || "stasera"}`)
+    a.classList.toggle("attivo", a.getAttribute("href") === `#${pagina === "scheda" || pagina === "trova" || pagina === "sistema-solare" ? "schede" : pagina === "capitolo" ? "manuale" : pagina === "strumento" ? "strumenti" : pagina || "stasera"}`)
   );
   if (appBloccata() && pagina !== "aiuto") mostraSblocco();
   else if (pagina === "sblocca") mostraSblocco();
   else if (pagina === "schede") mostraSchede();
   else if (pagina === "scheda") mostraScheda(id);
   else if (pagina === "trova") mostraTrova(id);
+  else if (pagina === "sistema-solare") mostraSistemaSolare();
   else if ((pagina === "manuale" || pagina === "capitolo") && !manualeAperto())
     mostraPasswordManuale(() => (pagina === "capitolo" ? mostraCapitolo(id) : mostraManuale()));
   else if (pagina === "manuale") mostraManuale();

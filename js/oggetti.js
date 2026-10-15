@@ -55,6 +55,16 @@ const OGGETTI = [
     storia: "Nel 1610 Galileo osservò le fasi di Venere: fu una delle prove che i pianeti girano attorno al Sole e non attorno alla Terra.",
   },
   {
+    // La Terra non ha "corpo": non si cerca in cielo, ci stiamo sopra.
+    id: "terra", nome: "Terra", categoria: "pianeta", noi: true, strumento: "Occhio nudo",
+    cosa: "Il terzo pianeta dal Sole, quello su cui viviamo. È l'unico pianeta conosciuto con acqua liquida in superficie e con la vita. Gira attorno al Sole in un anno, a circa 150 milioni di km, e ha una sola luna: la Luna.",
+    quando: "Sempre: ci stai sopra. Il giorno e la notte nascono dalla Terra che gira su sé stessa in 24 ore; le stagioni nascono dal suo asse inclinato di 23 gradi e mezzo mentre fa il giro attorno al Sole in un anno.",
+    dove: "Sotto i tuoi piedi, terza dopo Mercurio e Venere. Guardando il cielo notturno guardi sempre dalla parte opposta al Sole: per questo d'estate e d'inverno vedi costellazioni diverse. La mappa del Sistema Solare in questa scheda mostra dove si trova oggi lungo la sua orbita.",
+    come: "La Terra si \"vede\" in cielo in modi indiretti. Durante un'eclissi di Luna la sua ombra rotonda copre la Luna: già Aristotele capì così che la Terra è una sfera. Nei giorni vicini alla Luna nuova si vede anche la luce cinerea: la parte buia della Luna rischiarata dalla luce che la Terra riflette. E il lento girare di tutto il cielo attorno alla Stella Polare è in realtà la Terra che ruota.",
+    origine: "Dal latino \"terra\", la stessa radice di \"torrere\" (seccare): \"la parte asciutta\", in contrasto con il mare. È l'unico pianeta che non porta il nome di un dio greco o romano, anche se i romani veneravano la dea Tellus, la Madre Terra (Gea per i greci).",
+    storia: "Verso il 240 a.C. Eratostene misurò la circonferenza della Terra confrontando le ombre del Sole a Siene e ad Alessandria, sbagliando di poco. Nel 1543 Copernico la tolse dal centro dell'universo e la mise in giro attorno al Sole. Nel 1968 gli astronauti dell'Apollo 8 fotografarono la Terra che sorge sopra la Luna, e nel 1990 la sonda Voyager 1, da 6 miliardi di km, la ritrasse come un \"pallido puntino azzurro\".",
+  },
+  {
     id: "marte", nome: "Marte", categoria: "pianeta", corpo: "Mars", mag: 0.5, strumento: "Occhio nudo",
     cosa: "Il pianeta rosso, coperto da polveri ricche di ossido di ferro (ruggine).",
     quando: "È più luminoso e grande quando è all'\"opposizione\", che capita circa ogni 26 mesi.",

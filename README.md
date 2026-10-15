@@ -9,7 +9,8 @@ Funziona sul telefono e sul computer. Si può installare dalla schermata del bro
 ## Cosa c'è in questa prima versione
 
 - **Stasera:** tramonto, buio completo e alba; fase della Luna con un consiglio per la serata; elenco degli oggetti visibili con direzione e altezza espressa in "pugni" (un pugno a braccio teso copre circa 10 gradi).
-- **Schede:** Luna, 7 pianeti, 12 stelle, tutte le 88 costellazioni, 15 galassie, 5 ammassi e nebulose, ognuno con: cos'è, quando, dove, come osservarlo, origine del nome, storia. Le costellazioni hanno anche le stelle principali con il significato del nome.
+- **Schede:** Luna, gli 8 pianeti (Terra compresa), 12 stelle, tutte le 88 costellazioni, 15 galassie, 5 ammassi e nebulose, ognuno con: cos'è, quando, dove, come osservarlo, origine del nome, storia. Le costellazioni hanno anche le stelle principali con il significato del nome.
+- **Sistema Solare:** una mappa vista dall'alto con le posizioni vere degli otto pianeti nel giorno scelto (orbite non in scala), con distanze, quando si vede ogni pianeta e in quale costellazione; compare anche, in piccolo, in ogni scheda di pianeta. Il codice è in `js/sistema-solare.js`.
 - **Due emisferi:** costellazioni e galassie dicono se si vedono dall'Italia (tutte, in parte o mai) e dall'Australia e dal Sud America, con un filtro per emisfero.
 - **Lune:** una scheda per ogni pianeta con tutte le lune conosciute (le principali descritte, le altre in tabella), Plutone e le lune cercate attorno agli esopianeti.
 - **Leggende:** 12 schede sulle leggende antiche dei nomi di pianeti, stelle, costellazioni e galassie.
