@@ -290,6 +290,7 @@ function mostraScheda(id) {
       ${o.latino ? `<p class="sottotitolo">Nome latino: ${esc(o.latino)} (sigla ${esc(o.sigla)})</p>` : ""}
       ${etichetteEmisferi(o)}
       <p class="adesso">${adesso} Strumento consigliato: ${esc(o.strumento.toLowerCase())}.</p>
+      ${maiDaQui ? "" : `<a class="pulsante pulsante-trova" href="#trova/${esc(o.id)}">🧭 Guidami in cielo col telefono</a>`}
       ${FOTO[o.id] ? `<figure class="scheda-immagine scheda-foto">
         <img src="images/foto/${o.id}.jpg" alt="Foto: ${esc(o.nome)}">
         <figcaption>${creditoFoto(FOTO[o.id])}</figcaption>
@@ -489,6 +490,15 @@ function mostraAiuto() {
         <p>Tocca 📍 in alto e usa la posizione del telefono oppure scegli la città più vicina. L'app la ricorda.</p>
       </section>
       <section>
+        <h2>Guidami in cielo</h2>
+        <p>Nella scheda di una costellazione, di una stella, di un pianeta o della Luna tocca
+          <b>🧭 Guidami in cielo col telefono</b>, poi <b>Avvia la guida</b> (sull'iPhone e sull'iPad conferma il permesso).
+          Tieni il telefono davanti a te con lo schermo verso di te e segui le scritte: "gira a destra", "alza il telefono"...
+          Quando ci sei, il telefono vibra e la figura appare sopra il cielo: allarga le dita o tocca ＋ per ingrandirla.
+          Con 📷 vedi il cielo attraverso la fotocamera. Tieni lontani oggetti di metallo e calamite: disturbano la bussola.
+          Se il dispositivo non ha la bussola, sotto trovi la direzione e l'altezza a parole.</p>
+      </section>
+      <section>
         <h2>Schede</h2>
         <p>Luna, pianeti, stelle, tutte le 88 costellazioni, galassie, ammassi e nebulose.
           Per ognuno trovi cos'è, quando e dove guardare, con quale strumento, l'origine del nome e la sua storia.
@@ -594,13 +604,15 @@ function aggiornaIntestazione() {
 
 function instrada() {
   const [pagina, id] = location.hash.slice(1).split("/");
+  chiudiTrova();
   document.querySelectorAll(".schede-nav a").forEach((a) =>
-    a.classList.toggle("attivo", a.getAttribute("href") === `#${pagina === "scheda" ? "schede" : pagina === "capitolo" ? "manuale" : pagina === "strumento" ? "strumenti" : pagina || "stasera"}`)
+    a.classList.toggle("attivo", a.getAttribute("href") === `#${pagina === "scheda" || pagina === "trova" ? "schede" : pagina === "capitolo" ? "manuale" : pagina === "strumento" ? "strumenti" : pagina || "stasera"}`)
   );
   if (appBloccata() && pagina !== "aiuto") mostraSblocco();
   else if (pagina === "sblocca") mostraSblocco();
   else if (pagina === "schede") mostraSchede();
   else if (pagina === "scheda") mostraScheda(id);
+  else if (pagina === "trova") mostraTrova(id);
   else if ((pagina === "manuale" || pagina === "capitolo") && !manualeAperto())
     mostraPasswordManuale(() => (pagina === "capitolo" ? mostraCapitolo(id) : mostraManuale()));
   else if (pagina === "manuale") mostraManuale();

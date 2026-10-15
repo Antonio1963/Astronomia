@@ -216,3 +216,49 @@ select { width: 100%; }
 
 /* Sblocco della versione completa */
 #codice { display: block; width: 100%; margin-bottom: 8px; }
+
+/* Guida "Guidami in cielo": schermo intero, il centro è dove punta il telefono. */
+.pulsante-trova { display: inline-block; margin-top: 8px; text-decoration: none; border-color: var(--accento); color: var(--accento); }
+.trova {
+  position: fixed; inset: 0; z-index: 10; overflow: hidden; touch-action: none;
+  background: radial-gradient(circle at 50% 40%, #121a40, var(--sfondo) 70%);
+}
+:root.notte .trova { background: #000; }
+.trova-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.trova-cielo { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
+.trova-cielo[hidden] { display: none; }
+.trova-figura {
+  position: absolute; left: 0; top: 0; max-width: none; height: auto;
+  mix-blend-mode: screen; opacity: .95; pointer-events: none;
+}
+:root.notte .trova-figura { filter: grayscale(1) sepia(1) saturate(6) hue-rotate(-50deg) brightness(.8); }
+.trova-bersaglio {
+  position: absolute; left: 0; top: 0; width: 56px; height: 56px; border-radius: 50%;
+  border: 3px solid var(--accento); box-shadow: 0 0 12px var(--accento);
+}
+.trova-nome {
+  position: absolute; left: 0; top: 0; white-space: nowrap; font-weight: 700; color: var(--accento);
+  text-shadow: 0 0 4px #000, 0 0 8px #000;
+}
+.trova-mirino {
+  position: absolute; left: 50%; top: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%);
+  border: 2px solid var(--testo); border-radius: 50%; opacity: .7; pointer-events: none;
+}
+.trova-freccia {
+  position: absolute; left: 50%; top: 50%; font-size: 64px; line-height: 1; color: var(--accento);
+  text-shadow: 0 0 10px #000; pointer-events: none; transform-origin: 50% 50%;
+}
+.trova-freccia[hidden] { display: none; }
+.trova-alto, .trova-basso {
+  position: absolute; left: 0; right: 0; padding: 12px 16px; display: flex; gap: 10px; align-items: center;
+  background: color-mix(in srgb, var(--sfondo) 80%, transparent);
+}
+.trova-alto { top: 0; padding-top: max(12px, env(safe-area-inset-top)); justify-content: space-between; }
+.trova-alto a { text-decoration: none; }
+.trova-basso { bottom: 0; padding-bottom: max(12px, env(safe-area-inset-bottom)); flex-direction: column; align-items: stretch; gap: 6px; }
+.trova-consiglio { margin: 0; font-size: 1.25rem; font-weight: 700; color: var(--accento); text-align: center; }
+.trova-dove { margin: 0; font-size: .85rem; color: var(--testo-tenue); text-align: center; }
+.trova-comandi { display: flex; gap: 8px; justify-content: center; }
+.trova-comandi .pillola { font-size: 1.3rem; min-width: 52px; }
+.trova-avvia[hidden] { display: none; }
+.trova-avvia { font-size: 1.05rem; background: var(--accento); color: var(--sfondo); border-color: var(--accento); }

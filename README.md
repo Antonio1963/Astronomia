@@ -15,6 +15,7 @@ Funziona sul telefono e sul computer. Si può installare dalla schermata del bro
 - **Leggende:** 12 schede sulle leggende antiche dei nomi di pianeti, stelle, costellazioni e galassie.
 - **Cerca:** una casella per trovare subito una scheda per nome.
 - **Strumenti:** 42 schede su strumenti storici (da Tycho Brahe e Galileo ad Arecibo), grandi osservatori di oggi (VLT, Keck, ALMA, Rubin, ELT, radiotelescopi italiani, Virgo) e telescopi spaziali e sonde (Hubble, James Webb, Gaia, Kepler, Voyager e altri): cos'è, dove si trova, quando, cosa ha scoperto, origine del nome, curiosità. I testi sono in `js/strumenti.js`.
+- **Guidami in cielo:** dalla scheda di un oggetto, col telefono puntato verso il cielo, la posizione (GPS), la bussola e l'inclinazione del telefono dicono dove girarsi e quanto alzare il telefono; quando ci sei, la figura della costellazione appare sopra il cielo vero, ingrandibile, anche sopra l'immagine della fotocamera. Senza bussola dà direzione e altezza a parole. Il codice è in `js/trova.js`; `js/centri-mappe.js` (generato da `strumenti/genera_mappe.py`) dice dove sta ogni mappa nel cielo.
 - **Luogo:** posizione del telefono oppure una città italiana dall'elenco.
 - **Modalità notte:** tutto in rosso, per non perdere l'adattamento dell'occhio al buio.
 - **Aiuto:** come si usa l'app e l'indirizzo per chiedere supporto (dep.kit@gmail.com). Autore: Antonio Chitano.

@@ -321,9 +321,9 @@ GALASSIE = {
 }
 
 
-def mappe_costellazioni(cartella_dati, dati, figure=None):
-    """Una mappa per ognuna delle 88 costellazioni, centrata sui suoi confini ufficiali (IAU).
-    Con le figure, la stessa mappa con sotto il disegno del mito."""
+def centri_costellazioni(cartella_dati):
+    """Centro (ascensione retta in ore, declinazione) e campo in gradi della mappa di ogni costellazione,
+    calcolati dai confini ufficiali (IAU)."""
     leggi = lambda nome: json.load(open(os.path.join(cartella_dati, nome), encoding="utf-8"))
     punti = {}
     for f in leggi("constellations.bounds.json")["features"]:
@@ -332,12 +332,7 @@ def mappe_costellazioni(cartella_dati, dati, figure=None):
         for poligono in poligoni:
             for anello in poligono:
                 punti.setdefault(f["id"], []).extend(anello)
-    stelle_mag = {hip: mag for _, _, mag, _, hip in dati[0]}
-    nomi_hip = {}
-    for hip, v in leggi("starnames.json").items():
-        if v.get("name") and v.get("c") and hip in stelle_mag:
-            nomi_hip.setdefault(v["c"], []).append(hip)
-    mappe = {}
+    centri = {}
     for cid, pp in punti.items():
         decs = [lat for _, lat in pp]
         # Centro in ascensione retta: metà dell'arco occupato (i confini possono attraversare 0h)
@@ -357,6 +352,29 @@ def mappe_costellazioni(cartella_dati, dati, figure=None):
             ra, dec, campo = 17.0, 4, 90
         if cid == "Cep":  # i confini arrivano al polo, ma la figura è attorno alle 22h
             ra, dec, campo = 22.0, 68, 55
+        centri[cid] = (ra, dec, campo)
+    return centri
+
+
+def js_centri(centri):
+    """Gli stessi centri per l'app: servono a sovrapporre la figura al cielo vero nella guida "Trovala in cielo"."""
+    righe = [f'  {cid}: [{ra:.4f}, {dec:.4f}, {campo:.2f}],' for cid, (ra, dec, campo) in sorted(centri.items())]
+    return ("// Generato da strumenti/genera_mappe.py: centro (ascensione retta in ore, declinazione in gradi)\n"
+            "// e larghezza in gradi della mappa di ogni costellazione (proiezione stereografica, 800 x 500 punti).\n"
+            "const CENTRI_MAPPE = {\n" + "\n".join(righe) + "\n};\n")
+
+
+def mappe_costellazioni(cartella_dati, dati, figure=None):
+    """Una mappa per ognuna delle 88 costellazioni, centrata sui suoi confini ufficiali (IAU).
+    Con le figure, la stessa mappa con sotto il disegno del mito."""
+    leggi = lambda nome: json.load(open(os.path.join(cartella_dati, nome), encoding="utf-8"))
+    stelle_mag = {hip: mag for _, _, mag, _, hip in dati[0]}
+    nomi_hip = {}
+    for hip, v in leggi("starnames.json").items():
+        if v.get("name") and v.get("c") and hip in stelle_mag:
+            nomi_hip.setdefault(v["c"], []).append(hip)
+    mappe = {}
+    for cid, (ra, dec, campo) in centri_costellazioni(cartella_dati).items():
         nome = NOMI_IT.get(cid, dati[2][cid][0])
         etichette = tuple(sorted(nomi_hip.get(cid, ()), key=stelle_mag.get)[:5])
         if figure is None:
@@ -437,6 +455,8 @@ def main(cartella_dati, uscita, cartella_stellarium=None):
     os.makedirs(os.path.join(uscita, "costellazioni"), exist_ok=True)
     for cid, svg in mappe_costellazioni(cartella_dati, dati).items():
         scrivi(os.path.join("costellazioni", cid), svg)
+    with open(os.path.join(uscita, "..", "js", "centri-mappe.js"), "w", encoding="utf-8") as f:
+        f.write(js_centri(centri_costellazioni(cartella_dati)))
     if cartella_stellarium:
         figure = carica_figure(cartella_stellarium)
         # Alcune stelle di riferimento dei disegni sono più deboli della magnitudine 6: servono le posizioni del catalogo fino alla 8
