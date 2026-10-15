@@ -63,14 +63,17 @@ function quandoSale(o, luogo, adesso) {
 function mostraTrova(id) {
   const o = OGGETTI.find((x) => x.id === id);
   if (!o || !(o.corpo || o.ra !== undefined)) return mostraSchede();
-  const centro = o.categoria === "costellazione" && o.sigla && CENTRI_MAPPE[o.sigla];
+  // Costellazioni: la figura del mito. Stelle, galassie, ammassi e nebulose: la loro mappa del cielo.
+  // Pianeti e Luna si spostano tra le stelle: per loro c'è solo il cerchio.
+  const costellazione = o.categoria === "costellazione" && o.sigla && CENTRI_MAPPE[o.sigla];
+  const centro = costellazione || (!o.corpo && CENTRI_SCHEDE[o.id]);
+  const mappa = costellazione ? `images/costellazioni/figure/${o.sigla}.svg` : o.immagine || `images/${o.id}.svg`;
   $("#contenuto").innerHTML = `
     <section class="trova" id="trova">
       <video id="trova-video" class="trova-video" playsinline muted hidden></video>
       <div id="trova-cielo" class="trova-cielo">
-        ${centro
-          ? `<img id="trova-figura" class="trova-figura" src="images/costellazioni/figure/${o.sigla}.svg" alt="" width="800" height="500">`
-          : `<div id="trova-bersaglio" class="trova-bersaglio"></div>`}
+        ${centro ? `<img id="trova-figura" class="trova-figura" src="${mappa}" alt="" width="800" height="500">` : ""}
+        ${costellazione ? "" : `<div id="trova-bersaglio" class="trova-bersaglio"></div>`}
         <div id="trova-nome" class="trova-nome">${esc(o.nome)}</div>
       </div>
       <div class="trova-mirino" aria-hidden="true"></div>
@@ -147,9 +150,10 @@ function abilitaPizzico(el) {
 
 function chiediPosizione() {
   if (!navigator.geolocation) return;
+  const questa = trova;
   navigator.geolocation.getCurrentPosition(
     (p) => {
-      if (!trova) return;
+      if (trova !== questa) return;
       const luogo = { nome: "la tua posizione", lat: p.coords.latitude, lon: p.coords.longitude };
       trova.luogo = luogo;
       trova.gps = true;
@@ -160,7 +164,7 @@ function chiediPosizione() {
       aggiornaSchermo();
     },
     () => {
-      if (trova) aggiornaSchermo();
+      if (trova === questa) aggiornaSchermo();
     },
     { timeout: 15000, maximumAge: 600e3, enableHighAccuracy: false }
   );
@@ -216,8 +220,9 @@ async function avviaSensori() {
   window.addEventListener(evento, ascolta);
   trova.pulizie.push(() => window.removeEventListener(evento, ascolta));
   tieniAcceso();
+  const questa = trova;
   setTimeout(() => {
-    if (trova && !trova.sensori) senzaSensori("bussola");
+    if (trova === questa && !trova.sensori) senzaSensori("bussola");
   }, 3000);
 }
 
@@ -337,7 +342,7 @@ function aggiornaSchermo() {
   if (!vicino) freccia.style.transform = `translate(-50%, -50%) rotate(${Math.atan2(p.y, p.x) / GRADI}deg)`;
 
   if (vicino) {
-    consiglio.textContent = `Ci sei! ${o.nome} è davanti a te. Allarga le dita o tocca ＋ per ingrandire.`;
+    consiglio.textContent = `Ci sei! Nel cerchio al centro: ${o.nome}. Allarga le dita o tocca ＋ per ingrandire.`;
     if (!trova.trovato && navigator.vibrate) navigator.vibrate(150);
     trova.trovato = true;
   } else {
@@ -355,7 +360,7 @@ function aggiornaSchermo() {
   posizionaFigura(scala);
 }
 
-// Mette la figura (o il cerchio) dove si trova nel cielo, dritta come le stelle vere.
+// Mette la figura o la mappa, e il cerchio sull'oggetto, dove si trovano nel cielo, dritte come le stelle vere.
 function posizionaFigura(scala) {
   const d = trova.d;
   const p = sulloSchermo(d.oggetto, scala);
@@ -370,24 +375,34 @@ function posizionaFigura(scala) {
     const figura = $("#trova-figura");
     figura.style.width = `${larghezza}px`;
     figura.style.transform = `translate(-50%, -50%) translate(${c.x}px, ${c.y}px) rotate(${rotazione}deg)`;
-  } else {
-    $("#trova-bersaglio").style.transform = `translate(-50%, -50%) translate(${p.x}px, ${p.y}px)`;
   }
+  const bersaglio = $("#trova-bersaglio");
+  if (bersaglio) bersaglio.style.transform = `translate(-50%, -50%) translate(${p.x}px, ${p.y}px)`;
   nome.style.transform = `translate(-50%, 0) translate(${p.x}px, ${p.y + 30}px)`;
 }
 
-// Senza sensori: la figura ferma al centro, dritta con il Nord in alto, ingrandibile.
+// Senza sensori: la mappa ferma, dritta con il Nord in alto, con l'oggetto al centro; ingrandibile.
 function disegnaVistaFissa() {
   const w = window.innerWidth, h = window.innerHeight;
   const scala = Math.min(w, h) / 2 / (2 * Math.tan((trova.campo / 2) * GRADI / 2));
-  if (trova.centro) {
-    const scalaMappa = 400 / (2 * Math.tan((trova.centro[2] / 2) * GRADI / 2));
+  const { o, centro } = trova;
+  let x = 0, y = 0; // dove sta l'oggetto rispetto al centro della mappa, in pixel dello schermo
+  if (centro) {
+    const scalaMappa = 400 / (2 * Math.tan((centro[2] / 2) * GRADI / 2));
     const figura = $("#trova-figura");
     figura.style.width = `${800 * (scala / scalaMappa)}px`;
-    figura.style.transform = "translate(-50%, -50%)";
-  } else {
-    $("#trova-bersaglio").style.transform = "translate(-50%, -50%)";
+    if (o.categoria !== "costellazione") {
+      // Stessa proiezione delle mappe: Nord in alto, Est a sinistra.
+      const a0 = centro[0] * 15 * GRADI, d0 = centro[1] * GRADI, a = o.ra * 15 * GRADI, d = o.dec * GRADI;
+      const cosc = Math.sin(d0) * Math.sin(d) + Math.cos(d0) * Math.cos(d) * Math.cos(a - a0);
+      const k = (2 * scala) / (1 + cosc);
+      x = -k * Math.cos(d) * Math.sin(a - a0);
+      y = -k * (Math.cos(d0) * Math.sin(d) - Math.sin(d0) * Math.cos(d) * Math.cos(a - a0));
+    }
+    figura.style.transform = `translate(-50%, -50%) translate(${-x}px, ${-y}px)`;
   }
+  const bersaglio = $("#trova-bersaglio");
+  if (bersaglio) bersaglio.style.transform = "translate(-50%, -50%)";
   $("#trova-nome").style.transform = "translate(-50%, 0) translate(0, 30px)";
 }
 

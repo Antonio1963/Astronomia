@@ -1,5 +1,6 @@
 // Generato da strumenti/genera_mappe.py: centro (ascensione retta in ore, declinazione in gradi)
-// e larghezza in gradi della mappa di ogni costellazione (proiezione stereografica, 800 x 500 punti).
+// e larghezza in gradi delle mappe (proiezione stereografica, 800 x 500 punti).
+// CENTRI_MAPPE: le 88 costellazioni, per sigla. CENTRI_SCHEDE: le mappe images/<id>.svg delle altre schede.
 const CENTRI_MAPPE = {
   And: [0.8076, 37.4318, 84.36],
   Ant: [10.2738, -32.4836, 45.31],
@@ -89,4 +90,45 @@ const CENTRI_MAPPE = {
   Vir: [13.4065, -4.1584, 103.01],
   Vol: [7.7955, -69.8013, 35.00],
   Vul: [20.2313, 24.4427, 60.86],
+};
+
+const CENTRI_SCHEDE = {
+  "aldebaran": [4.5, 18, 40],
+  "altair": [19.6, 22, 60],
+  "andromeda": [0.9, 38, 50],
+  "antares": [16.7, -28, 40],
+  "arturo": [13.0, 40, 75],
+  "betelgeuse": [5.6, 2, 40],
+  "capella": [5.4, 40, 50],
+  "cassiopea": [1.0, 60, 40],
+  "cigno": [20.6, 40, 45],
+  "deneb": [20.4, 38, 50],
+  "doppio-ammasso": [2.4, 58, 40],
+  "grande-nube-magellano": [5.4, -68, 50],
+  "leone": [10.6, 18, 45],
+  "m101": [13.6, 53, 40],
+  "m104": [12.6, -8, 40],
+  "m13": [16.9, 34, 45],
+  "m33": [1.6, 33, 40],
+  "m51": [13.3, 50, 40],
+  "m77": [2.8, 3, 35],
+  "m81": [10.5, 64, 45],
+  "m82": [10.5, 64, 45],
+  "m83": [13.6, -26, 40],
+  "nebulosa-orione": [5.55, -2, 28],
+  "ngc-253": [0.8, -25, 40],
+  "ngc-5128": [13.4, -45, 45],
+  "orione": [5.6, 2, 40],
+  "orsa-maggiore": [11.6, 55, 55],
+  "piccola-nube-magellano": [0.9, -70, 50],
+  "pleiadi": [4.0, 21, 30],
+  "polare": [7.0, 82, 85],
+  "presepe": [8.6, 20, 45],
+  "rigel": [5.6, 2, 40],
+  "scorpione": [16.9, -30, 40],
+  "sirio": [6.2, -6, 55],
+  "spica": [13.6, 8, 65],
+  "tripletto-leone": [11.2, 16, 35],
+  "vega": [19.4, 30, 60],
+  "via-lattea": [17.9, -25, 100],
 };

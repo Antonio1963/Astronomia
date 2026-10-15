@@ -357,11 +357,16 @@ def centri_costellazioni(cartella_dati):
 
 
 def js_centri(centri):
-    """Gli stessi centri per l'app: servono a sovrapporre la figura al cielo vero nella guida "Trovala in cielo"."""
+    """Gli stessi centri per l'app: servono a sovrapporre la mappa al cielo vero nella guida "Guidami in cielo".
+    Oltre alle costellazioni, le mappe delle schede di stelle, galassie, ammassi e nebulose."""
     righe = [f'  {cid}: [{ra:.4f}, {dec:.4f}, {campo:.2f}],' for cid, (ra, dec, campo) in sorted(centri.items())]
+    schede = {**MAPPE, **GALASSIE}
+    righe_schede = [f'  "{sid}": [{v[0]}, {v[1]}, {v[2]}],' for sid, v in sorted(schede.items())]
     return ("// Generato da strumenti/genera_mappe.py: centro (ascensione retta in ore, declinazione in gradi)\n"
-            "// e larghezza in gradi della mappa di ogni costellazione (proiezione stereografica, 800 x 500 punti).\n"
-            "const CENTRI_MAPPE = {\n" + "\n".join(righe) + "\n};\n")
+            "// e larghezza in gradi delle mappe (proiezione stereografica, 800 x 500 punti).\n"
+            "// CENTRI_MAPPE: le 88 costellazioni, per sigla. CENTRI_SCHEDE: le mappe images/<id>.svg delle altre schede.\n"
+            "const CENTRI_MAPPE = {\n" + "\n".join(righe) + "\n};\n\n"
+            "const CENTRI_SCHEDE = {\n" + "\n".join(righe_schede) + "\n};\n")
 
 
 def mappe_costellazioni(cartella_dati, dati, figure=None):

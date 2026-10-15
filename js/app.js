@@ -491,10 +491,10 @@ function mostraAiuto() {
       </section>
       <section>
         <h2>Guidami in cielo</h2>
-        <p>Nella scheda di una costellazione, di una stella, di un pianeta o della Luna tocca
+        <p>Nella scheda di una costellazione, una stella, un pianeta, la Luna, una galassia, un ammasso o una nebulosa tocca
           <b>🧭 Guidami in cielo col telefono</b>, poi <b>Avvia la guida</b> (sull'iPhone e sull'iPad conferma il permesso).
           Tieni il telefono davanti a te con lo schermo verso di te e segui le scritte: "gira a destra", "alza il telefono"...
-          Quando ci sei, il telefono vibra e la figura appare sopra il cielo: allarga le dita o tocca ＋ per ingrandirla.
+          Quando ci sei, il telefono vibra e appare sopra il cielo la figura della costellazione, o la mappa con un cerchio sull'oggetto: allarga le dita o tocca ＋ per ingrandirla.
           Con 📷 vedi il cielo attraverso la fotocamera. Tieni lontani oggetti di metallo e calamite: disturbano la bussola.
           Se il dispositivo non ha la bussola, sotto trovi la direzione e l'altezza a parole.</p>
       </section>
