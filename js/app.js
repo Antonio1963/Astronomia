@@ -153,6 +153,25 @@ function creditoFoto(f) {
     Presa da <a href="${f.fonte}" target="_blank" rel="noopener">${esc(f.sito)}</a>.`;
 }
 
+// La figura del mito disegnata sopra le stelle (disegni di Johan Meuris per Stellarium)
+const CREDITO_FIGURE = `Disegno: Johan Meuris per Stellarium. Licenza: Free Art License.
+  Preso da <a href="https://github.com/Stellarium/stellarium/tree/master/skycultures/modern" target="_blank" rel="noopener">Stellarium</a>.`;
+const NOTA_FIGURA = {
+  Ser: "Il Serpente è disegnato insieme a Ofiuco, che lo tiene tra le mani.",
+  Pup: "Un tempo la Poppa era un pezzo della grande nave Argo, disegnata qui intera insieme a Carena e Vela.",
+  Vel: "Un tempo la Vela era un pezzo della grande nave Argo, disegnata qui intera insieme a Carena e Poppa.",
+  Car: "La Carena è un pezzo della grande nave Argo, disegnata qui intera insieme a Poppa e Vela.",
+};
+
+function figuraMito(o) {
+  if (o.categoria !== "costellazione" || !o.sigla) return "";
+  return `<figure class="scheda-immagine">
+    <img src="images/costellazioni/figure/${o.sigla}.svg" alt="La figura del mito sopra le stelle: ${esc(o.nome)}" loading="lazy" width="800" height="500">
+    <figcaption>Come immaginavano gli antichi questa costellazione: la figura tocca le stelle vere.
+      ${NOTA_FIGURA[o.sigla] || ""} ${CREDITO_FIGURE}</figcaption>
+  </figure>`;
+}
+
 function immagineCarta(o) {
   if (FOTO[o.id]) return `images/foto/${o.id}.jpg`;
   if (o.immagine !== undefined) return o.immagine;
@@ -281,6 +300,7 @@ function mostraScheda(id) {
           ? "Disegno illustrativo, non in scala."
           : "Mappa del cielo con le stelle vere. Dati: catalogo d3-celestial."}</figcaption>
       </figure>
+      ${figuraMito(o)}
       ${o.italia ? `<section><h2>Da dove si vede</h2><p>${testoVisibilita(o)}</p></section>` : ""}
       ${voci.map(([t, testo]) => `<section><h2>${t}</h2><p>${esc(testo)}</p></section>`).join("")}
       ${sezioneStelle(o)}
@@ -510,6 +530,9 @@ function mostraAiuto() {
         <p>Le mappe del cielo sono disegnate dall'app con i dati delle stelle di
           <a href="https://github.com/ofrohn/d3-celestial" target="_blank" rel="noopener">d3-celestial</a> (Olaf Frohn, licenza BSD).
           I disegni di pianeti, galassie e nebulose sono illustrazioni fatte per l'app.
+          Le figure del mito sopra le costellazioni sono i disegni di Johan Meuris per
+          <a href="https://stellarium.org" target="_blank" rel="noopener">Stellarium</a> (licenza
+          <a href="https://artlibre.org/licence/lal/en/" target="_blank" rel="noopener">Free Art License</a>).
           Le posizioni di Sole, Luna e pianeti sono calcolate con
           <a href="https://github.com/cosinekitty/astronomy" target="_blank" rel="noopener">Astronomy Engine</a> (Don Cross, licenza MIT).</p>
       </section>

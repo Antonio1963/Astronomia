@@ -5,9 +5,16 @@ d3-celestial (Olaf Frohn, licenza BSD-3-Clause), scaricabile con:
 
     npm pack d3-celestial && tar xzf d3-celestial-*.tgz
 
+Le figure del mito sopra le costellazioni sono i disegni di Johan Meuris per Stellarium
+(licenza Free Art License), presi dalla cartella skycultures/modern del progetto Stellarium:
+index.json dice per ogni disegno quali tre stelle tocca, e da quelle si calcola dove metterlo.
+
 Uso:
-    python3 strumenti/genera_mappe.py <cartella data di d3-celestial> <cartella di uscita>
+    python3 strumenti/genera_mappe.py <cartella data di d3-celestial> <cartella di uscita> [<cartella skycultures/modern di Stellarium>]
 """
+
+import base64
+import io
 
 import json
 import math
@@ -93,11 +100,13 @@ def testo(x, y, parole, dim=15, colore=TESTO, peso=400, ancora="start", corsivo=
 # ---------- Mappa ----------
 
 def mappa(dati, ra, dec, campo, titolo, bersaglio=None, costellazioni=(), etichette_extra=(), mag_etichette=1.6,
-          nomi_costellazioni=None):
+          nomi_costellazioni=None, figura=None):
     stelle, linee, nomi_cost, nomi_stelle, _ = dati
     pr = Proiezione(ra, dec, campo)
     parti = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {LARGHEZZA} {ALTEZZA}" font-family="{FONT}">',
              f'<rect width="{LARGHEZZA}" height="{ALTEZZA}" fill="{SFONDO}"/>']
+    if figura:
+        parti.append(immagine_figura(figura, pr))
 
     # Linee delle costellazioni
     for cid, segmenti in linee.items():
@@ -312,8 +321,9 @@ GALASSIE = {
 }
 
 
-def mappe_costellazioni(cartella_dati, dati):
-    """Una mappa per ognuna delle 88 costellazioni, centrata sui suoi confini ufficiali (IAU)."""
+def mappe_costellazioni(cartella_dati, dati, figure=None):
+    """Una mappa per ognuna delle 88 costellazioni, centrata sui suoi confini ufficiali (IAU).
+    Con le figure, la stessa mappa con sotto il disegno del mito."""
     leggi = lambda nome: json.load(open(os.path.join(cartella_dati, nome), encoding="utf-8"))
     punti = {}
     for f in leggi("constellations.bounds.json")["features"]:
@@ -348,12 +358,69 @@ def mappe_costellazioni(cartella_dati, dati):
         if cid == "Cep":  # i confini arrivano al polo, ma la figura è attorno alle 22h
             ra, dec, campo = 22.0, 68, 55
         nome = NOMI_IT.get(cid, dati[2][cid][0])
-        mappe[cid] = mappa(dati, ra, dec, campo, nome, None, (cid,), etichette_extra=tuple(sorted(nomi_hip.get(cid, ()), key=stelle_mag.get)[:5]),
-                           mag_etichette=1.0, nomi_costellazioni=(cid,))
+        etichette = tuple(sorted(nomi_hip.get(cid, ()), key=stelle_mag.get)[:5])
+        if figure is None:
+            mappe[cid] = mappa(dati, ra, dec, campo, nome, None, (cid,), etichette_extra=etichette,
+                               mag_etichette=1.0, nomi_costellazioni=(cid,))
+        else:
+            cartella, immagine = figure[cid]
+            mappe[cid] = mappa(dati, ra, dec, campo, nome, None, (cid,), etichette_extra=etichette, mag_etichette=1.0,
+                               nomi_costellazioni=(cid,), figura=(cartella, immagine, figure["posizioni"]))
     return mappe
 
 
-def main(cartella_dati, uscita):
+# ---------- Figure del mito (disegni di Stellarium) ----------
+
+# Puppis e Vela non hanno un disegno loro: sono pezzi della nave Argo, disegnata con la Carena.
+# Il Serpente è disegnato insieme a Ofiuco, che lo tiene in mano.
+FIGURA_DI = {"Pup": "Car", "Vel": "Car", "Ser": "Oph"}
+COLORE_FIGURA = (232, 205, 150)
+
+
+def carica_figure(cartella_stellarium):
+    indice = json.load(open(os.path.join(cartella_stellarium, "index.json"), encoding="utf-8"))
+    figure = {}
+    for c in indice["constellations"]:
+        if "image" in c:
+            figure[c["id"].split()[-1]] = c["image"]
+    return {cid: (cartella_stellarium, figure[FIGURA_DI.get(cid, cid)]) for cid in set(figure) | set(FIGURA_DI)}
+
+
+def png_figura(cartella_stellarium, immagine):
+    """Il disegno è chiaro su fondo nero: la luminosità diventa trasparenza, con un colore caldo da vecchio atlante."""
+    from PIL import Image
+    grigio = Image.open(os.path.join(cartella_stellarium, immagine["file"])).convert("L")
+    alfa = grigio.point(lambda v: int(v * 0.85))
+    colore = Image.new("RGBA", grigio.size, COLORE_FIGURA + (255,))
+    colore.putalpha(alfa)
+    buf = io.BytesIO()
+    colore.save(buf, "PNG", optimize=True)
+    return base64.b64encode(buf.getvalue()).decode("ascii")
+
+
+def immagine_figura(figura, pr):
+    """Mette il disegno sulla mappa: le tre stelle di riferimento finiscono esattamente al loro posto."""
+    cartella, immagine, posizioni = figura
+    w, h = immagine["size"]
+    sorgente, destinazione = [], []
+    for a in immagine["anchors"]:
+        lon, lat = posizioni[str(a["hip"])]
+        sorgente.append(a["pos"])
+        destinazione.append(pr(lon, lat))
+    (u1, v1), (u2, v2), (u3, v3) = sorgente
+    (x1, y1), (x2, y2), (x3, y3) = destinazione
+    det = (u2 - u1) * (v3 - v1) - (u3 - u1) * (v2 - v1)
+    a = ((x2 - x1) * (v3 - v1) - (x3 - x1) * (v2 - v1)) / det
+    c = ((u2 - u1) * (x3 - x1) - (u3 - u1) * (x2 - x1)) / det
+    b = ((y2 - y1) * (v3 - v1) - (y3 - y1) * (v2 - v1)) / det
+    d = ((u2 - u1) * (y3 - y1) - (u3 - u1) * (y2 - y1)) / det
+    e, f = x1 - a * u1 - c * v1, y1 - b * u1 - d * v1
+    return (f'<image width="{w}" height="{h}" preserveAspectRatio="none" '
+            f'transform="matrix({a:.5f} {b:.5f} {c:.5f} {d:.5f} {e:.2f} {f:.2f})" '
+            f'href="data:image/png;base64,{png_figura(cartella, immagine)}"/>')
+
+
+def main(cartella_dati, uscita, cartella_stellarium=None):
     dati = carica(cartella_dati)
     for cid, nome in NOMI_IT.items():
         dati[2][cid] = (nome, dati[2][cid][1])
@@ -370,7 +437,15 @@ def main(cartella_dati, uscita):
     os.makedirs(os.path.join(uscita, "costellazioni"), exist_ok=True)
     for cid, svg in mappe_costellazioni(cartella_dati, dati).items():
         scrivi(os.path.join("costellazioni", cid), svg)
+    if cartella_stellarium:
+        figure = carica_figure(cartella_stellarium)
+        # Alcune stelle di riferimento dei disegni sono più deboli della magnitudine 6: servono le posizioni del catalogo fino alla 8
+        figure["posizioni"] = {str(f["id"]): f["geometry"]["coordinates"]
+                               for f in json.load(open(os.path.join(cartella_dati, "stars.8.json")))["features"]}
+        os.makedirs(os.path.join(uscita, "costellazioni", "figure"), exist_ok=True)
+        for cid, svg in mappe_costellazioni(cartella_dati, dati, figure).items():
+            scrivi(os.path.join("costellazioni", "figure", cid), svg)
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    main(*sys.argv[1:4])
