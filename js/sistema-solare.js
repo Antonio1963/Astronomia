@@ -125,6 +125,11 @@ function mostraSistemaSolare() {
           a passi uguali, altrimenti Mercurio, Venere, Terra e Marte starebbero tutti in un puntino attorno al Sole.
           Anche le grandezze dei pianeti sono inventate. Tocca un pianeta per aprire la sua scheda.</figcaption>
       </figure>
+      <figure class="scheda-immagine scheda-foto">
+        <img src="images/foto/sistema-solare.jpg" alt="Il Sole e gli otto pianeti in fila, con le grandezze vere" loading="lazy" width="1600" height="900">
+        <figcaption>Le grandezze vere: a destra un pezzo del Sole, poi da destra a sinistra Mercurio, Venere, Terra, Marte,
+          Giove, Saturno, Urano e Nettuno. Le distanze tra loro invece non sono in scala. ${creditoFoto(FOTO["sistema-solare"])}</figcaption>
+      </figure>
       <section><h2>I pianeti in questo giorno</h2>
         <table class="tabella-lune tabella-ss">
           <thead><tr><th>Pianeta</th><th>Dal Sole (km)</th><th>Da noi (km)</th><th>Quando si vede</th></tr></thead>

@@ -350,5 +350,7 @@ const FOTO = {
   "lune-plutone": { nome: "Plutone", autore: "NASA/JHUAPL/SwRI (sonda New Horizons)", licenza: "pubblico dominio", sito: "Wikimedia Commons", fonte: "https://commons.wikimedia.org/wiki/File:Pluto-01_Stern_03_Pluto_Color_TXT.jpg" },
   "plutone-caronte": { nome: "Plutone e Caronte", autore: "NASA/JHUAPL/SwRI (sonda New Horizons)", licenza: "pubblico dominio", sito: "Wikimedia Commons", fonte: "https://commons.wikimedia.org/wiki/File:Pluto-Charon-v2-10-1-15.jpg" },
   caronte: { nome: "Caronte", autore: "NASA/JHUAPL/SwRI (sonda New Horizons)", licenza: "pubblico dominio", sito: "Wikimedia Commons", fonte: "https://commons.wikimedia.org/wiki/File:Charon_in_True_Color_-_High-Res.png" },
+  terra: { nome: "La Terra (The Blue Marble)", autore: "NASA, equipaggio dell'Apollo 17, 7 dicembre 1972", licenza: "pubblico dominio", sito: "Wikimedia Commons", fonte: "https://commons.wikimedia.org/wiki/File:The_Earth_seen_from_Apollo_17.jpg" },
+  "sistema-solare": { nome: "Il Sistema Solare", autore: "CactiStaccingCrane, con immagini NASA, ESA e ISRO", licenza: "CC BY-SA 4.0", sito: "Wikimedia Commons", fonte: "https://commons.wikimedia.org/wiki/File:Solar_System_true_color_(planets_only).jpg" },
   "plutone-lune": { nome: "Plutone, Caronte, Notte (Nix) e Idra", autore: "NASA/JHUAPL/SwRI (sonda New Horizons)", licenza: "pubblico dominio", sito: "Wikimedia Commons", fonte: "https://commons.wikimedia.org/wiki/File:PlutoandMoons.png" },
 };

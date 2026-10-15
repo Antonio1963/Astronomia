@@ -1,5 +1,5 @@
 // Salva l'app sul dispositivo, così funziona anche senza rete sul campo.
-const VERSIONE = "cielo-v19";
+const VERSIONE = "cielo-v20";
 const FILE = [
   "./",
   "index.html",
@@ -197,6 +197,8 @@ const FILE = [
   "images/foto/presepe.jpg",
   "images/foto/saturno.jpg",
   "images/foto/venere.jpg",
+  "images/foto/terra.jpg",
+  "images/foto/sistema-solare.jpg",
 ];
 
 self.addEventListener("install", (e) => {
