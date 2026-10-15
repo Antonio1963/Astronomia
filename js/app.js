@@ -474,8 +474,13 @@ function mostraAiuto() {
           Per ognuno trovi cos'è, quando e dove guardare, con quale strumento, l'origine del nome e la sua storia.
           Tocca un oggetto nell'elenco di "Stasera" per aprire la sua scheda.</p>
         <p>Per le schede di "Costellazioni" e "Galassie" è presente l'informazione se sono visibili dall'emisfero australe
-          (Australia e Sud America) o dall'emisfero boreale (Italia): scegli "Costellazioni" o "Galassie" e poi un filtro per emisfero. Ci sono anche le lune di tutti i pianeti, quelle cercate attorno
-          ad altre stelle e le leggende antiche sui nomi del cielo. Con la casella "Cerca" trovi subito una scheda.</p>
+          (Australia, Sud America etc.) o dall'emisfero boreale (Tutta l'Europa, Il Nordamerica e il Centroamerica etc. ):
+          scegli "Costellazioni" o "Galassie" e poi un filtro per emisfero. Ci sono anche le lune di tutti i pianeti,
+          quelle trovate attorno agli esopianeti di altre stelle e le leggende antiche sui nomi del cielo.
+          Con la casella "Cerca" trovi subito una scheda.</p>
+        <p><b>Piccola legenda;</b><br>
+          L'emisfero boreale (o settentrionale) non è un fenomeno limitato a un singolo paese, ma è l'intera metà della Terra situata a nord dell'equatore.<br>
+          L'emisfero australe (o meridionale) è l'intera metà della Terra che si trova a sud dell'Equatore</p>
       </section>
       <section>
         <h2>Strumenti</h2>
