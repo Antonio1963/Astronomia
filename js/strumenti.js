@@ -3,17 +3,12 @@
 // "collegati" sono gli id delle schede di OGGETTI (js/oggetti.js) da mostrare in fondo alla scheda.
 
 const GRUPPI_STRUMENTI = {
-  storico: { nome: "Strumenti storici", icona: "🔭" },
-  terra: { nome: "Osservatori di oggi", icona: "🏔️" },
-  spazio: { nome: "Nello spazio", icona: "🛰️" },
+  storico: { icona: "🔭" },
+  terra: { icona: "🏔️" },
+  spazio: { icona: "🛰️" },
 };
 
-const STATI_STRUMENTI = {
-  storico: "Storico",
-  attivo: "In funzione",
-  concluso: "Missione conclusa",
-  costruzione: "In costruzione",
-};
+const STATI_STRUMENTI = ["storico", "attivo", "concluso", "costruzione"];
 
 const STRUMENTI = [
   // ---- Strumenti storici ----
@@ -467,7 +462,7 @@ function rigaStrumento(s) {
       <span class="riga-nome">${GRUPPI_STRUMENTI[s.gruppo].icona} ${esc(s.nome)}</span>
       <span class="riga-dove">${esc(s.tipo)} · ${esc(s.anni)}</span>
     </span>
-    <span class="riga-meta"><span class="etichetta etichetta-strumento-${s.stato}">${STATI_STRUMENTI[s.stato]}</span></span>
+    <span class="riga-meta"><span class="etichetta etichetta-strumento-${s.stato}">${t("stato." + s.stato)}</span></span>
   </a></li>`;
 }
 
@@ -475,24 +470,21 @@ function mostraStrumenti() {
   const gruppi = Object.keys(GRUPPI_STRUMENTI).filter((g) => filtroStrumenti === "tutti" || filtroStrumenti === g);
   $("#contenuto").innerHTML = `
     <section>
-      <h1>Strumenti del cielo</h1>
-      <p class="sottotitolo">Telescopi, osservatori, satelliti e sonde che ci hanno fatto scoprire il cielo: dal cannocchiale di Galileo al telescopio James Webb.</p>
+      <h1>${t("Strumenti del cielo")}</h1>
+      <p class="sottotitolo">${t("strumenti.sottotitolo")}</p>
       <details class="pannello strumenti-luce">
-        <summary>Perché tanti strumenti diversi?</summary>
-        <p>I nostri occhi vedono solo una piccola parte della luce. Le stelle e le galassie mandano anche luce che non vediamo:
-          le <b>onde radio</b> (gas freddo, pulsar), le <b>microonde</b> (la luce del Big Bang), l'<b>infrarosso</b> (il calore, le stelle che nascono nella polvere),
-          l'<b>ultravioletto</b> e i <b>raggi X</b> (gas caldissimi, attorno ai buchi neri).</p>
-        <p>L'atmosfera ferma gran parte di questa luce: per questo i radiotelescopi stanno a terra, mentre i telescopi a raggi X e molti a infrarossi vanno nello spazio.
-          I grandi telescopi a terra si costruiscono in alto, nei deserti, dove l'aria è secca, ferma e lontana dalle luci delle città.</p>
+        <summary>${t("Perché tanti strumenti diversi?")}</summary>
+        <p>${t("strumenti.luce.1")}</p>
+        <p>${t("strumenti.luce.2")}</p>
       </details>
-      <div class="filtri" role="group" aria-label="Filtra per tipo">
-        <button data-filtro-strumenti="tutti" class="${filtroStrumenti === "tutti" ? "attivo" : ""}">Tutti</button>
-        ${Object.entries(GRUPPI_STRUMENTI).map(([k, g]) => `<button data-filtro-strumenti="${k}" class="${filtroStrumenti === k ? "attivo" : ""}">${g.icona} ${g.nome}</button>`).join("")}
+      <div class="filtri" role="group" aria-label="${t("Filtra per tipo")}">
+        <button data-filtro-strumenti="tutti" class="${filtroStrumenti === "tutti" ? "attivo" : ""}">${t("Tutti")}</button>
+        ${Object.entries(GRUPPI_STRUMENTI).map(([k, g]) => `<button data-filtro-strumenti="${k}" class="${filtroStrumenti === k ? "attivo" : ""}">${g.icona} ${t("gruppo." + k)}</button>`).join("")}
       </div>
       ${gruppi.map((g) => `
-        <h2 class="titolo-sezione">${GRUPPI_STRUMENTI[g].icona} ${GRUPPI_STRUMENTI[g].nome}</h2>
+        <h2 class="titolo-sezione">${GRUPPI_STRUMENTI[g].icona} ${t("gruppo." + g)}</h2>
         <ul class="elenco">${STRUMENTI.filter((s) => s.gruppo === g).map(rigaStrumento).join("")}</ul>`).join("")}
-      <p class="nota">Fonti: NASA, ESA, ESO, INAF, Museo Galileo e i siti dei singoli osservatori.</p>
+      <p class="nota">${t("strumenti.fonti")}</p>
     </section>`;
   document.querySelectorAll("[data-filtro-strumenti]").forEach((b) =>
     b.addEventListener("click", () => {
@@ -506,23 +498,23 @@ function mostraStrumento(id) {
   const s = STRUMENTI.find((x) => x.id === id);
   if (!s) return mostraStrumenti();
   const voci = [
-    ["Cos'è", s.cosa],
-    ["Dove si trova", s.dove],
-    ["Quando", s.quando],
-    ["Cosa ha scoperto", s.scoperte],
-    ["Origine del nome", s.origine],
-    ["Curiosità", s.curiosita],
+    [t("voce.cosa"), s.cosa],
+    [t("Dove si trova"), s.dove],
+    [t("Quando"), s.quando],
+    [t("Cosa ha scoperto"), s.scoperte],
+    [t("voce.origine"), s.origine],
+    [t("Curiosità"), s.curiosita],
   ];
   const oggetti = typeof OGGETTI === "undefined" ? [] : (s.collegati || []).map((c) => OGGETTI.find((o) => o.id === c)).filter(Boolean);
   $("#contenuto").innerHTML = `
     <article class="scheda">
-      <a class="indietro" href="#strumenti">‹ Tutti gli strumenti</a>
-      <span class="etichetta etichetta-strumento-${s.stato}">${STATI_STRUMENTI[s.stato]}</span>
+      <a class="indietro" href="#strumenti">‹ ${t("Tutti gli strumenti")}</a>
+      <span class="etichetta etichetta-strumento-${s.stato}">${t("stato." + s.stato)}</span>
       <h1>${GRUPPI_STRUMENTI[s.gruppo].icona} ${esc(s.nome)}</h1>
       <p class="adesso">${esc(s.tipo)} · ${esc(s.anni)}</p>
-      <p class="sottotitolo">Che luce raccoglie: ${esc(s.luce)}.</p>
+      <p class="sottotitolo">${t("Che luce raccoglie:")} ${esc(s.luce)}.</p>
       ${voci.map(([t, testo]) => `<section><h2>${t}</h2><p>${esc(testo)}</p></section>`).join("")}
-      ${oggetti.length ? `<section><h2>Nelle schede</h2><div class="collegati">
+      ${oggetti.length ? `<section><h2>${t("Nelle schede")}</h2><div class="collegati">
         ${oggetti.map((o) => `<a href="#scheda/${o.id}">${esc(o.nome)}</a>`).join("")}</div></section>` : ""}
     </article>`;
   window.scrollTo(0, 0);

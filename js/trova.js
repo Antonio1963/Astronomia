@@ -79,17 +79,17 @@ function mostraTrova(id) {
       <div class="trova-mirino" aria-hidden="true"></div>
       <div id="trova-freccia" class="trova-freccia" hidden aria-hidden="true">➤</div>
       <div class="trova-alto">
-        <a class="pillola" href="#scheda/${esc(o.id)}">✕ Chiudi</a>
+        <a class="pillola" href="#scheda/${esc(o.id)}">✕ ${t("Chiudi")}</a>
         <strong>${esc(o.nome)}</strong>
-        <button id="trova-camera" class="pillola" aria-pressed="false">📷 Fotocamera</button>
+        <button id="trova-camera" class="pillola" aria-pressed="false">📷 ${t("Fotocamera")}</button>
       </div>
       <div class="trova-basso">
-        <p id="trova-consiglio" class="trova-consiglio">Cerco la tua posizione...</p>
+        <p id="trova-consiglio" class="trova-consiglio">${t("Cerco la tua posizione...")}</p>
         <p id="trova-dove" class="trova-dove"></p>
         <div class="trova-comandi">
-          <button id="trova-avvia" class="pulsante trova-avvia">🧭 Avvia la guida</button>
-          <button id="trova-meno" class="pillola" aria-label="Rimpicciolisci">−</button>
-          <button id="trova-piu" class="pillola" aria-label="Ingrandisci">＋</button>
+          <button id="trova-avvia" class="pulsante trova-avvia">🧭 ${t("Avvia la guida")}</button>
+          <button id="trova-meno" class="pillola" aria-label="${t("Rimpicciolisci")}">−</button>
+          <button id="trova-piu" class="pillola" aria-label="${t("Ingrandisci")}">＋</button>
         </div>
       </div>
     </section>`;
@@ -154,7 +154,7 @@ function chiediPosizione() {
   navigator.geolocation.getCurrentPosition(
     (p) => {
       if (trova !== questa) return;
-      const luogo = { nome: "la tua posizione", lat: p.coords.latitude, lon: p.coords.longitude };
+      const luogo = { nome: "la tua posizione", gps: true, lat: p.coords.latitude, lon: p.coords.longitude };
       trova.luogo = luogo;
       trova.gps = true;
       stato.luogo = luogo;
@@ -203,7 +203,7 @@ async function avviaSensori() {
     }
   }
   bottone.hidden = true;
-  $("#trova-consiglio").textContent = "Tieni il telefono davanti a te, con lo schermo verso di te...";
+  $("#trova-consiglio").textContent = t("trova.tieni");
   const assoluto = "ondeviceorientationabsolute" in window;
   const evento = assoluto ? "deviceorientationabsolute" : "deviceorientation";
   const ascolta = (e) => {
@@ -229,10 +229,10 @@ async function avviaSensori() {
 function senzaSensori(motivo) {
   if (!trova) return;
   const testi = {
-    permesso: "Senza il permesso di usare i sensori non posso guidarti: segui le indicazioni qui sotto.",
-    bussola: "Questo dispositivo non fa usare la bussola al browser: segui le indicazioni qui sotto.",
+    permesso: t("trova.senza.permesso"),
+    bussola: t("trova.senza.bussola.browser"),
   };
-  trova.messaggio = testi[motivo] || "Questo dispositivo non ha la bussola: segui le indicazioni qui sotto.";
+  trova.messaggio = testi[motivo] || t("trova.senza.bussola");
   $("#trova-avvia").hidden = true;
   aggiornaSchermo();
 }
@@ -266,7 +266,7 @@ async function alternaFotocamera() {
     bottone.setAttribute("aria-pressed", "true");
     trova.pulizie.push(() => flusso.getTracks().forEach((t) => t.stop()));
   } catch {
-    $("#trova-dove").textContent = "La fotocamera non è disponibile. La guida funziona lo stesso.";
+    $("#trova-dove").textContent = t("trova.fotocamera.no");
   }
 }
 
@@ -288,18 +288,18 @@ function nuovoOrientamento(m) {
 function testoGira(gradi) {
   const g = Math.abs(Math.round(gradi));
   const verso = gradi > 0 ? "destra" : "sinistra";
-  if (g > 150) return "Girati: è alle tue spalle";
-  if (g > 60) return `Gira molto a ${verso}`;
-  if (g > 15) return `Gira a ${verso}`;
-  return `Gira un poco a ${verso}`;
+  if (g > 150) return t("trova.girati");
+  if (g > 60) return t(`trova.gira.molto.${verso}`);
+  if (g > 15) return t(`trova.gira.${verso}`);
+  return t(`trova.gira.poco.${verso}`);
 }
 
 function testoAlza(gradi) {
   const g = Math.abs(Math.round(gradi));
   const verso = gradi > 0 ? "alza" : "abbassa";
-  if (g > 40) return `${verso} molto il telefono`;
-  if (g > 10) return `${verso} il telefono`;
-  return `${verso} un poco il telefono`;
+  if (g > 40) return t(`trova.${verso}.molto`);
+  if (g > 10) return t(`trova.${verso}`);
+  return t(`trova.${verso}.poco`);
 }
 
 function aggiornaSchermo() {
@@ -308,14 +308,14 @@ function aggiornaSchermo() {
   if (!pos) return;
 
   // Indicazioni a parole: valgono anche senza sensori.
-  const altezza = pos.altezza < 0 ? "sotto l'orizzonte" : altezzaInPugni(pos.altezza);
-  const dove = `${direzione(pos.azimut)} (azimut ${Math.round(pos.azimut)}°), ${altezza} (${Math.round(pos.altezza)}°).`;
+  const altezza = pos.altezza < 0 ? t("sotto l'orizzonte") : altezzaInPugni(pos.altezza);
+  const dove = t("trova.dove", { direzione: direzione(pos.azimut), azimut: Math.round(pos.azimut), altezza, gradi: Math.round(pos.altezza) });
   let avviso = "";
-  if (pos.altezza < 0) avviso = trova.sale ? ` Sale verso le ${ora(trova.sale)}.` : "";
-  else if (pos.altezza < altezzaMinima(o)) avviso = " Sta molto in basso: serve un orizzonte libero.";
-  if (trova.altSole > -6 && o.corpo !== "Moon") avviso += " C'è ancora troppa luce: aspetta il buio.";
-  const fonte = trova.gps ? "posizione dal GPS" : `posizione: ${luogo.nome}`;
-  $("#trova-dove").textContent = `Guarda verso ${dove}${avviso} (${fonte})`;
+  if (pos.altezza < 0) avviso = trova.sale ? " " + t("trova.sale", { ora: ora(trova.sale) }) : "";
+  else if (pos.altezza < altezzaMinima(o)) avviso = " " + t("trova.basso");
+  if (trova.altSole > -6 && o.corpo !== "Moon") avviso += " " + t("trova.luce");
+  const fonte = trova.gps ? t("posizione dal GPS") : t("trova.posizione", { luogo: nomeLuogo(luogo) });
+  $("#trova-dove").textContent = `${dove}${avviso} (${fonte})`;
 
   const consiglio = $("#trova-consiglio");
   const freccia = $("#trova-freccia");
@@ -325,7 +325,7 @@ function aggiornaSchermo() {
     cielo.hidden = false;
     disegnaVistaFissa();
     consiglio.textContent = trova.messaggio
-      || `Tocca "Avvia la guida" e tieni il telefono davanti a te, con lo schermo verso di te.`;
+      || t("trova.tocca");
     return;
   }
 
@@ -342,7 +342,7 @@ function aggiornaSchermo() {
   if (!vicino) freccia.style.transform = `translate(-50%, -50%) rotate(${Math.atan2(p.y, p.x) / GRADI}deg)`;
 
   if (vicino) {
-    consiglio.textContent = `Ci sei! Nel cerchio al centro: ${o.nome}. Allarga le dita o tocca ＋ per ingrandire.`;
+    consiglio.textContent = t("trova.trovato", { nome: o.nome });
     if (!trova.trovato && navigator.vibrate) navigator.vibrate(150);
     trova.trovato = true;
   } else {
@@ -352,8 +352,8 @@ function aggiornaSchermo() {
     const parti = [];
     if (Math.abs(dAz) > 5 && Math.abs(pos.altezza) < 80) parti.push(testoGira(dAz));
     if (Math.abs(dAlt) > 5) parti.push(testoAlza(dAlt));
-    const frase = parti.join(" e ") || "Ci sei quasi";
-    consiglio.textContent = frase.charAt(0).toUpperCase() + frase.slice(1) + ".";
+    const frase = parti.join(t("trova.e")) || t("Ci sei quasi");
+    consiglio.textContent = frase.charAt(0).toLocaleUpperCase(locale()) + frase.slice(1) + t("trova.punto");
   }
 
   cielo.hidden = !visibile && distanza > 60;

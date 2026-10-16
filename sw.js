@@ -1,10 +1,12 @@
 // Salva l'app sul dispositivo, così funziona anche senza rete sul campo.
-const VERSIONE = "cielo-v20";
+const VERSIONE = "cielo-v21";
 const FILE = [
   "./",
   "index.html",
   "css/stile.css",
   "css/strumenti.css",
+  "js/lingua.js",
+  "js/lingue/it.js",
   "js/citta.js",
   "js/oggetti.js",
   "js/costellazioni.js",

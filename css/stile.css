@@ -291,3 +291,30 @@ select { width: 100%; }
 .riquadro-ss { display: flex; gap: 12px; align-items: center; margin: 10px 0; padding: 12px 14px; border: 1px solid var(--pianeta-c);
   border-radius: 12px; color: var(--testo); text-decoration: none; font-size: .92rem; background: var(--superficie); }
 .riquadro-ss > :first-child { font-size: 1.6rem; }
+
+/* Scelta della lingua e istruzioni iniziali */
+.lingue { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; margin: 16px 0; }
+.lingue button {
+  font: inherit; font-size: 1.05rem; padding: 12px; border-radius: 12px; cursor: pointer;
+  background: var(--sfondo); color: var(--testo); border: 1px solid var(--bordo);
+}
+.lingue button.attivo { border-color: var(--accento); color: var(--accento); font-weight: 600; }
+.passi { list-style: none; padding: 0; margin: 16px 0; }
+.passi li { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--bordo); }
+.passo-icona { font-size: 1.4rem; line-height: 1.2; flex: none; width: 1.8rem; text-align: center; }
+.pulsante-secondario { background: transparent; color: var(--accento); border: 1px solid var(--accento); margin-inline-start: 8px; }
+.pillola-lingua { flex: none; }
+
+/* Menu in basso: le parole lunghe di alcune lingue vanno a capo invece di uscire. */
+.schede-nav a { padding: 10px 4px; overflow-wrap: anywhere; hyphens: auto; font-size: .95rem; }
+
+/* Lingue scritte da destra a sinistra (arabo) */
+[dir="rtl"] .tabella-lune th, [dir="rtl"] .tabella-lune td, [dir="rtl"] .capitolo th, [dir="rtl"] .capitolo td { text-align: right; }
+[dir="rtl"] .tabella-lune td:nth-child(2), [dir="rtl"] .tabella-lune td:nth-child(3),
+[dir="rtl"] .tabella-lune th:nth-child(2), [dir="rtl"] .tabella-lune th:nth-child(3) { text-align: left; }
+[dir="rtl"] .tabella-ss td:nth-child(4), [dir="rtl"] .tabella-ss th:nth-child(4) { text-align: right; }
+[dir="rtl"] .riga-meta { align-items: flex-start; text-align: left; }
+[dir="rtl"] .capitolo ul { padding-left: 0; padding-right: 20px; }
+/* La guida in cielo e le mappe restano orientate come il cielo vero. */
+[dir="rtl"] .trova-cielo, [dir="rtl"] .ss-mappa { direction: ltr; }
+a.pulsante { display: inline-block; text-decoration: none; margin-top: 8px; }

@@ -16,22 +16,25 @@
   <header class="testata">
     <a href="#stasera" class="marchio">Cielo di Stasera</a>
     <div class="azioni">
-      <a href="#luogo" class="pillola" title="Cambia luogo">📍 <span id="luogo"></span></a>
-      <button id="modo-notte" class="pillola" aria-pressed="false" title="Modalità notte: luce rossa per non perdere l'adattamento al buio">🔴 Notte</button>
+      <a href="#luogo" class="pillola" title="Cambia luogo" data-t-title="Cambia luogo">📍 <span id="luogo"></span></a>
+      <a href="#lingua" class="pillola pillola-lingua" title="Lingua" data-t-title="Lingua">🌐 <span id="lingua-attiva">IT</span></a>
+      <button id="modo-notte" class="pillola" aria-pressed="false" title="Modalità notte: luce rossa per non perdere l'adattamento al buio" data-t-title="notte.titolo">🔴 <span data-t="Notte">Notte</span></button>
     </div>
   </header>
 
   <main id="contenuto"></main>
 
-  <nav class="schede-nav" aria-label="Sezioni">
-    <a href="#stasera">Stasera</a>
-    <a href="#schede">Schede</a>
-    <a href="#manuale">Manuale</a>
-    <a href="#strumenti">Strumenti</a>
-    <a href="#aiuto">Aiuto</a>
+  <nav class="schede-nav" aria-label="Sezioni" data-t-aria="Sezioni">
+    <a href="#stasera" data-t="Stasera">Stasera</a>
+    <a href="#schede" data-t="Schede">Schede</a>
+    <a href="#manuale" data-t="Manuale">Manuale</a>
+    <a href="#strumenti" data-t="Strumenti">Strumenti</a>
+    <a href="#aiuto" data-t="Aiuto">Aiuto</a>
   </nav>
 
   <script src="vendor/astronomy.min.js"></script>
+  <script src="js/lingua.js"></script>
+  <script src="js/lingue/it.js"></script>
   <script src="js/citta.js"></script>
   <script src="js/oggetti.js"></script>
   <script src="js/costellazioni.js"></script>

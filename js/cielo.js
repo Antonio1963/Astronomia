@@ -1,7 +1,7 @@
 // Calcoli astronomici: posizioni, sorgere e tramonto, fasi lunari.
 // Usa la libreria Astronomy Engine (variabile globale Astronomy).
 
-const PUNTI_CARDINALI = ["Nord", "Nord-Est", "Est", "Sud-Est", "Sud", "Sud-Ovest", "Ovest", "Nord-Ovest"];
+const PUNTI_CARDINALI = ["N", "NE", "E", "SE", "S", "SO", "O", "NO"];
 
 function osservatore(luogo) {
   return new Astronomy.Observer(luogo.lat, luogo.lon, 0);
@@ -21,15 +21,15 @@ function posizione(oggetto, data, oss) {
 }
 
 function direzione(azimut) {
-  return PUNTI_CARDINALI[Math.round(azimut / 45) % 8];
+  return t("punto." + PUNTI_CARDINALI[Math.round(azimut / 45) % 8]);
 }
 
 // Un pugno chiuso a braccio teso copre circa 10 gradi di cielo.
 function altezzaInPugni(altezza) {
-  if (altezza < 5) return "appena sopra l'orizzonte";
-  if (altezza > 75) return "quasi sopra la testa";
+  if (altezza < 5) return t("appena sopra l'orizzonte");
+  if (altezza > 75) return t("quasi sopra la testa");
   const pugni = Math.round(altezza / 10);
-  return pugni <= 1 ? "circa un pugno sopra l'orizzonte" : `circa ${pugni} pugni sopra l'orizzonte`;
+  return pugni <= 1 ? t("circa un pugno sopra l'orizzonte") : t("circa n pugni sopra l'orizzonte", { n: pugni });
 }
 
 function cercaEvento(corpo, oss, verso, da, giorni = 1) {
@@ -59,14 +59,14 @@ function oraStasera(luogo, adesso = new Date()) {
 }
 
 function nomeFase(angolo) {
-  if (angolo < 10 || angolo >= 350) return "Luna nuova";
-  if (angolo < 80) return "Falce crescente";
-  if (angolo < 100) return "Primo quarto";
-  if (angolo < 170) return "Gibbosa crescente";
-  if (angolo < 190) return "Luna piena";
-  if (angolo < 260) return "Gibbosa calante";
-  if (angolo < 280) return "Ultimo quarto";
-  return "Falce calante";
+  if (angolo < 10 || angolo >= 350) return t("fase.Luna nuova");
+  if (angolo < 80) return t("fase.Falce crescente");
+  if (angolo < 100) return t("fase.Primo quarto");
+  if (angolo < 170) return t("fase.Gibbosa crescente");
+  if (angolo < 190) return t("fase.Luna piena");
+  if (angolo < 260) return t("fase.Gibbosa calante");
+  if (angolo < 280) return t("fase.Ultimo quarto");
+  return t("fase.Falce calante");
 }
 
 function infoLuna(data, oss) {
