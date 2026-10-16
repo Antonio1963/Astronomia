@@ -45,6 +45,7 @@ TRADUZIONI.it = {
     "Adesso": "Adesso",
     "Scegli data e ora": "Scegli data e ora",
     "stasera.quando": "{giorno} alle {ora}, da {luogo}",
+    "stasera.dove": "{direzione}, {altezza}",
     "tramonto": "tramonto",
     "buio completo": "buio completo",
     "alba": "alba",

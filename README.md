@@ -19,6 +19,7 @@ Funziona sul telefono e sul computer. Si può installare dalla schermata del bro
 - **Guidami in cielo:** dalla scheda di un oggetto, col telefono puntato verso il cielo, la posizione (GPS), la bussola e l'inclinazione del telefono dicono dove girarsi e quanto alzare il telefono; quando ci sei, la figura della costellazione (o, per stelle, galassie, ammassi e nebulose, la loro mappa con un cerchio sull'oggetto) appare sopra il cielo vero, ingrandibile, anche sopra l'immagine della fotocamera. Senza bussola dà direzione e altezza a parole. Il codice è in `js/trova.js`; `js/centri-mappe.js` (generato da `strumenti/genera_mappe.py`) dice dove sta ogni mappa nel cielo.
 - **Luogo:** posizione del telefono oppure una città italiana dall'elenco.
 - **Modalità notte:** tutto in rosso, per non perdere l'adattamento dell'occhio al buio.
+- **15 lingue:** italiano, inglese, francese, tedesco, olandese, svedese, norvegese, finlandese, russo, spagnolo, portoghese, greco, cinese, giapponese e arabo (da destra a sinistra). Al primo avvio si sceglie la lingua e compaiono le istruzioni; poi la si cambia quando si vuole col pulsante 🌐 in alto o da Aiuto. Menu e schede sono tradotti; il manuale resta in italiano.
 - **Aiuto:** come si usa l'app e l'indirizzo per chiedere supporto (dep.kit@gmail.com). Autore: Antonio Chitano.
 
 ## Provarla sul computer
@@ -40,8 +41,16 @@ poi aprire http://localhost:8000 nel browser.
 - `js/citta.js`: le città dell'elenco.
 - `js/cielo.js`: i calcoli astronomici.
 - `js/app.js`: le schermate.
+- `js/lingua.js`, `js/lingue/`: le lingue (vedi sotto).
 - `images/`: mappe del cielo e disegni delle schede (in `images/costellazioni/` una mappa per costellazione, con la sigla IAU); `strumenti/genera_mappe.py` le rigenera.
 - `sw.js`, `manifest.webmanifest`: installazione e funzionamento senza rete.
+
+## Lingue
+
+- `js/lingua.js`: elenco delle lingue, la lingua scelta (salvata sul dispositivo) e la funzione `t()` per i testi dell'interfaccia.
+- `js/lingue/it.js`: i testi italiani dell'interfaccia (menu, pulsanti, Aiuto, istruzioni iniziali).
+- Le schede si scrivono in italiano nei file dei dati, come sempre. Le traduzioni stanno in `strumenti/traduzioni/<codice>/*.json`, una coppia "chiave → testo" per ogni testo.
+- Dopo aver cambiato un testo italiano: `node strumenti/lingue.js estrai` aggiorna `strumenti/traduzioni/it/`, `node strumenti/lingue.js controlla` dice cosa manca nelle altre lingue (i testi mancanti si vedono in italiano), `node strumenti/lingue.js genera` rifà `js/lingue/<codice>.js` per ogni lingua. Poi si cambia `VERSIONE_LINGUE` in `js/lingua.js`.
 
 ## Manuale
 

@@ -306,7 +306,7 @@ select { width: 100%; }
 .pillola-lingua { flex: none; }
 
 /* Menu in basso: le parole lunghe di alcune lingue vanno a capo invece di uscire. */
-.schede-nav a { padding: 10px 4px; overflow-wrap: anywhere; hyphens: auto; font-size: .95rem; }
+.schede-nav a { padding: 10px 2px; overflow-wrap: break-word; hyphens: auto; font-size: .85rem; }
 
 /* Lingue scritte da destra a sinistra (arabo) */
 [dir="rtl"] .tabella-lune th, [dir="rtl"] .tabella-lune td, [dir="rtl"] .capitolo th, [dir="rtl"] .capitolo td { text-align: right; }

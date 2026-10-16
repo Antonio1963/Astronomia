@@ -676,7 +676,7 @@ const COSTELLAZIONI = [
     quando: "Le sere da novembre a gennaio, più alta a dicembre verso le 21-22.",
     dove: "Dall'Italia centrale si vede solo l'estremo nord, con α Hor, rasente l'orizzonte sud; dalla Sicilia e dal Sud Italia se ne vede una parte in più, sempre rasente l'orizzonte. Dall'emisfero australe è alta verso sud, non lontano da Achernar.",
     come: "Costellazione debole: serve un cielo buio, lontano dalle città; non ha oggetti facili per il binocolo.",
-    origine: "Horologium in latino significa 'orologio'. La introdusse Lacaille nel 1751-52 come Horologium Oscillitorium, 'l'orologio a pendolo'.",
+    origine: "Horologium in latino significa 'orologio'. La introdusse Lacaille nel 1751-52 come Horologium Oscillatorium, 'l'orologio a pendolo'.",
     storia: "Lacaille riempì il cielo australe di strumenti scientifici; qui volle ricordare l'orologio a pendolo, inventato da Christiaan Huygens nel Seicento e fondamentale per misurare il tempo con precisione nelle osservazioni astronomiche.",
     stelle: [
       { nome: "Alfa dell'Orologio", sigla: "α Hor", mag: 3.85, significato: "Una gigante arancione, l'unica stella appena notevole della costellazione." },

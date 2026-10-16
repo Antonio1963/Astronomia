@@ -61,7 +61,7 @@ function rigaOggetto(r) {
   return `<li><a class="riga" href="#scheda/${o.id}">
     <span class="riga-testo">
       <span class="riga-nome">${esc(o.nome)}</span>
-      <span class="riga-dove">${direzione(r.azimut)}, ${altezzaInPugni(r.altezza)}</span>
+      <span class="riga-dove">${t("stasera.dove", { direzione: direzione(r.azimut), altezza: altezzaInPugni(r.altezza) })}</span>
     </span>
     <span class="riga-meta"><span class="etichetta etichetta-${o.categoria}">${nomeCategoria(o.categoria)}</span>
       <span class="strumento">${esc(o.strumento)}</span>${avviso}</span>
